@@ -1,1 +1,1 @@
-# smart-fridge-angular-app
+# Smart Fridge Assistant 

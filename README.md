@@ -1,59 +1,167 @@
-# SmartFridgeAngularApp
+# 🧊 Smart Fridge
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.2.
+Smart Fridge is a modern Angular application for managing fridge inventory, tracking product expiration dates, generating shopping lists, and receiving AI-powered recipe recommendations.
 
-## Development server
+The project is built with **Angular 22**, **Signals**, **Signal Forms**, and follows **Feature-Based** and **Clean Architecture** principles.
 
-To start a local development server, run:
+---
+
+# ✨ Features
+
+- JWT Authentication
+- User Registration & Login
+- Fridge Inventory *(in progress)*
+- Shopping Lists *(planned)*
+- Recipe Recommendations *(planned)*
+- AI Assistant *(planned)*
+
+---
+
+# 🛠 Tech Stack
+
+## Frontend
+
+- Angular 22
+- TypeScript
+- Angular Material
+- Angular Signals
+- Angular Signal Forms
+- RxJS
+- SCSS
+
+## Backend
+
+- Django
+- Django REST Framework
+- PostgreSQL
+- JWT Authentication
+
+---
+
+# Requirements
+
+| Tool | Version |
+|------|----------|
+| Node.js | **26.6.0** |
+| npm | **11.18.0** |
+
+---
+
+# Getting Started
+
+Install dependencies
+
+```bash
+npm ci
+```
+
+Run development server
+
+```bash
+npm start
+```
+
+or
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Open
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
+
+# 📦 Production Build
 
 ```bash
-ng generate --help
+npm run build
 ```
 
-## Building
+Build artifacts are generated inside
 
-To build the project run:
-
-```bash
-ng build
+```
+dist/
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+# Project Structure
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
+```text
+src/
+└── app/
+    ├── core/
+    ├── features/
+    └── shared/
 ```
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+# Documentation
 
-```bash
-ng e2e
+Additional documentation can be found in the **docs** folder.
+
+| Document | Description |
+|-----------|-------------|
+| [Getting Started](docs/getting-started.md) | Local setup and build |
+| [Architecture](docs/architecture.md) | Project architecture |
+| [Development Guide](docs/coding-standards) | Coding conventions |
+| [UI Components](docs/ui-components.md) | Shared UI components |
+| [API](docs/api.md) | Backend API |
+
+---
+
+# Available Scripts
+
+| Command | Description |
+|----------|-------------|
+| `npm start` | Run development server |
+| `npm run build` | Production build |
+| `npm run lint` | Run ESLint |
+| `npm test` | Run unit tests |
+
+---
+
+# Architecture Overview
+
+```text
+Presentation
+      │
+      ▼
+Application
+      │
+      ▼
+Data Access
+      │
+      ▼
+Domain
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+More information is available in:
 
-## Additional Resources
+- `docs/architecture.md`
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+
+# Development Principles
+
+- Standalone Components
+- ChangeDetectionStrategy.OnPush
+- Angular Signals
+- Signal Forms
+- Feature-Based Architecture
+- Clean Architecture
+- Strong Typing
+- Reusable UI Components
+- Design Tokens
+- No business logic inside shared UI
+
+---
+
+# 📄 License
+
+MIT

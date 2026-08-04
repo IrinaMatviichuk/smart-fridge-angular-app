@@ -1,0 +1,55 @@
+html {
+  color-scheme: light;
+  background-color: var(--sf-color-background);
+  font-family: var(--sf-font-family), serif;
+}
+
+body {
+  min-height: 100dvh;
+
+  background-color: var(--sf-color-background);
+  color: var(--sf-color-text-primary);
+
+  font-family: var(--sf-font-family), serif;
+  font-size: var(--sf-font-size-md);
+  font-weight: var(--sf-font-weight-regular);
+  line-height: var(--sf-line-height-normal);
+  letter-spacing: var(--sf-letter-spacing-normal);
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  color: inherit;
+}
+
+a {
+  transition: var(--sf-transition-color);
+}
+
+:focus-visible {
+  outline: 0.125rem solid var(--sf-color-focus-ring);
+  outline-offset: 0.1875rem;
+}
+
+::selection {
+  background-color: var(--sf-color-primary-container);
+  color: var(--sf-color-on-primary-container);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

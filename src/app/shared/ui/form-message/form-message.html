@@ -1,0 +1,18 @@
+<div
+  class="form-message"
+  [class.form-message--reserved]="reserveSpace()"
+  [class.form-message--error]="type() === 'error'"
+  [class.form-message--info]="type() === 'info'"
+  [class.form-message--success]="type() === 'success'"
+  aria-live="polite"
+  aria-atomic="true"
+>
+  @if (message(); as text) {
+    <p
+      class="form-message__text"
+      [attr.role]="type() === 'error' ? 'alert' : 'status'"
+    >
+      {{ text }}
+    </p>
+  }
+</div>

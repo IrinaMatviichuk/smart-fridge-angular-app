@@ -1,0 +1,17 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.sign-up-form {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: var(--sf-space-4);
+
+  app-form-message,
+  app-button {
+    display: block;
+    width: 100%;
+  }
+}

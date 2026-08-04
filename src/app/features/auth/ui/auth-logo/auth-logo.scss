@@ -1,0 +1,15 @@
+:host {
+  display: block;
+  width: fit-content;
+}
+
+.auth-logo {
+  display: block;
+  width: fit-content;
+
+  &__image {
+    display: block;
+    width: auto;
+    height: auto;
+  }
+}

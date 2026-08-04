@@ -1,0 +1,54 @@
+<form
+  class="sign-up-form"
+  novalidate
+  (submit)="handleSubmit($event)"
+>
+  <app-text-field
+    inputId="sign-up-email"
+    label="Email"
+    prefixIcon="email"
+    placeholder="Enter your email"
+    type="email"
+    inputMode="email"
+    autocomplete="email"
+    [formField]="signUpForm.email"
+  />
+
+  <app-password-field
+    inputId="sign-up-password"
+    label="Password"
+    prefixIcon="lock"
+    placeholderIcon="password-placeholder"
+    placeholder="Create a password"
+    autocomplete="new-password"
+    [formField]="signUpForm.password"
+  />
+
+  <app-password-field
+    inputId="sign-up-confirm-password"
+    label="Confirm password"
+    prefixIcon="lock"
+    placeholderIcon="password-placeholder"
+    placeholder="Repeat your password"
+    autocomplete="new-password"
+    [formField]="signUpForm.confirmPassword"
+  />
+
+  <app-form-message
+    [message]="serverError()"
+    type="error"
+  />
+
+  <app-button
+    type="submit"
+    [fullWidth]="true"
+    [disabled]="
+      loading() || signUpForm().submitting()
+    "
+    [loading]="
+      loading() || signUpForm().submitting()
+    "
+  >
+    Sign Up
+  </app-button>
+</form>

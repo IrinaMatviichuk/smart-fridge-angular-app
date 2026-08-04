@@ -1,0 +1,53 @@
+<form
+  class="login-form"
+  novalidate
+  (submit)="handleSubmit($event)"
+>
+  <app-text-field
+    inputId="login-email"
+    label="Email"
+    prefixIcon="email"
+    placeholder="Enter your email"
+    type="email"
+    inputMode="email"
+    autocomplete="email"
+    [formField]="loginForm.email"
+  />
+
+  <div class="login-form__password-group">
+    <app-password-field
+      inputId="login-password"
+      label="Password"
+      prefixIcon="lock"
+      placeholderIcon="password-placeholder"
+      placeholder="Enter your password"
+      autocomplete="current-password"
+      [formField]="loginForm.password"
+    />
+
+    <a
+      class="login-form__forgot-password"
+      routerLink="/auth/forgot-password"
+    >
+      Forgot password?
+    </a>
+  </div>
+
+  <app-form-message
+    [message]="serverError()"
+    type="error"
+  />
+
+  <app-button
+    type="submit"
+    [fullWidth]="true"
+    [disabled]="
+      loading() || loginForm().submitting()
+    "
+    [loading]="
+      loading() || loginForm().submitting()
+    "
+  >
+    Log In
+  </app-button>
+</form>

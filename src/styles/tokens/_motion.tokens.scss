@@ -1,0 +1,12 @@
+:root {
+  --sf-duration-fast: 120ms;
+  --sf-duration-normal: 200ms;
+  --sf-duration-slow: 300ms;
+
+  --sf-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --sf-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+
+  --sf-transition-color: color var(--sf-duration-fast) var(--sf-easing-standard),
+  background-color var(--sf-duration-fast) var(--sf-easing-standard),
+  border-color var(--sf-duration-fast) var(--sf-easing-standard);
+}

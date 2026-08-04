@@ -1,0 +1,41 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.form-message {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+
+  &--reserved {
+    min-height: calc(
+      var(--sf-font-size-body) *
+      var(--sf-line-height-normal)
+    );
+  }
+
+  &__text {
+    margin: 0;
+    border: 0;
+    outline: 0;
+
+    font-size: var(--sf-font-size-body);
+    font-weight: var(--sf-font-weight-regular);
+    line-height: var(--sf-line-height-normal);
+    text-align: center;
+  }
+
+  &--error {
+    color: var(--sf-color-error);
+  }
+
+  &--info {
+    color: var(--sf-color-info);
+  }
+
+  &--success {
+    color: var(--sf-color-success);
+  }
+}

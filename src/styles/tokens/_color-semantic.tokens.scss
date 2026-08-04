@@ -1,0 +1,73 @@
+:root {
+  /* =========================================================
+   * Brand
+   * ======================================================= */
+
+  --sf-color-primary: var(--sf-blue-500);
+  --sf-color-primary-strong: var(--sf-blue-600);
+  --sf-color-on-primary: var(--sf-white);
+
+  /* =========================================================
+   * Surface
+   * ======================================================= */
+
+  --sf-color-background: var(--sf-white);
+  --sf-color-surface: var(--sf-white);
+  --sf-color-surface-secondary: var(--sf-gray-50);
+  --sf-color-surface-sidebar: var(--sf-blue-300);
+
+  /* =========================================================
+   * Text
+   * ======================================================= */
+
+  --sf-color-text-primary: var(--sf-gray-950);
+  --sf-color-text-secondary: var(--sf-gray-850);
+  --sf-color-text-tertiary: var(--sf-gray-700);
+  --sf-color-text-muted: var(--sf-gray-600);
+  --sf-color-text-disabled: var(--sf-gray-300);
+  --sf-color-text-inverse: var(--sf-white);
+
+  /* =========================================================
+   * Links
+   * ======================================================= */
+
+  --sf-color-link: var(--sf-blue-600);
+
+  /* =========================================================
+   * Border
+   * ======================================================= */
+
+  --sf-color-border: var(--sf-blue-100);
+  --sf-color-border-strong: var(--sf-gray-300);
+
+  /* =========================================================
+   * Buttons
+   * ======================================================= */
+
+  --sf-color-button-primary: var(--sf-blue-500);
+  --sf-color-button-primary-disabled: var(--sf-blue-200);
+
+  /* =========================================================
+   * Status
+   * ======================================================= */
+
+  --sf-color-success: var(--sf-green-500);
+  --sf-color-warning: var(--sf-orange-500);
+  --sf-color-error: var(--sf-red-500);
+  --sf-color-info: var(--sf-info-500);
+
+  /* =========================================================
+   * Status backgrounds
+   * ======================================================= */
+
+  --sf-color-success-container: var(--sf-green-50);
+  --sf-color-warning-container: var(--sf-orange-50);
+  --sf-color-error-container: var(--sf-red-50);
+
+  /* =========================================================
+   * Misc
+   * ======================================================= */
+
+  --sf-color-focus-ring: var(--sf-blue-600);
+  --sf-color-recipe: var(--sf-recipe-500);
+}

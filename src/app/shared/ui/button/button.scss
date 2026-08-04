@@ -1,0 +1,115 @@
+:host {
+  display: inline-block;
+  width: fit-content;
+}
+
+.button {
+  position: relative;
+
+  display: inline-flex;
+  min-height: var(--sf-size-control-lg);
+  align-items: center;
+  justify-content: center;
+  gap: var(--sf-space-2);
+
+  padding: var(--sf-space-3) var(--sf-space-6);
+
+  border: 0.0625rem solid transparent;
+  border-radius: var(--sf-radius-lg);
+
+  font-family: var(--sf-font-family), serif;
+  font-size: var(--sf-font-size-body-lg);
+  font-weight: var(--sf-font-weight-medium);
+  line-height: var(--sf-line-height-normal);
+
+  cursor: pointer;
+  transition: var(--sf-transition-color);
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &--primary {
+    background-color: var(--sf-color-button-primary);
+    color: var(--sf-color-on-primary);
+
+    &:hover:not(:disabled) {
+      background-color: var(--sf-color-primary-strong);
+    }
+
+    &:disabled {
+      background-color: var(--sf-color-button-primary-disabled);
+      color: var(--sf-color-text-disabled);
+    }
+  }
+
+  &--secondary {
+    border-color: var(--sf-color-border);
+    background-color: var(--sf-color-surface);
+    color: var(--sf-color-text-tertiary);
+
+    &:hover:not(:disabled) {
+      border-color: var(--sf-color-primary);
+      color: var(--sf-color-primary-strong);
+    }
+
+    &:disabled {
+      border-color: var(--sf-color-border);
+      color: var(--sf-color-text-disabled);
+    }
+  }
+
+  &--text {
+    min-height: auto;
+    padding: var(--sf-space-2);
+
+    background-color: transparent;
+    color: var(--sf-color-link);
+
+    &:hover:not(:disabled) {
+      color: var(--sf-color-primary-strong);
+    }
+
+    &:disabled {
+      color: var(--sf-color-text-disabled);
+    }
+  }
+
+  &--full-width {
+    width: 100%;
+  }
+
+  &--loading {
+    cursor: progress;
+  }
+
+  &__content {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: inherit;
+
+    &--hidden {
+      visibility: hidden;
+    }
+  }
+
+  &__spinner {
+    position: absolute;
+
+    width: var(--sf-size-icon-md);
+    height: var(--sf-size-icon-md);
+
+    border: 0.125rem solid currentColor;
+    border-right-color: transparent;
+    border-radius: var(--sf-radius-full);
+
+    animation: button-spinner-rotation var(--sf-duration-slow) linear infinite;
+  }
+}
+
+@keyframes button-spinner-rotation {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,103 @@
+@mixin form-control-base($block) {
+  :host {
+    display: block;
+    width: 100%;
+  }
+
+  .#{$block} {
+    &__control-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    &__prefix-icon {
+      position: absolute;
+      top: 50%;
+      left: var(--sf-space-4);
+      z-index: 1;
+
+      width: var(--sf-size-icon-lg);
+      height: var(--sf-size-icon-lg);
+
+      color: var(--sf-color-text-muted);
+
+      pointer-events: none;
+      transform: translateY(-50%);
+    }
+
+    &__control {
+      width: 100%;
+      min-height: var(--sf-size-control-lg);
+
+      padding: var(--sf-space-3) var(--sf-space-4);
+
+      border: 0.0625rem solid var(--sf-color-border-strong);
+      border-radius: var(--sf-radius-lg);
+
+      background-color: var(--sf-color-surface);
+      color: var(--sf-color-text-tertiary);
+
+      font-family: var(--sf-font-family), serif;
+      font-size: var(--sf-font-size-body-lg);
+      font-weight: var(--sf-font-weight-regular);
+      line-height: var(--sf-line-height-normal);
+
+      transition: border-color var(--sf-duration-fast) var(--sf-easing-standard),
+      background-color var(--sf-duration-fast) var(--sf-easing-standard);
+
+      &::placeholder {
+        color: var(--sf-color-text-disabled);
+        opacity: 1;
+      }
+
+      &:hover:not(:disabled, :read-only) {
+        border-color: var(--sf-color-primary);
+      }
+
+      &:focus,
+      &:focus-visible {
+        border-color: var(--sf-color-primary-strong);
+        outline: 0;
+        box-shadow: none;
+      }
+
+      &:read-only {
+        cursor: default;
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+        background-color: var(--sf-color-surface-secondary);
+        color: var(--sf-color-text-disabled);
+      }
+    }
+
+    &__control-wrapper--with-prefix {
+      .#{$block}__control {
+        padding-inline-start: calc(
+          var(--sf-space-4) +
+          var(--sf-size-icon-lg) +
+          var(--sf-space-3)
+        );
+      }
+    }
+
+    &__control-wrapper--invalid {
+      .#{$block}__control {
+        border-color: var(--sf-color-error);
+
+        &:hover,
+        &:focus,
+        &:focus-visible {
+          border-color: var(--sf-color-error);
+        }
+      }
+    }
+
+    &__control-wrapper--disabled {
+      .#{$block}__prefix-icon {
+        color: var(--sf-color-text-disabled);
+      }
+    }
+  }
+}

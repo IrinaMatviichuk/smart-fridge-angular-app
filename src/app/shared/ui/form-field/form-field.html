@@ -1,0 +1,40 @@
+<div
+  class="form-field"
+  [class.form-field--invalid]="invalid()"
+>
+  <label
+    class="form-field__label"
+    [for]="inputId()"
+  >
+    <span>{{ label() }}</span>
+
+    @if (required()) {
+      <span
+        class="form-field__required-marker"
+        aria-hidden="true"
+      >
+        *
+      </span>
+    }
+  </label>
+
+  <ng-content />
+
+  <div
+    class="form-field__message"
+    [class.form-field__message--reserved]="
+      reserveMessageSpace()
+    "
+    [id]="messageId()"
+    aria-live="polite"
+  >
+    @if (errorMessage(); as message) {
+      <p
+        class="form-field__error"
+        role="alert"
+      >
+        {{ message }}
+      </p>
+    }
+  </div>
+</div>

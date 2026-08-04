@@ -1,0 +1,35 @@
+<section
+  class="sign-up-page"
+  aria-labelledby="sign-up-page-title"
+>
+  <header class="sign-up-page__header">
+    <h1
+      id="sign-up-page-title"
+      class="sign-up-page__title"
+    >
+      Welcome, friend!
+    </h1>
+
+    <p class="sign-up-page__subtitle">
+      Start your fridge management with us
+    </p>
+  </header>
+
+  <app-sign-up-form
+    class="sign-up-page__form"
+    [loading]="loading()"
+    [serverError]="error()"
+    (submitted)="handleSignUp($event)"
+  />
+
+  <p class="sign-up-page__footer">
+    <span>Already have an account?</span>
+
+    <a
+      class="sign-up-page__link"
+      routerLink="/auth/login"
+    >
+      Log In
+    </a>
+  </p>
+</section>

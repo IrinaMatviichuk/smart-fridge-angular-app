@@ -1,0 +1,43 @@
+:root {
+  /* =========================================================
+   * Font family
+   * ======================================================= */
+
+  --sf-font-family:
+    'Google Sans Flex',
+    'Roboto Flex',
+    'Roboto',
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
+
+  /* =========================================================
+ * Font sizes
+ * ======================================================= */
+
+  --sf-font-size-display: 2.25rem; /* 36 */
+  --sf-font-size-heading: 1.875rem; /* 30 */
+  --sf-font-size-title: 1.625rem; /* 26 */
+  --sf-font-size-subtitle: 1.375rem; /* 22 */
+  --sf-font-size-label: 1.25rem; /* 20 */
+  --sf-font-size-body-lg: 1.125rem; /* 18 */
+  --sf-font-size-body: 0.9375rem; /* 15 */
+  --sf-font-size-caption: 0.875rem; /* 14 */
+
+  /* =========================================================
+   * Font weights
+   * ======================================================= */
+
+  --sf-font-weight-regular: 400;
+  --sf-font-weight-medium: 500;
+  --sf-font-weight-semibold: 600;
+  --sf-font-weight-bold: 700;
+
+  /* =========================================================
+   * Line heights
+   * ======================================================= */
+
+  --sf-line-height-tight: 1.2;
+  --sf-line-height-heading: 1.25;
+  --sf-line-height-normal: 1.5;
+}

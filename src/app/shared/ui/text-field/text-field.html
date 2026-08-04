@@ -1,0 +1,53 @@
+@if (!hidden()) {
+  <app-form-field
+    [inputId]="inputId()"
+    [messageId]="messageId()"
+    [label]="label()"
+    [required]="required()"
+    [invalid]="showInvalidState()"
+    [errorMessage]="errorMessage()"
+    [reserveMessageSpace]="reserveErrorSpace()"
+  >
+    <div
+      class="text-field__control-wrapper"
+      [class.text-field__control-wrapper--with-prefix]="
+        prefixIcon()
+      "
+      [class.text-field__control-wrapper--invalid]="
+        showInvalidState()
+      "
+      [class.text-field__control-wrapper--disabled]="
+        disabled()
+      "
+    >
+      @if (prefixIcon(); as icon) {
+        <mat-icon
+          class="text-field__prefix-icon"
+          [svgIcon]="icon"
+          aria-hidden="true"
+        />
+      }
+
+      <input
+        class="text-field__control"
+        [id]="inputId()"
+        [type]="type()"
+        [attr.inputmode]="inputMode()"
+        [autocomplete]="autocomplete()"
+        [placeholder]="placeholder()"
+        [value]="value()"
+        [disabled]="disabled()"
+        [readOnly]="readonly()"
+        [required]="required()"
+        [attr.aria-invalid]="
+          showInvalidState() ? 'true' : 'false'
+        "
+        [attr.aria-describedby]="
+          errorMessage() ? messageId() : null
+        "
+        (input)="handleInput($event)"
+        (blur)="handleBlur()"
+      />
+    </div>
+  </app-form-field>
+}

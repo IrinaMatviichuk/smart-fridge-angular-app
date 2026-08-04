@@ -1,0 +1,44 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.login-form {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: var(--sf-space-4);
+
+  &__password-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sf-space-2);
+  }
+
+  &__forgot-password {
+    align-self: flex-end;
+
+    color: var(--sf-color-link);
+    font-size: var(--sf-font-size-body-lg);
+    font-weight: var(--sf-font-weight-medium);
+    line-height: var(--sf-line-height-normal);
+    text-decoration: none;
+
+    transition: color var(--sf-duration-fast) var(--sf-easing-standard);
+
+    &:hover {
+      color: var(--sf-color-primary-strong);
+    }
+
+    &:focus,
+    &:focus-visible {
+      outline: 0;
+    }
+  }
+
+  app-form-message,
+  app-button {
+    display: block;
+    width: 100%;
+  }
+}

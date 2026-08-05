@@ -1,0 +1,160 @@
+@use '../../../styles/tokens' as tokens;
+
+$sidebar-desktop-width: 19.5rem; // 312px
+$sidebar-compact-width: 5.5rem; // 88px
+$content-max-width: 87.5rem; // 1400px
+
+:host {
+  display: block;
+  min-width: 0;
+  min-height: 100dvh;
+}
+
+.main-layout {
+  position: relative;
+
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  min-height: 100dvh;
+
+  overflow-x: clip;
+
+  background-color: var(--sf-color-surface-secondary);
+
+  &__sidebar {
+    position: sticky;
+    z-index: 20;
+    top: 0;
+
+    width: $sidebar-desktop-width;
+    height: 100dvh;
+    flex: 0 0 $sidebar-desktop-width;
+  }
+
+  &__workspace {
+    display: flex;
+    min-width: 0;
+    min-height: 100dvh;
+    flex: 1 1 auto;
+    flex-direction: column;
+  }
+
+  &__header {
+    position: sticky;
+    z-index: 30;
+    top: 0;
+
+    display: block;
+    width: 100%;
+  }
+
+  &__content {
+    min-width: 0;
+    flex: 1 1 auto;
+
+    background-color: var(--sf-color-surface-secondary);
+  }
+
+  &__content-inner {
+    width: 100%;
+    max-width: $content-max-width;
+
+    margin-inline: auto;
+  }
+
+  &__backdrop {
+    display: none;
+  }
+}
+
+/* =========================================================
+ * Compact desktop / laptop
+ * 1024px–1439px
+ * ======================================================= */
+
+@media(min-width: tokens.$breakpoint-laptop) and (max-width: tokens.$breakpoint-laptop-max) {
+  .main-layout {
+    &__sidebar {
+      width: $sidebar-compact-width;
+      flex-basis: $sidebar-compact-width;
+    }
+  }
+}
+
+/* =========================================================
+ * Tablet and mobile
+ * Below 1024px
+ * ======================================================= */
+
+@media(max-width: tokens.$breakpoint-tablet-max) {
+  .main-layout {
+    display: block;
+
+    &__sidebar {
+      position: fixed;
+      z-index: 50;
+      top: 0;
+      left: 0;
+
+      width: min(
+        $sidebar-desktop-width,
+        85vw
+      );
+
+      height: 100dvh;
+
+      transform: translateX(-100%);
+
+      transition: transform var(--sf-duration-normal) var(--sf-easing-standard);
+    }
+
+    &__workspace {
+      width: 100%;
+    }
+
+    &__backdrop {
+      position: fixed;
+      z-index: 40;
+      inset: 0;
+
+      display: block;
+
+      padding: 0;
+      border: 0;
+
+      background-color: rgb(33 37 41 / 45%);
+
+      opacity: 0;
+      visibility: hidden;
+      cursor: pointer;
+
+      transition: opacity var(--sf-duration-normal) var(--sf-easing-standard),
+      visibility var(--sf-duration-normal) var(--sf-easing-standard);
+    }
+
+    &--navigation-open {
+      .main-layout__sidebar {
+        transform: translateX(0);
+      }
+
+      .main-layout__backdrop {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+}
+
+/* =========================================================
+ * Mobile
+ * Below 768px
+ * ======================================================= */
+
+@media(max-width: tokens.$breakpoint-mobile-max) {
+  .main-layout {
+    &__content-inner {
+      max-width: none;
+    }
+  }
+}

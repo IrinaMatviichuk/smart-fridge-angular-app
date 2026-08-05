@@ -1,4 +1,18 @@
-$breakpoint-mobile: 30rem;   // 480px
-$breakpoint-tablet: 48rem;   // 768px
-$breakpoint-laptop: 64rem;   // 1024px
-$breakpoint-desktop: 90rem;  // 1440px
+$breakpoint-mobile: 30rem; // 480px
+$breakpoint-tablet: 48rem; // 768px
+$breakpoint-laptop: 64rem; // 1024px
+$breakpoint-desktop: 90rem; // 1440px;
+
+/*
+ * Upper boundaries prevent adjacent media queries
+ * from overlapping.
+ */
+
+$breakpoint-mobile-max:
+  $breakpoint-tablet - 0.0625rem; // 767px
+
+$breakpoint-tablet-max:
+  $breakpoint-laptop - 0.0625rem; // 1023px
+
+$breakpoint-laptop-max:
+  $breakpoint-desktop - 0.0625rem; // 1439px

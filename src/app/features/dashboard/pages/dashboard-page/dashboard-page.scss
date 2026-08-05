@@ -1,0 +1,48 @@
+@use '../../../../../styles/tokens' as tokens;
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+.dashboard-page {
+  width: 100%;
+
+  padding: clamp(
+    var(--sf-space-6),
+    3vw,
+    var(--sf-space-12)
+  );
+
+  &__title {
+    margin: 0;
+
+    color: var(--sf-color-text-primary);
+    font-size: var(--sf-font-size-heading);
+    font-weight: var(--sf-font-weight-bold);
+    line-height: var(--sf-line-height-heading);
+  }
+
+  &__content {
+    margin-block-start: var(--sf-space-8);
+  }
+
+  &__placeholder {
+    margin: 0;
+
+    color: var(--sf-color-text-muted);
+    font-size: var(--sf-font-size-body-lg);
+    line-height: var(--sf-line-height-normal);
+  }
+}
+
+@media(max-width: tokens.$breakpoint-mobile-max) {
+  .dashboard-page {
+    padding: var(--sf-space-5) var(--sf-space-4);
+
+    &__content {
+      margin-block-start: var(--sf-space-6);
+    }
+  }
+}

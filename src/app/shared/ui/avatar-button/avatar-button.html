@@ -1,0 +1,32 @@
+<button
+  class="avatar-button"
+  [class.avatar-button--small]="
+    size() === 'small'
+  "
+  [class.avatar-button--medium]="
+    size() === 'medium'
+  "
+  [class.avatar-button--large]="
+    size() === 'large'
+  "
+  type="button"
+  [disabled]="disabled()"
+  [attr.aria-label]="ariaLabel()"
+  (click)="handleClick()"
+>
+  @if (imageUrl(); as source) {
+    <img
+      class="avatar-button__image"
+      [src]="source"
+      alt=""
+      aria-hidden="true"
+    />
+  } @else {
+    <span
+      class="avatar-button__fallback"
+      aria-hidden="true"
+    >
+      {{ normalizedFallback() }}
+    </span>
+  }
+</button>

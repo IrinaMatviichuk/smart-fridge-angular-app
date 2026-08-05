@@ -1,0 +1,41 @@
+<div
+  class="search-field"
+  [class.search-field--disabled]="disabled()"
+>
+  <mat-icon
+    class="search-field__search-icon"
+    [svgIcon]="searchIcon"
+    aria-hidden="true"
+  />
+
+  <input
+    class="search-field__control"
+    type="search"
+    inputmode="search"
+    autocomplete="off"
+    enterkeyhint="search"
+    [id]="inputId()"
+    [attr.aria-label]="ariaLabel()"
+    [placeholder]="placeholder()"
+    [value]="value()"
+    [disabled]="disabled()"
+    (input)="handleInput($event)"
+  />
+
+  @if (clearable() &&
+  value().length > 0 &&
+  !disabled()) {
+    <button
+      class="search-field__clear-button"
+      type="button"
+      aria-label="Clear search"
+      (click)="clear()"
+    >
+      <mat-icon
+        class="search-field__clear-icon"
+        [svgIcon]="clearIcon"
+        aria-hidden="true"
+      />
+    </button>
+  }
+</div>

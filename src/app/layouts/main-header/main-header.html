@@ -1,0 +1,63 @@
+<header class="main-header">
+  <div class="main-header__navigation">
+    <app-icon-button
+      class="main-header__menu-button"
+      [icon]="menuIcon"
+      ariaLabel="Open navigation"
+      size="medium"
+      (pressed)="menuRequested.emit()"
+    />
+
+    <img
+      class="main-header__mobile-logo"
+      src="/images/layout/app-logo.svg"
+      alt="Fridgy"
+    />
+  </div>
+
+  <div class="main-header__search">
+    @if (searchConfig(); as config) {
+      <app-search-field
+        inputId="main-header-search"
+        [placeholder]="config.placeholder"
+        [ariaLabel]="config.ariaLabel"
+        [(value)]="searchQuery"
+      />
+    }
+  </div>
+
+  <div class="main-header__actions">
+    <button
+      class="main-header__recipes-button"
+      type="button"
+      (click)="recipesRequested.emit()"
+    >
+      <mat-icon
+        class="main-header__recipes-icon"
+        [svgIcon]="recipesIcon"
+        aria-hidden="true"
+      />
+
+      <span class="main-header__recipes-label">
+        Get Recipes
+      </span>
+    </button>
+
+    <app-icon-button
+      class="main-header__notification-button"
+      [icon]="notificationIcon"
+      ariaLabel="Open notifications"
+      size="medium"
+      [badge]="notificationCount()"
+      (pressed)="notificationsRequested.emit()"
+    />
+
+    <app-avatar-button
+      ariaLabel="Open user profile"
+      size="medium"
+      [imageUrl]="profileImageUrl()"
+      [fallbackText]="userEmail()"
+      (pressed)="profileRequested.emit()"
+    />
+  </div>
+</header>

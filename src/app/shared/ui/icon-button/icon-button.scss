@@ -1,0 +1,128 @@
+:host {
+  display: inline-block;
+  flex: 0 0 auto;
+}
+
+.icon-button {
+  position: relative;
+
+  display: inline-grid;
+  place-items: center;
+
+  padding: 0;
+  border: 0;
+  border-radius: var(--sf-radius-lg);
+
+  font-family: var(--sf-font-family), serif;
+
+  cursor: pointer;
+
+  transition: background-color var(--sf-duration-fast) var(--sf-easing-standard),
+  color var(--sf-duration-fast) var(--sf-easing-standard),
+  opacity var(--sf-duration-fast) var(--sf-easing-standard);
+
+  &:focus,
+  &:focus-visible {
+    outline: 0;
+    box-shadow: none;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &--small {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  &--medium {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  &--large {
+    width: 3.75rem;
+    height: 3.75rem;
+  }
+
+  &--neutral {
+    background-color: transparent;
+    color: var(--sf-gray-500);
+
+    &:hover:not(:disabled) {
+      background-color: rgb(130 166 229 / 12%);
+      color: var(--sf-color-primary-strong);
+    }
+
+    &.icon-button--active {
+      background-color: rgb(130 166 229 / 16%);
+      color: var(--sf-color-primary);
+    }
+  }
+
+  &--primary {
+    background-color: var(--sf-color-primary);
+    color: var(--sf-color-on-primary);
+
+    &:hover:not(:disabled) {
+      background-color: var(--sf-color-primary-strong);
+    }
+
+    &.icon-button--active {
+      background-color: var(--sf-color-primary-strong);
+    }
+  }
+
+  &--danger {
+    background-color: transparent;
+    color: var(--sf-color-error);
+
+    &:hover:not(:disabled) {
+      background-color: var(--sf-color-error-container);
+    }
+
+    &.icon-button--active {
+      background-color: var(--sf-color-error-container);
+    }
+  }
+
+  &__icon {
+    display: block;
+    width: var(
+        --sf-icon-button-icon-size,
+        var(--sf-size-icon-lg)
+    );
+    height: var(
+        --sf-icon-button-icon-size,
+        var(--sf-size-icon-lg)
+    );
+
+    color: currentColor;
+  }
+
+  &__badge {
+    position: absolute;
+    top: -0.25rem;
+    right: -0.25rem;
+
+    display: inline-flex;
+    min-width: 1.125rem;
+    height: 1.125rem;
+    align-items: center;
+    justify-content: center;
+
+    padding-inline: 0.25rem;
+
+    border: 0.125rem solid var(--sf-color-surface);
+    border-radius: 999rem;
+
+    background-color: var(--sf-color-error);
+    color: var(--sf-color-text-inverse);
+
+    font-size: 0.6875rem;
+    font-weight: var(--sf-font-weight-semibold);
+    line-height: 1;
+  }
+}

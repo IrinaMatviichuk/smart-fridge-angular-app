@@ -1,0 +1,44 @@
+<button
+  class="icon-button"
+  [class.icon-button--neutral]="
+    variant() === 'neutral'
+  "
+  [class.icon-button--primary]="
+    variant() === 'primary'
+  "
+  [class.icon-button--danger]="
+    variant() === 'danger'
+  "
+  [class.icon-button--small]="
+    size() === 'small'
+  "
+  [class.icon-button--medium]="
+    size() === 'medium'
+  "
+  [class.icon-button--large]="
+    size() === 'large'
+  "
+  [class.icon-button--active]="active()"
+  [type]="type()"
+  [disabled]="disabled()"
+  [attr.aria-label]="ariaLabel()"
+  [attr.aria-pressed]="
+    active() ? 'true' : null
+  "
+  (click)="handleClick()"
+>
+  <mat-icon
+    class="icon-button__icon"
+    [svgIcon]="icon()"
+    aria-hidden="true"
+  />
+
+  @if (badge(); as badgeValue) {
+    <span
+      class="icon-button__badge"
+      aria-hidden="true"
+    >
+      {{ badgeValue }}
+    </span>
+  }
+</button>

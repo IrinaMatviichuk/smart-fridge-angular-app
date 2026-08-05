@@ -1,0 +1,98 @@
+<aside
+  class="main-sidebar"
+  aria-label="Main navigation"
+>
+  <div class="main-sidebar__brand">
+    <img
+      class="
+        main-sidebar__logo
+        main-sidebar__logo--full
+      "
+      src="/images/layout/app-logo.svg"
+      alt="Fridgy"
+    />
+
+    <img
+      class="
+        main-sidebar__logo
+        main-sidebar__logo--mark
+      "
+      src="/images/layout/app-logo-mark.svg"
+      alt=""
+      aria-hidden="true"
+    />
+  </div>
+
+  <nav
+    class="main-sidebar__navigation"
+    aria-label="Application sections"
+  >
+    @for (item of navigationItems;
+      track item.route) {
+      <a
+        #activeLink="routerLinkActive"
+        class="main-sidebar__navigation-item"
+        [class.main-sidebar__navigation-item--active]="
+          activeLink.isActive
+        "
+        [routerLink]="item.route"
+        [routerLinkActiveOptions]="{
+          exact: item.exact
+        }"
+        routerLinkActive
+        ariaCurrentWhenActive="page"
+        [attr.aria-label]="item.label"
+        [attr.title]="item.label"
+        (click)="navigationSelected.emit()"
+      >
+        <mat-icon
+          class="main-sidebar__navigation-icon"
+          [svgIcon]="item.icon"
+          aria-hidden="true"
+        />
+
+        <span class="main-sidebar__label">
+          {{ item.label }}
+        </span>
+      </a>
+    }
+  </nav>
+
+  <div class="main-sidebar__footer">
+    <button
+      class="main-sidebar__footer-action"
+      type="button"
+      aria-label="Help and Support"
+      title="Help and Support"
+      (click)="helpRequested.emit()"
+    >
+      <mat-icon
+        class="main-sidebar__footer-icon"
+        [svgIcon]="helpIcon"
+        aria-hidden="true"
+      />
+
+      <span class="main-sidebar__label">
+        Help &amp; Support
+      </span>
+    </button>
+
+    <button
+      class="main-sidebar__footer-action"
+      type="button"
+      aria-label="Log Out"
+      title="Log Out"
+      (click)="logoutRequested.emit()"
+    >
+      <mat-icon
+        class="main-sidebar__footer-icon"
+        [svgIcon]="logoutIcon"
+        aria-hidden="true"
+      />
+
+      <span class="main-sidebar__label">
+        Log Out
+      </span>
+    </button>
+  </div>
+</aside>

@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { tap } from 'rxjs';
 
 import { AuthFacade } from '../../application/auth.facade';
 import { AuthCredentials } from '../../domain/auth-credentials.model';
 import { LoginForm } from '../../ui/login-form/login-form';
+
+const DEFAULT_AUTHENTICATED_ROUTE = '/dashboard';
 
 @Component({
   selector: 'app-login-page',
@@ -17,6 +19,7 @@ import { LoginForm } from '../../ui/login-form/login-form';
 export class LoginPage {
   private readonly authFacade = inject(AuthFacade);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
   private readonly destroyRef = inject(DestroyRef);
 
   protected readonly loading = this.authFacade.loading;
@@ -28,10 +31,20 @@ export class LoginPage {
       .login(credentials)
       .pipe(
         tap(() => {
-          void this.router.navigate(['/']);
+          void this.router.navigateByUrl(this.resolveReturnUrl());
         }),
         takeUntilDestroyed(this.destroyRef),
       )
       .subscribe();
+  }
+
+  private resolveReturnUrl(): string {
+    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+
+    if (!returnUrl || !returnUrl.startsWith('/') || returnUrl.startsWith('//')) {
+      return DEFAULT_AUTHENTICATED_ROUTE;
+    }
+
+    return returnUrl;
   }
 }

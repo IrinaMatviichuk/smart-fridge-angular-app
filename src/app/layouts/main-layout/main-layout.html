@@ -1,0 +1,43 @@
+<div
+  class="main-layout"
+  [class.main-layout--navigation-open]="
+    navigationOpen()
+  "
+>
+  <button
+    class="main-layout__backdrop"
+    type="button"
+    aria-label="Close navigation"
+    [attr.aria-hidden]="
+      navigationOpen() ? null : 'true'
+    "
+    [tabIndex]="navigationOpen() ? 0 : -1"
+    (click)="closeNavigation()"
+  ></button>
+
+  <app-main-sidebar
+    class="main-layout__sidebar"
+    (navigationSelected)="closeNavigation()"
+    (logoutRequested)="handleLogout()"
+  />
+
+  <div class="main-layout__workspace">
+    <app-main-header
+      class="main-layout__header"
+      [searchConfig]="searchConfig()"
+      [searchQuery]="searchQuery()"
+      [userEmail]="currentUser()?.email ?? ''"
+      (searchQueryChange)="updateSearchQuery($event)"
+      (menuRequested)="openNavigation()"
+      (recipesRequested)="openRecipes()"
+      (notificationsRequested)="openNotifications()"
+      (profileRequested)="openProfile()"
+    />
+
+    <main class="main-layout__content">
+      <div class="main-layout__content-inner">
+        <router-outlet />
+      </div>
+    </main>
+  </div>
+</div>

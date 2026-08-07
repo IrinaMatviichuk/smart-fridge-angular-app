@@ -6,7 +6,7 @@ export const MAIN_SIDEBAR_NAVIGATION_ITEMS: readonly MainSidebarNavigationItem[]
     label: 'Dashboard',
     route: '/dashboard',
     icon: IconName.Dashboard,
-    exact: true,
+    exact: false,
   },
   {
     label: 'Shopping List',

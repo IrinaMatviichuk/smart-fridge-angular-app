@@ -33,6 +33,7 @@ export class RecipesPage {
 
   constructor() {
     this.headerSearchState.configure({
+      key: 'search',
       placeholder: 'Search recipes',
       ariaLabel: 'Search recipes',
     });

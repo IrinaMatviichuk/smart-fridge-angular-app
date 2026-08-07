@@ -17,12 +17,14 @@
 
   <div class="main-header__search">
     @if (searchConfig(); as config) {
-      <app-search-field
-        inputId="main-header-search"
-        [placeholder]="config.placeholder"
-        [ariaLabel]="config.ariaLabel"
-        [(value)]="searchQuery"
-      />
+      @if (config.key === 'search') {
+        <app-search-field
+          inputId="main-header-search"
+          [placeholder]="config.placeholder"
+          [ariaLabel]="config.ariaLabel"
+          [(value)]="searchQuery"
+        />
+      }
     }
   </div>
 
@@ -44,7 +46,9 @@
       ariaLabel="Open notifications"
       size="large"
       [badge]="notificationCount()"
-      (click)="notificationsRequested.emit()"
+      (click)="
+        notificationsRequested.emit()
+      "
     />
 
     <app-avatar-button

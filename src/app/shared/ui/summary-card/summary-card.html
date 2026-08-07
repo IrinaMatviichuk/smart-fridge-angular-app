@@ -1,17 +1,9 @@
 <article
   class="summary-card"
-  [class.summary-card--info]="
-    tone() === 'info'
-  "
-  [class.summary-card--warning]="
-    tone() === 'warning'
-  "
-  [class.summary-card--error]="
-    tone() === 'error'
-  "
-  [class.summary-card--success]="
-    tone() === 'success'
-  "
+  [class.summary-card--info]="tone() === 'info'"
+  [class.summary-card--warning]="tone() === 'warning'"
+  [class.summary-card--error]="tone() === 'error'"
+  [class.summary-card--success]="tone() === 'success'"
 >
   <div class="summary-card__content">
     <h2 class="summary-card__label">

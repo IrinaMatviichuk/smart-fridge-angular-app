@@ -27,8 +27,7 @@
     class="main-sidebar__navigation"
     aria-label="Application sections"
   >
-    @for (item of navigationItems;
-      track item.route) {
+    @for (item of navigationItems; track item.route) {
       <a
         #activeLink="routerLinkActive"
         class="main-sidebar__navigation-item"

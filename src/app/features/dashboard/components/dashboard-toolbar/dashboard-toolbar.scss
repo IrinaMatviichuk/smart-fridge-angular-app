@@ -1,0 +1,33 @@
+@use '../../../../../styles/tokens' as tokens;
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+.dashboard-toolbar {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sf-space-6);
+
+  &__storage,
+  &__add {
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: tokens.$breakpoint-mobile-max) {
+  .dashboard-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+
+    &__storage,
+    &__add {
+      width: 100%;
+    }
+  }
+}

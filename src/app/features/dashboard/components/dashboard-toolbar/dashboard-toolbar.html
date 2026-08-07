@@ -1,0 +1,20 @@
+<section
+  class="dashboard-toolbar"
+  aria-label="Dashboard controls"
+>
+  <app-tabs
+    class="dashboard-toolbar__storage"
+    ariaLabel="Product storage"
+    [items]="model().storageTabs"
+    [value]="model().storage"
+    (valueChange)="storageChanged.emit($event)"
+  />
+
+  <app-button
+    class="dashboard-toolbar__add"
+    [iconStart]="model().addProductIcon"
+    (click)="addProductRequested.emit()"
+  >
+    {{ model().addProductLabel }}
+  </app-button>
+</section>

@@ -22,12 +22,31 @@ export class ProductCard {
 
   readonly menuRequested = output<ProductCardModel>();
 
-  protected readonly calendarIcon = IconName.Calendar;
-
-  protected readonly moreIcon = IconName.MoreHorizontal;
+  protected readonly icons = {
+    calendar: IconName.Calendar,
+    menu: IconName.MoreHorizontal,
+  } as const;
 
   protected handleSelected(): void {
     this.selected.emit(this.product());
+  }
+
+  protected handleCardKeydown(event: KeyboardEvent): void {
+    /*
+     * Keyboard events from nested interactive controls
+     * must not activate the whole card.
+     */
+    if (event.target !== event.currentTarget) {
+      return;
+    }
+
+    if (event.key !== 'Enter' && event.key !== ' ') {
+      return;
+    }
+
+    event.preventDefault();
+
+    this.handleSelected();
   }
 
   protected handleMenuRequested(event: MouseEvent): void {

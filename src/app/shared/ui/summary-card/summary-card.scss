@@ -2,49 +2,58 @@
 
 :host {
   display: block;
+  width: 100%;
   min-width: 0;
 }
 
 .summary-card {
-  display: flex;
+  display: grid;
   width: 100%;
   min-width: 0;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sf-space-4);
+  height: 8.25rem; /* 132px */
 
-  padding: var(--sf-space-5) var(--sf-space-6);
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto;
 
-  border: 0.0625rem solid var(--sf-color-border-subtle);
-  border-radius: var(--sf-radius-tip-frame);
+  grid-template-rows:
+    minmax(0, 1fr)
+    auto;
+
+  gap: var(--sf-space-1); /* 4px */
+
+  padding: var(--sf-space-4); /* 16px */
+
+  border-radius: var(--sf-radius-control); /* 10px */
 
   background-color: var(--sf-color-surface);
 
+  box-shadow: 0 0 0 0.0625rem rgb(214 204 204 / 25%);
+
   &__content {
+    display: flex;
     min-width: 0;
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   &__label {
-    margin: 0;
-
-    color: var(--sf-color-text-secondary);
+    color: var(--sf-color-text-tertiary);
 
     @include mixins.heading-4;
     @include mixins.truncate;
   }
 
   &__value {
-    margin: var(--sf-space-2) 0 0;
-
     color: var(--sf-color-text-primary);
 
     @include mixins.heading-3;
   }
 
   &__description {
-    margin: var(--sf-space-1) 0 0;
-
-    color: var(--sf-color-text-tertiary);
+    color: var(--sf-color-text-muted);
 
     @include mixins.secondary-text(
         var(--sf-font-weight-medium)
@@ -54,9 +63,14 @@
   }
 
   &__icon {
+    grid-column: 2;
+    grid-row: 2;
+
     width: var(--sf-size-icon-2xl);
     height: var(--sf-size-icon-2xl);
-    flex: 0 0 auto;
+
+    justify-self: end;
+    align-self: end;
 
     color: currentColor;
   }

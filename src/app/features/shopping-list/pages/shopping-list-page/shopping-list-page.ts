@@ -33,6 +33,7 @@ export class ShoppingListPage {
 
   constructor() {
     this.headerSearchState.configure({
+      key: 'search',
       placeholder: 'Search shopping list',
       ariaLabel: 'Search shopping list',
     });

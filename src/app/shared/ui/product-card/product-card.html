@@ -1,10 +1,10 @@
 <article
   class="product-card"
+  role="button"
   tabindex="0"
   [attr.aria-label]="product().title"
   (click)="handleSelected()"
-  (keydown.enter)="handleSelected()"
-  (keydown.space)="handleSelected()"
+  (keydown)="handleCardKeydown($event)"
 >
   <div class="product-card__header">
     <h3
@@ -17,7 +17,7 @@
     @if (menuVisible()) {
       <app-icon-button
         class="product-card__menu"
-        [icon]="moreIcon"
+        [icon]="icons.menu"
         ariaLabel="Open product actions"
         size="small"
         (click)="handleMenuRequested($event)"
@@ -32,7 +32,7 @@
   <div class="product-card__expiry">
     <mat-icon
       class="product-card__expiry-icon"
-      [svgIcon]="calendarIcon"
+      [svgIcon]="icons.calendar"
       aria-hidden="true"
     />
 

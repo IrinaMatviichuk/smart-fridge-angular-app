@@ -1,0 +1,36 @@
+<section
+  class="dashboard-summary"
+  aria-label="Product summary"
+>
+  <app-summary-card
+    label="Total Products"
+    [value]="summary().total"
+    description="All products"
+    [icon]="icons.total"
+    tone="info"
+  />
+
+  <app-summary-card
+    label="Expiring Soon"
+    [value]="summary().expiringSoon"
+    description="Within 3 days"
+    [icon]="icons.expiringSoon"
+    tone="warning"
+  />
+
+  <app-summary-card
+    label="Expired Ones"
+    [value]="summary().expired"
+    description="Need attention"
+    [icon]="icons.expired"
+    tone="error"
+  />
+
+  <app-summary-card
+    label="Fresh Products"
+    [value]="summary().fresh"
+    description="Safe to use"
+    [icon]="icons.fresh"
+    tone="success"
+  />
+</section>

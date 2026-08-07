@@ -1,0 +1,63 @@
+@use '../../../../../styles/tokens' as tokens;
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+.dashboard-summary {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+
+  grid-template-columns:
+    repeat(
+      4,
+        minmax(0, 150rem)
+    );
+
+  gap: var(--sf-layout-content-grid-gap);
+}
+
+/* =========================================================
+ * Laptop
+ * 1024px–1439px
+ * ======================================================= */
+
+@media(min-width: tokens.$breakpoint-laptop) and (max-width: tokens.$breakpoint-laptop-max) {
+  .dashboard-summary {
+    grid-template-columns:
+      repeat(
+        2,
+          minmax(0, 1fr)
+      );
+  }
+}
+
+/* =========================================================
+ * Tablet
+ * ======================================================= */
+
+@media (max-width: tokens.$breakpoint-tablet-max) {
+  .dashboard-summary {
+    grid-template-columns:
+      repeat(
+        2,
+          minmax(0, 1fr)
+      );
+  }
+}
+
+
+/* =========================================================
+ * Mobile
+ * ======================================================= */
+
+@media (max-width: tokens.$breakpoint-mobile-max) {
+  .dashboard-summary {
+    grid-template-columns: 1fr;
+
+    gap: var(--sf-space-4);
+  }
+}

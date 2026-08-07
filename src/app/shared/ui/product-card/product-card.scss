@@ -10,11 +10,13 @@
   display: flex;
   width: 100%;
   min-width: 0;
+  height: 100%;
   flex-direction: column;
 
   padding: var(--sf-space-4);
 
   border: 0.0625rem solid var(--sf-color-border-subtle);
+
   border-radius: var(--sf-radius-tip-frame);
 
   background-color: var(--sf-color-surface);
@@ -104,6 +106,8 @@
   }
 
   &__status {
+    align-self: flex-start;
+
     margin-block-start: var(--sf-space-3);
   }
 }

@@ -1,26 +1,57 @@
 <button
   class="button"
-  [class.button--primary]="variant() === 'primary'"
-  [class.button--secondary]="variant() === 'secondary'"
-  [class.button--text]="variant() === 'text'"
-  [class.button--full-width]="fullWidth()"
-  [class.button--loading]="loading()"
+  [class.button--primary]="
+    variant() === 'primary'
+  "
+  [class.button--secondary]="
+    variant() === 'secondary'
+  "
+  [class.button--text]="
+    variant() === 'text'
+  "
+  [class.button--small]="
+    size() === 'small'
+  "
+  [class.button--full-width]="
+    fullWidth()
+  "
+  [class.button--loading]="
+    loading()
+  "
   [type]="type()"
-  [disabled]="isDisabled()"
-  [attr.aria-label]="ariaLabel()"
-  [attr.aria-busy]="loading() ? 'true' : null"
+  [disabled]="effectivelyDisabled()"
+  [attr.aria-busy]="
+    loading() ? 'true' : null
+  "
 >
   @if (loading()) {
     <span
       class="button__spinner"
       aria-hidden="true"
     ></span>
-  }
 
-  <span
-    class="button__content"
-    [class.button__content--hidden]="loading()"
-  >
-    <ng-content />
-  </span>
+    <span class="button__loading-label">
+      {{ loadingLabel() }}
+    </span>
+  } @else {
+    @if (iconStart(); as icon) {
+      <mat-icon
+        class="button__icon"
+        [svgIcon]="icon"
+        aria-hidden="true"
+      />
+    }
+
+    <span class="button__label">
+      <ng-content />
+    </span>
+
+    @if (iconEnd(); as icon) {
+      <mat-icon
+        class="button__icon"
+        [svgIcon]="icon"
+        aria-hidden="true"
+      />
+    }
+  }
 </button>

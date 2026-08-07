@@ -33,7 +33,7 @@ export class PasswordField implements FormValueControl<string> {
 
   readonly prefixIcon = input<IconName | null>(null);
 
-  readonly placeholderIcon = input<IconName | null>(IconName.PasswordPlaceholder);
+  readonly placeholderIcon = input<IconName | null>(IconName.VisibilityOff);
 
   readonly reserveErrorSpace = input(true);
 

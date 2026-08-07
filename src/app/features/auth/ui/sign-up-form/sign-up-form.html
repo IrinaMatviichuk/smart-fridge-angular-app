@@ -18,7 +18,7 @@
     inputId="sign-up-password"
     label="Password"
     prefixIcon="lock"
-    placeholderIcon="password-placeholder"
+    placeholderIcon="visibility-off"
     placeholder="Create a password"
     autocomplete="new-password"
     [formField]="signUpForm.password"
@@ -28,16 +28,21 @@
     inputId="sign-up-confirm-password"
     label="Confirm password"
     prefixIcon="lock"
-    placeholderIcon="password-placeholder"
+    placeholderIcon="visibility-off"
     placeholder="Repeat your password"
     autocomplete="new-password"
     [formField]="signUpForm.confirmPassword"
   />
 
-  <app-form-message
-    [message]="serverError()"
-    type="error"
-  />
+  <div
+    class="sign-up-form__server-message"
+    aria-live="polite"
+  >
+    <app-form-message
+      [message]="serverError()"
+      type="error"
+    />
+  </div>
 
   <app-button
     type="submit"

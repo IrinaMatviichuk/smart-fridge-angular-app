@@ -1,0 +1,107 @@
+@use '../../../../styles/mixins' as mixins;
+
+:host {
+  display: inline-block;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.tabs {
+  display: inline-flex;
+  max-width: 100%;
+  min-height: var(--sf-size-switch-tabs);
+  align-items: stretch;
+
+  padding: 0;
+
+  border: 0.125rem solid var(--sf-color-border);
+  border-radius: var(--sf-radius-control);
+
+  overflow: hidden;
+
+  background-color: var(--sf-color-surface);
+
+  &--full-width {
+    display: flex;
+    width: 100%;
+
+    .tabs__item {
+      min-width: 0;
+      flex: 1 1 0;
+    }
+  }
+
+  &__item {
+    display: inline-flex;
+    min-width: 7.5rem;
+    min-height: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sf-space-2);
+
+    padding: var(--sf-space-1) var(--sf-space-4);
+
+    border: 0;
+
+    background-color: var(--sf-color-surface);
+
+    color: var(--sf-color-text-placeholder);
+
+    @include mixins.heading-5;
+    @include mixins.focus-visible-ring-inset;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition: background-color var(--sf-duration-fast) var(--sf-easing-standard),
+    color var(--sf-duration-fast) var(--sf-easing-standard);
+
+    &:not(:first-child) {
+      border-inline-start: 0.0625rem solid var(--sf-color-border);
+    }
+
+    &:hover:not(
+      :disabled,
+      .tabs__item--active
+    ) {
+      background-color: var(--sf-primary-5);
+
+      color: var(--sf-color-text-tertiary);
+    }
+
+    &:disabled {
+      background-color: var(--sf-color-surface);
+
+      color: var(--sf-color-text-disabled);
+
+      cursor: not-allowed;
+    }
+
+    &--active {
+      background-color: var(--sf-color-primary);
+
+      color: var(--sf-color-on-primary);
+
+      cursor: default;
+
+      &:hover {
+        background-color: var(--sf-color-primary);
+
+        color: var(--sf-color-on-primary);
+      }
+    }
+  }
+
+  &__icon {
+    width: var(--sf-size-icon-lg);
+    height: var(--sf-size-icon-lg);
+    flex: 0 0 auto;
+
+    color: currentColor;
+  }
+
+  &__label {
+    @include mixins.truncate;
+  }
+}

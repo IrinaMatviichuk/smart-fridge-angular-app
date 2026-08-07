@@ -1,13 +1,23 @@
+@use '../../../../../styles/mixins' as mixins;
+
 :host {
   display: block;
   width: 100%;
+  min-width: 0;
 }
 
 .sign-up-form {
   display: flex;
   width: 100%;
+  min-width: 0;
   flex-direction: column;
   gap: var(--sf-space-4);
+
+  &__server-message {
+    min-height: 1lh;
+
+    @include mixins.secondary-text;
+  }
 
   app-form-message,
   app-button {

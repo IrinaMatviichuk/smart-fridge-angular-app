@@ -1,0 +1,43 @@
+@use '../../../../styles/mixins' as mixins;
+
+:host {
+  display: inline-flex;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.status-chip {
+  display: inline-flex;
+  max-width: 100%;
+  height: var(--sf-size-status-chip);
+  align-items: center;
+  justify-content: center;
+  gap: var(--sf-space-2-5);
+
+  padding: var(--sf-space-1) var(--sf-space-3);
+
+  border: 0.0625rem solid currentColor;
+  border-radius: var(--sf-radius-full);
+
+  @include mixins.chip-text;
+
+  white-space: nowrap;
+
+  &--success {
+    background-color: var(--sf-color-success-container);
+
+    color: var(--sf-color-success);
+  }
+
+  &--warning {
+    background-color: var(--sf-color-warning-container);
+
+    color: var(--sf-color-warning);
+  }
+
+  &--error {
+    background-color: var(--sf-color-error-container);
+
+    color: var(--sf-color-error);
+  }
+}

@@ -1,0 +1,34 @@
+<div
+  class="tabs"
+  [class.tabs--full-width]="fullWidth()"
+  role="group"
+  [attr.aria-label]="ariaLabel()"
+>
+  @for (item of items();
+    track item.value) {
+    <button
+      class="tabs__item"
+      [class.tabs__item--active]="
+        item.value === value()
+      "
+      type="button"
+      [disabled]="item.disabled"
+      [attr.aria-pressed]="
+        item.value === value()
+      "
+      (click)="select(item)"
+    >
+      @if (item.icon; as icon) {
+        <mat-icon
+          class="tabs__icon"
+          [svgIcon]="icon"
+          aria-hidden="true"
+        />
+      }
+
+      <span class="tabs__label">
+        {{ item.label }}
+      </span>
+    </button>
+  }
+</div>

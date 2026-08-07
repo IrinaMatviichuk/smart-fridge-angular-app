@@ -1,6 +1,9 @@
+@use '../../../../../styles/mixins' as mixins;
+
 :host {
   display: block;
   width: 100%;
+  min-width: 0;
 }
 
 .sign-up-page {
@@ -13,52 +16,56 @@
   &__title {
     margin: 0;
 
-    color: var(--sf-color-text-secondary);
-    font-size: var(--sf-font-size-display);
-    font-weight: var(--sf-font-weight-bold);
-    line-height: var(--sf-line-height-heading);
+    color: var(--sf-color-text-primary);
+
+    @include mixins.heading-1;
   }
 
   &__subtitle {
     margin-block-start: var(--sf-space-2);
 
-    color: var(--sf-color-text-muted);
-    font-size: var(--sf-font-size-body-lg);
-    font-weight: var(--sf-font-weight-regular);
-    line-height: var(--sf-line-height-normal);
+    color: var(--sf-color-text-primary);
+
+    @include mixins.main-text(var(--sf-font-weight-medium));
   }
 
   &__form {
     display: block;
+
     margin-block-start: var(--sf-space-8);
   }
 
   &__footer {
     display: flex;
+    align-items: center;
     justify-content: center;
     gap: var(--sf-space-2);
 
     margin: var(--sf-space-8) 0 0;
 
-    color: var(--sf-color-text-muted);
-    font-size: var(--sf-font-size-body);
-    line-height: var(--sf-line-height-normal);
+    color: var(--sf-color-text-tertiary);
+
+    @include mixins.secondary-text(
+        var(--sf-font-weight-medium)
+    );
   }
 
   &__link {
     color: var(--sf-color-link);
+
     font-weight: var(--sf-font-weight-medium);
+
     text-decoration: none;
 
     transition: color var(--sf-duration-fast) var(--sf-easing-standard);
 
     &:hover {
-      color: var(--sf-color-primary-strong);
+      color: var(--sf-primary-80);
     }
 
-    &:focus,
     &:focus-visible {
       outline: 0;
+      box-shadow: var(--sf-shadow-focus);
     }
   }
 }

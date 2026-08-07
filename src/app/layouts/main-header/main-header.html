@@ -5,7 +5,7 @@
       [icon]="menuIcon"
       ariaLabel="Open navigation"
       size="medium"
-      (pressed)="menuRequested.emit()"
+      (click)="menuRequested.emit()"
     />
 
     <img
@@ -27,29 +27,24 @@
   </div>
 
   <div class="main-header__actions">
-    <button
+    <app-button
       class="main-header__recipes-button"
-      type="button"
+      variant="secondary"
+      [iconStart]="recipesIcon"
       (click)="recipesRequested.emit()"
     >
-      <mat-icon
-        class="main-header__recipes-icon"
-        [svgIcon]="recipesIcon"
-        aria-hidden="true"
-      />
-
       <span class="main-header__recipes-label">
         Get Recipes
       </span>
-    </button>
+    </app-button>
 
     <app-icon-button
       class="main-header__notification-button"
       [icon]="notificationIcon"
       ariaLabel="Open notifications"
-      size="medium"
+      size="large"
       [badge]="notificationCount()"
-      (pressed)="notificationsRequested.emit()"
+      (click)="notificationsRequested.emit()"
     />
 
     <app-avatar-button
@@ -57,7 +52,7 @@
       size="medium"
       [imageUrl]="profileImageUrl()"
       [fallbackText]="userEmail()"
-      (pressed)="profileRequested.emit()"
+      (click)="profileRequested.emit()"
     />
   </div>
 </header>

@@ -1,3 +1,5 @@
 @use '../../../../styles/components/form-field' as form-field;
 
-@include form-field.form-control-base('text-field');
+@include form-field.form-control-base(
+    'text-field'
+);

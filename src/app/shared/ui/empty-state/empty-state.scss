@@ -1,0 +1,81 @@
+@use '../../../../styles/mixins' as mixins;
+@use '../../../../styles/tokens' as tokens;
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+.empty-state {
+  display: flex;
+  width: 100%;
+  max-width: 38rem;
+  align-items: center;
+  flex-direction: column;
+
+  margin-inline: auto;
+  padding: var(--sf-space-8) var(--sf-space-4);
+
+  text-align: center;
+
+  &__image {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+
+    object-fit: contain;
+  }
+
+  &__content {
+    margin-block-start: var(--sf-space-6);
+  }
+
+  &__title {
+    margin: 0;
+
+    color: var(--sf-color-text-primary);
+
+    @include mixins.heading-2;
+  }
+
+  &__description {
+    max-width: 32rem;
+
+    margin: var(--sf-space-3) auto 0;
+
+    color: var(--sf-color-text-secondary);
+
+    @include mixins.main-text;
+  }
+
+  &__action {
+    display: block;
+    width: 19.5rem;
+    max-width: 100%;
+
+    margin-block-start: var(--sf-space-6);
+  }
+
+  &__action-content {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sf-space-2);
+  }
+}
+
+@media (max-width: tokens.$breakpoint-mobile-max) {
+  .empty-state {
+    padding: var(--sf-space-6) var(--sf-space-3);
+
+    &__content {
+      margin-block-start: var(--sf-space-5);
+    }
+
+    &__action {
+      width: 100%;
+    }
+  }
+}

@@ -1,55 +1,116 @@
 :root {
   /* =========================================================
-   * Brand
+   * Primary
    * ======================================================= */
 
-  --sf-blue-100: #ebf0f8;
-  --sf-blue-200: #d6e0f1;
-  --sf-blue-300: #c2d1eb;
-  --sf-blue-400: #adc1e4;
-  --sf-blue-500: #82a6e5;
-  --sf-blue-600: #6092e7;
+  --sf-primary-100: #6092e7;
+  --sf-primary-80: #82a6e5;
+  --sf-primary-60: #adc1e4;
+  --sf-primary-40: #c2d1eb;
+  --sf-primary-30: #d6e0f1;
+  --sf-primary-20: #ebf0f8;
+  --sf-primary-10: #f5f7fc;
+  --sf-primary-5: #f8faff;
+  --sf-primary-0: #f7f5ff;
 
   /* =========================================================
-   * Neutral
+   * Secondary
    * ======================================================= */
 
-  --sf-white: #ffffff;
-
-  --sf-gray-50: #dee2e6;
-
-  --sf-gray-300: #adb5bd;
-
-  --sf-gray-400: #7e7e80;
-
-  --sf-gray-500: #6c757d;
-
-  --sf-gray-600: #666666;
-
-  --sf-gray-700: #495057;
-
-  --sf-gray-800: #434148;
-
-  --sf-gray-850: #3b3c3c;
-
-  --sf-gray-900: #232326;
-
-  --sf-gray-950: #212529;
+  --sf-secondary-100: #eda292;
+  --sf-secondary-80: #e9afa3;
+  --sf-secondary-60: #edbfb5;
+  --sf-secondary-40: #f2cfc8;
+  --sf-secondary-20: #f6dfda;
+  --sf-secondary-10: #fbefed;
+  --sf-secondary-5: #fff8f7;
 
   /* =========================================================
-   * Semantic palette
+   * Gray
    * ======================================================= */
 
-  --sf-red-500: #e53e3e;
-  --sf-red-50: #fbefed;
+  --sf-gray-100: #212529;
+  --sf-gray-80: #495057;
+  --sf-gray-60: #6c757d;
+  --sf-gray-40: #adb5bd;
+  --sf-gray-30: #ced4da;
+  --sf-gray-25: #dee2e6;
+  --sf-gray-20: #e9ecef;
+  --sf-gray-10: #f8f9fa;
+  --sf-gray-0: #ffffff;
 
-  --sf-orange-500: #ff9a26;
-  --sf-orange-50: #fff8f7;
+  /* =========================================================
+   * System
+   * ======================================================= */
 
-  --sf-green-500: #22c55e;
-  --sf-green-50: #effdf4;
+  --sf-error-100: #e53e3e;
+  --sf-warning-100: #ff9a26;
+  --sf-info-100: #0084ff;
+  --sf-success-100: #22c55e;
 
-  --sf-info-500: #0084ff;
+  /*
+   * Status backgrounds are intentionally separate from
+   * the main color scales because they come directly
+   * from status-mark specifications.
+   */
 
-  --sf-recipe-500: #eda292;
+  --sf-error-background: #fbefed;
+  --sf-warning-background: #fff8f7;
+  --sf-success-background: #fff8e7;
+
+  /* =========================================================
+   * Overlay
+   * ======================================================= */
+
+  --sf-overlay-100: rgb(108 117 125 / 70%);
+  --sf-overlay-60: rgb(108 117 125 / 50%);
+
+  /* =========================================================
+   * Gradients
+   * ======================================================= */
+
+  --sf-primary-background-gradient: linear-gradient(
+      90deg,
+      var(--sf-primary-20) 0%,
+      var(--sf-gray-0) 100%
+  );
+
+  /* =========================================================
+   * Compatibility aliases
+   *
+   * Keep while existing components are migrated to the
+   * canonical Primary / Secondary / Gray palette.
+   * ======================================================= */
+
+  --sf-white: var(--sf-gray-0);
+
+  --sf-blue-600: var(--sf-primary-100);
+  --sf-blue-500: var(--sf-primary-80);
+  --sf-blue-400: var(--sf-primary-60);
+  --sf-blue-300: var(--sf-primary-40);
+  --sf-blue-200: var(--sf-primary-30);
+  --sf-blue-100: var(--sf-primary-20);
+
+  --sf-gray-950: var(--sf-gray-100);
+  --sf-gray-900: var(--sf-gray-100);
+  --sf-gray-850: var(--sf-gray-80);
+  --sf-gray-800: var(--sf-gray-80);
+  --sf-gray-700: var(--sf-gray-80);
+  --sf-gray-600: var(--sf-gray-60);
+  --sf-gray-500: var(--sf-gray-60);
+  --sf-gray-400: var(--sf-gray-40);
+  --sf-gray-300: var(--sf-gray-40);
+  --sf-gray-50: var(--sf-gray-25);
+
+  --sf-red-500: var(--sf-error-100);
+  --sf-red-50: var(--sf-error-background);
+
+  --sf-orange-500: var(--sf-warning-100);
+  --sf-orange-50: var(--sf-warning-background);
+
+  --sf-green-500: var(--sf-success-100);
+  --sf-green-50: var(--sf-success-background);
+
+  --sf-info-500: var(--sf-info-100);
+  --sf-recipe-500: var(--sf-secondary-100);
 }

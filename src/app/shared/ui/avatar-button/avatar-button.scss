@@ -1,6 +1,9 @@
+@use '../../../../styles/mixins' as mixins;
+
 :host {
   display: inline-block;
   flex: 0 0 auto;
+  vertical-align: middle;
 }
 
 .avatar-button {
@@ -10,56 +13,55 @@
   padding: 0;
 
   border: 0.125rem solid var(--sf-color-surface);
-  border-radius: 50%;
+  border-radius: var(--sf-radius-full);
+
+  overflow: hidden;
 
   background-color: var(--sf-color-primary);
   color: var(--sf-color-on-primary);
 
-  overflow: hidden;
   cursor: pointer;
 
   transition: border-color var(--sf-duration-fast) var(--sf-easing-standard),
-  opacity var(--sf-duration-fast) var(--sf-easing-standard),
+  background-color var(--sf-duration-fast) var(--sf-easing-standard),
+  color var(--sf-duration-fast) var(--sf-easing-standard),
   transform var(--sf-duration-fast) var(--sf-easing-standard);
 
+  @include mixins.focus-visible-ring;
+
   &:hover:not(:disabled) {
-    border-color: var(--sf-color-primary);
+    border-color: var(--sf-color-primary-pressed);
+
+    background-color: var(--sf-color-primary-hover);
   }
 
   &:active:not(:disabled) {
+    background-color: var(--sf-color-primary-pressed);
+
     transform: scale(0.96);
   }
 
-  &:focus,
-  &:focus-visible {
-    outline: 0;
-    box-shadow: none;
-  }
-
   &:disabled {
+    background-color: var(--sf-color-primary-disabled);
+
+    color: var(--sf-color-text-disabled);
+
     cursor: not-allowed;
-    opacity: 0.5;
   }
 
   &--small {
-    width: 2rem;
-    height: 2rem;
-
-    font-size: var(--sf-font-size-caption);
+    width: var(--sf-size-avatar-sm);
+    height: var(--sf-size-avatar-sm);
   }
 
   &--medium {
-    width: 2.75rem;
-    height: 2.75rem;
-
-    font-size: var(--sf-font-size-body);
+    width: var(--sf-size-avatar-md);
+    height: var(--sf-size-avatar-md);
   }
 
   &--large {
-    width: 3.25rem;
-    height: 3.25rem;
-
-    font-size: var(--sf-font-size-body-lg);
+    width: var(--sf-size-avatar-lg);
+    height: var(--sf-size-avatar-lg);
   }
 
   &__image {
@@ -77,8 +79,10 @@
     align-items: center;
     justify-content: center;
 
-    font-family: var(--sf-font-family), serif;
-    font-weight: var(--sf-font-weight-semibold);
+    @include mixins.main-text(
+        var(--sf-font-weight-semibold)
+    );
+
     line-height: 1;
   }
 }

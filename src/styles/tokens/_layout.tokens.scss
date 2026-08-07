@@ -1,0 +1,57 @@
+:root {
+  /* =========================================================
+   * Application shell
+   * ======================================================= */
+
+  --sf-layout-sidebar-width: 19.5rem; /* 312px */
+  --sf-layout-sidebar-compact-width: 5.5rem; /* 88px */
+
+  --sf-layout-header-min-height: 7rem; /* 112px */
+
+  /* =========================================================
+   * Page spacing
+   * ======================================================= */
+
+  --sf-layout-page-padding-desktop: 2rem; /* 32px */
+  --sf-layout-page-padding-tablet: 1.5rem; /* 24px */
+  --sf-layout-page-padding-mobile: 1rem; /* 16px */
+
+  /* =========================================================
+   * Header
+   * ======================================================= */
+
+  --sf-layout-header-padding-desktop: 2rem; /* 32px */
+  --sf-layout-header-padding-laptop: 1.5rem; /* 24px */
+  --sf-layout-header-padding-mobile: 1rem; /* 16px */
+
+  --sf-layout-search-max-width: 43.125rem; /* 690px */
+
+  /* =========================================================
+   * Content
+   * ======================================================= */
+
+  /*
+   * The application shell is fluid.
+   * Individual pages may define their own readable max-width
+   * when their content requires it.
+   */
+
+  --sf-layout-content-max-width: none;
+
+  /* =========================================================
+   * Cards and grids
+   * ======================================================= */
+
+  --sf-layout-product-card-width: 15rem; /* 240px */
+  --sf-layout-recipe-card-width: 15rem; /* 240px */
+
+  --sf-layout-summary-grid-min-column: 13.75rem; /* 220px */
+  --sf-layout-content-grid-gap: 1.5rem; /* 24px */
+
+  /* =========================================================
+   * Mobile navigation
+   * ======================================================= */
+
+  --sf-layout-drawer-max-width: 19.5rem; /* 312px */
+  --sf-layout-drawer-viewport-width: 85vw;
+}

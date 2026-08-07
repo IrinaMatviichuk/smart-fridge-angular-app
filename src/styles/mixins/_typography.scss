@@ -1,0 +1,66 @@
+@mixin heading-1 {
+  font-size: var(--sf-font-size-h1);
+  font-weight: var(--sf-font-weight-semibold);
+  line-height: var(--sf-line-height-heading);
+  letter-spacing: var(--sf-letter-spacing-default);
+}
+
+@mixin heading-2 {
+  font-size: var(--sf-font-size-h2);
+  font-weight: var(--sf-font-weight-semibold);
+  line-height: var(--sf-line-height-heading);
+  letter-spacing: var(--sf-letter-spacing-default);
+}
+
+@mixin heading-3 {
+  font-size: var(--sf-font-size-h3);
+  font-weight: var(--sf-font-weight-semibold);
+  line-height: var(--sf-line-height-heading);
+  letter-spacing: var(--sf-letter-spacing-default);
+}
+
+@mixin heading-4 {
+  font-size: var(--sf-font-size-h4);
+  font-weight: var(--sf-font-weight-semibold);
+  line-height: var(--sf-line-height-heading);
+  letter-spacing: var(--sf-letter-spacing-default);
+}
+
+@mixin heading-5 {
+  font-size: var(--sf-font-size-h5);
+  font-weight: var(--sf-font-weight-semibold);
+  line-height: var(--sf-line-height-heading);
+  letter-spacing: var(--sf-letter-spacing-default);
+}
+
+@mixin main-text(
+  $weight: var(--sf-font-weight-regular)
+) {
+  font-size: var(--sf-font-size-main);
+  font-weight: $weight;
+  line-height: var(--sf-line-height-main);
+  letter-spacing: var(--sf-letter-spacing-default);
+}
+
+@mixin secondary-text(
+  $weight: var(--sf-font-weight-regular)
+) {
+  font-size: var(--sf-font-size-secondary);
+  font-weight: $weight;
+  line-height: var(--sf-line-height-secondary);
+  letter-spacing: var(--sf-letter-spacing-default);
+}
+
+@mixin button-text {
+  font-size: var(--sf-font-size-button);
+  font-weight: var(--sf-font-weight-semibold);
+  line-height: var(--sf-line-height-button);
+  letter-spacing: var(--sf-letter-spacing-default);
+}
+
+@mixin chip-text {
+  font-size: var(--sf-font-size-chip);
+  font-weight: var(--sf-font-weight-semibold);
+  line-height: var(--sf-line-height-chip);
+  letter-spacing: var(--sf-letter-spacing-default);
+}

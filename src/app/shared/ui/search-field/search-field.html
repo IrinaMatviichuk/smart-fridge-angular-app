@@ -1,6 +1,7 @@
 <div
   class="search-field"
   [class.search-field--disabled]="disabled()"
+  [class.search-field--with-value]="value().length > 0"
 >
   <mat-icon
     class="search-field__search-icon"

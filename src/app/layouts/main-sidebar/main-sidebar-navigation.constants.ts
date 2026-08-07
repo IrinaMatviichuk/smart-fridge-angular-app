@@ -17,7 +17,7 @@ export const MAIN_SIDEBAR_NAVIGATION_ITEMS: readonly MainSidebarNavigationItem[]
   {
     label: 'Recipes',
     route: '/recipes',
-    icon: IconName.Recipes,
+    icon: IconName.Recipe,
     exact: false,
   },
 ];

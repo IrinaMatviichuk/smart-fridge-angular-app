@@ -1,0 +1,21 @@
+@mixin focus-ring {
+  outline: 0;
+  box-shadow: var(--sf-shadow-focus);
+}
+
+@mixin focus-ring-inset {
+  outline: 0;
+  box-shadow: inset var(--sf-shadow-focus);
+}
+
+@mixin focus-visible-ring {
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+@mixin focus-visible-ring-inset {
+  &:focus-visible {
+    @include focus-ring-inset;
+  }
+}

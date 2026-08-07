@@ -1,10 +1,11 @@
 @forward 'breakpoint.tokens';
-
-@use 'color-palette.tokens';
-@use 'color-semantic.tokens';
-@use 'spacing.tokens';
-@use 'radius.tokens';
-@use 'shadow.tokens';
-@use 'typography.tokens';
-@use 'motion.tokens';
-@use 'size.tokens';
+@forward 'color-palette.tokens';
+@forward 'color-semantic.tokens';
+@forward 'layout.tokens';
+@forward 'motion.tokens';
+@forward 'radius.tokens';
+@forward 'shadow.tokens';
+@forward 'size.tokens';
+@forward 'spacing.tokens';
+@forward 'typography.tokens';
+@forward 'z-index.tokens';

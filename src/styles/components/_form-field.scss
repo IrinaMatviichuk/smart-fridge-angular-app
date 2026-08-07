@@ -1,62 +1,112 @@
+@use '../mixins' as mixins;
+
 @mixin form-control-base($block) {
   :host {
     display: block;
     width: 100%;
+    min-width: 0;
   }
 
   .#{$block} {
     &__control-wrapper {
       position: relative;
+
       width: 100%;
+      min-width: 0;
+
+      /*
+       * Icon state without a value.
+       */
+      .#{$block}__prefix-icon {
+        color: var(--sf-color-control-icon);
+      }
+
+      /*
+       * Prefix becomes darker while the control is focused.
+       */
+      &:focus-within {
+        .#{$block}__prefix-icon {
+          color: var(--sf-color-control-icon-active);
+        }
+      }
+
+      /*
+       * Prefix with a value.
+       *
+       * All our controls receive a placeholder attribute,
+       * therefore :placeholder-shown can be used without
+       * adding duplicated value-state logic to every component.
+       */
+      &:has(
+        .#{$block}__control:not(
+          :placeholder-shown
+        )
+      ) {
+        .#{$block}__prefix-icon {
+          color: var(--sf-color-control-icon-active);
+        }
+      }
     }
 
     &__prefix-icon {
       position: absolute;
+      z-index: 1;
       top: 50%;
       left: var(--sf-space-4);
-      z-index: 1;
 
       width: var(--sf-size-icon-lg);
       height: var(--sf-size-icon-lg);
 
-      color: var(--sf-color-text-muted);
-
       pointer-events: none;
       transform: translateY(-50%);
+
+      transition: color var(--sf-duration-fast) var(--sf-easing-standard);
     }
 
     &__control {
       width: 100%;
+      min-width: 0;
       min-height: var(--sf-size-control-lg);
 
-      padding: var(--sf-space-3) var(--sf-space-4);
+      padding: var(--sf-space-1) var(--sf-space-4);
 
-      border: 0.0625rem solid var(--sf-color-border-strong);
-      border-radius: var(--sf-radius-lg);
+      border: 0.0625rem solid var(--sf-color-control-border);
+      border-radius: var(--sf-radius-control);
 
-      background-color: var(--sf-color-surface);
-      color: var(--sf-color-text-tertiary);
+      background-color: var(--sf-color-control-background);
+      color: var(--sf-color-control-value);
 
-      font-family: var(--sf-font-family), serif;
-      font-size: var(--sf-font-size-body-lg);
-      font-weight: var(--sf-font-weight-regular);
-      line-height: var(--sf-line-height-normal);
+      @include mixins.heading-5;
+
+      appearance: none;
 
       transition: border-color var(--sf-duration-fast) var(--sf-easing-standard),
-      background-color var(--sf-duration-fast) var(--sf-easing-standard);
+      background-color var(--sf-duration-fast) var(--sf-easing-standard),
+      color var(--sf-duration-fast) var(--sf-easing-standard);
 
       &::placeholder {
-        color: var(--sf-color-text-disabled);
+        color: var(
+            --sf-color-control-placeholder
+        );
+
         opacity: 1;
       }
 
-      &:hover:not(:disabled, :read-only) {
-        border-color: var(--sf-color-primary);
+      &:hover:not(
+        :disabled,
+        :read-only
+      ) {
+        border-color: var(
+            --sf-color-control-border-focus
+        );
       }
 
       &:focus,
       &:focus-visible {
-        border-color: var(--sf-color-primary-strong);
+        border-color: var(
+            --sf-color-control-border-focus
+        );
+
         outline: 0;
         box-shadow: none;
       }
@@ -66,9 +116,39 @@
       }
 
       &:disabled {
-        cursor: not-allowed;
-        background-color: var(--sf-color-surface-secondary);
+        border-color: var(
+            --sf-color-control-border-disabled
+        );
+
+        background-color: var(--sf-color-control-background);
         color: var(--sf-color-text-disabled);
+
+        cursor: not-allowed;
+
+        &::placeholder {
+          color: var(
+              --sf-color-control-placeholder-disabled
+          );
+        }
+      }
+
+      /*
+       * Prevent the browser from applying its blue autofill
+       * background on Login and Sign Up.
+       */
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus,
+      &:-webkit-autofill:active {
+        -webkit-text-fill-color: var(--sf-color-control-value);
+
+        caret-color: var(--sf-color-control-value);
+
+        -webkit-box-shadow: 0 0 0 100rem var(--sf-color-control-background) inset;
+
+        box-shadow: 0 0 0 100rem var(--sf-color-control-background) inset;
+
+        transition: background-color 9999s ease-out;
       }
     }
 
@@ -92,11 +172,15 @@
           border-color: var(--sf-color-error);
         }
       }
+
+      .#{$block}__prefix-icon {
+        color: var(--sf-color-error);
+      }
     }
 
     &__control-wrapper--disabled {
       .#{$block}__prefix-icon {
-        color: var(--sf-color-text-disabled);
+        color: var(--sf-color-control-placeholder-disabled);
       }
     }
   }

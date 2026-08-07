@@ -1,9 +1,5 @@
 @use '../../../styles/tokens' as tokens;
 
-$sidebar-desktop-width: 19.5rem; // 312px
-$sidebar-compact-width: 5.5rem; // 88px
-$content-max-width: 87.5rem; // 1400px
-
 :host {
   display: block;
   min-width: 0;
@@ -20,16 +16,16 @@ $content-max-width: 87.5rem; // 1400px
 
   overflow-x: clip;
 
-  background-color: var(--sf-color-surface-secondary);
+  background-color: var(--sf-color-app-background);
 
   &__sidebar {
     position: sticky;
-    z-index: 20;
+    z-index: var(--sf-z-index-sidebar);
     top: 0;
 
-    width: $sidebar-desktop-width;
+    width: var(--sf-layout-sidebar-width);
     height: 100dvh;
-    flex: 0 0 $sidebar-desktop-width;
+    flex: 0 0 var(--sf-layout-sidebar-width);
   }
 
   &__workspace {
@@ -42,7 +38,7 @@ $content-max-width: 87.5rem; // 1400px
 
   &__header {
     position: sticky;
-    z-index: 30;
+    z-index: var(--sf-z-index-header);
     top: 0;
 
     display: block;
@@ -52,13 +48,11 @@ $content-max-width: 87.5rem; // 1400px
   &__content {
     min-width: 0;
     flex: 1 1 auto;
-
-    background-color: var(--sf-color-surface-secondary);
   }
 
   &__content-inner {
     width: 100%;
-    max-width: $content-max-width;
+    max-width: var(--sf-layout-content-max-width);
 
     margin-inline: auto;
   }
@@ -76,8 +70,13 @@ $content-max-width: 87.5rem; // 1400px
 @media(min-width: tokens.$breakpoint-laptop) and (max-width: tokens.$breakpoint-laptop-max) {
   .main-layout {
     &__sidebar {
-      width: $sidebar-compact-width;
-      flex-basis: $sidebar-compact-width;
+      width: var(
+          --sf-layout-sidebar-compact-width
+      );
+
+      flex-basis: var(
+          --sf-layout-sidebar-compact-width
+      );
     }
   }
 }
@@ -93,20 +92,25 @@ $content-max-width: 87.5rem; // 1400px
 
     &__sidebar {
       position: fixed;
-      z-index: 50;
+      z-index: var(--sf-z-index-drawer);
       top: 0;
       left: 0;
 
       width: min(
-        $sidebar-desktop-width,
-        85vw
+        var(
+            --sf-layout-drawer-max-width
+        ),
+        var(
+            --sf-layout-drawer-viewport-width
+        )
       );
 
       height: 100dvh;
+      flex: none;
 
       transform: translateX(-100%);
 
-      transition: transform var(--sf-duration-normal) var(--sf-easing-standard);
+      transition: transform var(--sf-duration-normal) var(--sf-easing-enter);
     }
 
     &__workspace {
@@ -115,7 +119,7 @@ $content-max-width: 87.5rem; // 1400px
 
     &__backdrop {
       position: fixed;
-      z-index: 40;
+      z-index: var(--sf-z-index-backdrop);
       inset: 0;
 
       display: block;
@@ -123,11 +127,10 @@ $content-max-width: 87.5rem; // 1400px
       padding: 0;
       border: 0;
 
-      background-color: rgb(33 37 41 / 45%);
+      background-color: var(--sf-color-overlay-light);
 
       opacity: 0;
       visibility: hidden;
-      cursor: pointer;
 
       transition: opacity var(--sf-duration-normal) var(--sf-easing-standard),
       visibility var(--sf-duration-normal) var(--sf-easing-standard);

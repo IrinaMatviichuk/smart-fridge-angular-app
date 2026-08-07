@@ -1,3 +1,4 @@
+@use '../../../../../styles/mixins' as mixins;
 @use '../../../../../styles/tokens' as tokens;
 
 :host {
@@ -15,7 +16,7 @@
 
   overflow: hidden;
 
-  padding: 0 clamp(var(--sf-space-8), 7.5vw, var(--sf-space-16)) clamp(var(--sf-space-8), 4vw, var(--sf-space-16)) var(--sf-space-27);
+  padding: 0 var(--sf-space-10) var(--sf-space-8) 6.75rem; /* 108px */
 
   background-color: var(--sf-color-background);
 
@@ -27,9 +28,14 @@
   ),
   url('/images/auth/auth-hero.png');
 
-  background-repeat: no-repeat, no-repeat;
-  background-position: center, center bottom;
-  background-size: 100% 100%, cover;
+  background-repeat: no-repeat,
+  no-repeat;
+
+  background-position: center,
+  center bottom;
+
+  background-size: 100% 100%,
+  cover;
 
   app-auth-logo,
   &__title {
@@ -42,15 +48,12 @@
     width: fit-content;
     flex-direction: column;
 
-    margin-block-start: clamp(
-      var(--sf-space-16),
-      11vh,
-      var(--sf-space-24)
+    margin-block-start: calc(
+      var(--sf-space-16) +
+      var(--sf-space-8)
     );
 
-    font-size: var(--sf-font-size-display);
-    font-weight: var(--sf-font-weight-bold);
-    line-height: var(--sf-line-height-heading);
+    @include mixins.heading-1;
   }
 
   &__title-primary {
@@ -62,21 +65,25 @@
 
     margin-inline-start: var(--sf-space-16);
 
-    color: var(--sf-color-primary-strong);
+    color: var(--sf-primary-100);
   }
 }
 
-@media (max-width: tokens.$breakpoint-laptop) {
-  .auth-hero {
-    padding: var(--sf-space-8);
+/* =========================================================
+ * Laptop
+ * 1024px–1439px
+ * ======================================================= */
 
-    background-image: linear-gradient(
-        90deg,
-        rgb(255 255 255 / 0%) 60%,
-        rgb(255 255 255 / 20%) 78%,
-        rgb(255 255 255 / 100%) 100%
-    ),
-    url('/images/auth/auth-hero.png');
+@media(min-width: tokens.$breakpoint-laptop) and (max-width: tokens.$breakpoint-laptop-max) {
+  .auth-hero {
+    padding: var(--sf-space-8) var(--sf-space-8) var(--sf-space-8) var(--sf-space-16);
+
+    &__title {
+      margin-block-start: calc(
+        var(--sf-space-16) +
+        var(--sf-space-6)
+      );
+    }
 
     &__title-accent {
       margin-inline-start: var(--sf-space-10);
@@ -84,7 +91,12 @@
   }
 }
 
-@media (max-width: tokens.$breakpoint-tablet) {
+/* =========================================================
+ * Tablet and mobile
+ * Below 1024px
+ * ======================================================= */
+
+@media (max-width: tokens.$breakpoint-tablet-max) {
   .auth-hero {
     min-height: 18rem;
 
@@ -98,8 +110,11 @@
     ),
     url('/images/auth/auth-hero.png');
 
-    background-position: center, center 65%;
-    background-size: 100% 100%, cover;
+    background-position: center,
+    center 65%;
+
+    background-size: 100% 100%,
+    cover;
 
     &__title {
       margin-block-start: var(--sf-space-8);

@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, input, model, output } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
 
 import { IconName } from '../../core/icons/icon-name';
 import { AvatarButton } from '../../shared/ui/avatar-button/avatar-button';
+import { Button } from '../../shared/ui/button/button';
 import { IconButton } from '../../shared/ui/icon-button/icon-button';
 import { SearchField } from '../../shared/ui/search-field/search-field';
 import { HeaderSearchConfig } from './header-search-config.model';
 
 @Component({
   selector: 'app-main-header',
-  imports: [AvatarButton, IconButton, MatIcon, SearchField],
+  imports: [AvatarButton, Button, IconButton, SearchField],
   templateUrl: './main-header.html',
   styleUrl: './main-header.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,7 +27,7 @@ export class MainHeader {
   readonly notificationsRequested = output<void>();
   readonly profileRequested = output<void>();
 
-  protected readonly menuIcon = IconName.Menu;
-  protected readonly recipesIcon = IconName.Recipes;
+  protected readonly menuIcon = IconName.MoreHorizontal;
+  protected readonly recipesIcon = IconName.Recipe;
   protected readonly notificationIcon = IconName.Notification;
 }

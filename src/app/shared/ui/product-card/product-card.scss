@@ -1,0 +1,109 @@
+@use '../../../../styles/mixins' as mixins;
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+.product-card {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex-direction: column;
+
+  padding: var(--sf-space-4);
+
+  border: 0.0625rem solid var(--sf-color-border-subtle);
+  border-radius: var(--sf-radius-tip-frame);
+
+  background-color: var(--sf-color-surface);
+
+  cursor: pointer;
+
+  transition: border-color var(--sf-duration-fast) var(--sf-easing-standard),
+  box-shadow var(--sf-duration-fast) var(--sf-easing-standard),
+  transform var(--sf-duration-fast) var(--sf-easing-standard);
+
+  @include mixins.focus-visible-ring;
+
+  &:hover {
+    border-color: var(--sf-color-border-neutral);
+
+    transform: translateY(-0.0625rem);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &__header {
+    display: flex;
+    min-width: 0;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--sf-space-3);
+  }
+
+  &__title {
+    margin: 0;
+
+    color: var(--sf-color-text-primary);
+
+    @include mixins.heading-4;
+    @include mixins.truncate;
+  }
+
+  &__menu {
+    flex: 0 0 auto;
+
+    margin-block-start: calc(
+      var(--sf-space-1) * -1
+    );
+
+    margin-inline-end: calc(
+      var(--sf-space-1) * -1
+    );
+  }
+
+  &__quantity {
+    margin: var(--sf-space-2) 0 0;
+
+    color: var(--sf-color-text-tertiary);
+
+    @include mixins.main-text(
+        var(--sf-font-weight-medium)
+    );
+  }
+
+  &__expiry {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: var(--sf-space-2);
+
+    margin-block-start: var(--sf-space-4);
+
+    color: var(--sf-color-text-tertiary);
+
+    @include mixins.secondary-text(
+        var(--sf-font-weight-medium)
+    );
+  }
+
+  &__expiry-icon {
+    width: var(--sf-size-icon-sm);
+    height: var(--sf-size-icon-sm);
+    flex: 0 0 auto;
+
+    color: currentColor;
+  }
+
+  &__expiry span {
+    @include mixins.truncate;
+  }
+
+  &__status {
+    margin-block-start: var(--sf-space-3);
+  }
+}

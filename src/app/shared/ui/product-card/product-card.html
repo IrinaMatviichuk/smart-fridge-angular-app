@@ -1,0 +1,50 @@
+<article
+  class="product-card"
+  tabindex="0"
+  [attr.aria-label]="product().title"
+  (click)="handleSelected()"
+  (keydown.enter)="handleSelected()"
+  (keydown.space)="handleSelected()"
+>
+  <div class="product-card__header">
+    <h3
+      class="product-card__title"
+      [title]="product().title"
+    >
+      {{ product().title }}
+    </h3>
+
+    @if (menuVisible()) {
+      <app-icon-button
+        class="product-card__menu"
+        [icon]="moreIcon"
+        ariaLabel="Open product actions"
+        size="small"
+        (click)="handleMenuRequested($event)"
+      />
+    }
+  </div>
+
+  <p class="product-card__quantity">
+    {{ product().quantity }}
+  </p>
+
+  <div class="product-card__expiry">
+    <mat-icon
+      class="product-card__expiry-icon"
+      [svgIcon]="calendarIcon"
+      aria-hidden="true"
+    />
+
+    <span>
+      {{ product().expiryLabel }}
+    </span>
+  </div>
+
+  <app-status-chip
+    class="product-card__status"
+    [tone]="product().statusTone"
+  >
+    {{ product().statusLabel }}
+  </app-status-chip>
+</article>

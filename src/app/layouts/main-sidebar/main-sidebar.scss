@@ -21,7 +21,7 @@
 
   &__brand {
     display: flex;
-    min-height: 7rem;
+    min-height: var(--sf-layout-header-min-height);
     align-items: center;
     justify-content: center;
 
@@ -55,54 +55,47 @@
 
   &__navigation-item {
     display: flex;
-    min-height: 3.75rem;
+    min-height: var(--sf-size-navigation-item);
     align-items: center;
-    gap: var(--sf-space-3);
+    gap: var(--sf-space-2);
 
-    padding: var(--sf-space-3) var(--sf-space-5);
+    padding: var(--sf-space-1) var(--sf-space-4);
 
-    border-radius: var(--sf-radius-lg);
+    border-radius: var(--sf-radius-navigation);
 
     background-color: transparent;
     color: var(--sf-color-navigation-text);
 
-    font-size: var(--sf-font-size-subtitle);
-    font-weight: var(--sf-font-weight-medium);
-    line-height: var(--sf-line-height-normal);
+    font-size: var(--sf-font-size-h4);
+    font-weight: var(--sf-font-weight-semibold);
+    line-height: var(--sf-line-height-heading);
+    letter-spacing: var(--sf-letter-spacing-default);
     text-decoration: none;
     white-space: nowrap;
 
     transition: background-color var(--sf-duration-fast) var(--sf-easing-standard),
     color var(--sf-duration-fast) var(--sf-easing-standard);
 
-    &:hover {
-      background-color: rgb(255 255 255 / 30%);
+    &:hover:not(
+      .main-sidebar__navigation-item--active
+    ) {
+      background-color: rgb(255 255 255 / 20%);
     }
 
-    &:focus,
     &:focus-visible {
       outline: 0;
-      box-shadow: none;
+      box-shadow: var(--sf-shadow-focus);
     }
 
     &--active {
-      background-color: var(--sf-white);
-      color: var(--sf-blue-400);
+      background-color: var(
+          --sf-color-navigation-active-surface
+      );
 
-      .main-sidebar__label,
-      .main-sidebar__navigation-icon {
-        color: var(--sf-blue-400);
-      }
-
-      &:hover {
-        background-color: var(--sf-white);
-        color: var(--sf-blue-400);
-      }
+      color: var(
+          --sf-color-navigation-active
+      );
     }
-  }
-
-  &__label {
-    color: inherit;
   }
 
   &__navigation-icon,
@@ -111,7 +104,14 @@
     height: var(--sf-size-icon-lg);
     flex: 0 0 auto;
 
-    color: inherit;
+    color: currentColor;
+  }
+
+  &__label {
+    min-width: 0;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__footer {
@@ -127,26 +127,24 @@
   &__footer-action {
     display: flex;
     width: 100%;
-    min-height: 3.25rem;
+    min-height: var(--sf-size-navigation-item);
     align-items: center;
-    gap: var(--sf-space-3);
+    gap: var(--sf-space-2);
 
-    padding: var(--sf-space-2) var(--sf-space-4);
+    padding: var(--sf-space-1) var(--sf-space-4);
 
     border: 0;
-    border-radius: var(--sf-radius-lg);
+    border-radius: var(--sf-radius-navigation);
 
     background-color: transparent;
     color: var(--sf-color-navigation-text);
 
-    font-family: var(--sf-font-family);
-    font-size: var(--sf-font-size-subtitle);
-    font-weight: var(--sf-font-weight-medium);
-    line-height: var(--sf-line-height-normal);
+    font-size: var(--sf-font-size-h4);
+    font-weight: var(--sf-font-weight-semibold);
+    line-height: var(--sf-line-height-heading);
+    letter-spacing: var(--sf-letter-spacing-default);
     text-align: start;
     white-space: nowrap;
-
-    cursor: pointer;
 
     transition: background-color var(--sf-duration-fast) var(--sf-easing-standard);
 
@@ -154,15 +152,19 @@
       background-color: rgb(255 255 255 / 20%);
     }
 
-    &:focus,
     &:focus-visible {
       outline: 0;
-      box-shadow: none;
+      box-shadow: var(--sf-shadow-focus);
     }
   }
 }
 
-@media (min-width: tokens.$breakpoint-laptop) and (max-width: tokens.$breakpoint-laptop-max) {
+/* =========================================================
+ * Compact sidebar
+ * 1024px–1439px
+ * ======================================================= */
+
+@media(min-width: tokens.$breakpoint-laptop) and (max-width: tokens.$breakpoint-laptop-max) {
   .main-sidebar {
     &__brand {
       padding: 0;
@@ -184,24 +186,18 @@
       padding: var(--sf-space-8) var(--sf-space-3) 0;
     }
 
-    &__navigation-item {
-      width: 3.75rem;
+    &__navigation-item,
+    &__footer-action {
+      width: var(--sf-size-navigation-item);
       justify-content: center;
 
-      padding: var(--sf-space-3);
+      padding: var(--sf-space-1);
     }
 
     &__footer {
       align-items: center;
 
       padding: var(--sf-space-8) var(--sf-space-3);
-    }
-
-    &__footer-action {
-      width: 3.75rem;
-      justify-content: center;
-
-      padding: var(--sf-space-3);
     }
 
     &__label {

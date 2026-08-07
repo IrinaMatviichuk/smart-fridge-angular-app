@@ -1,9 +1,0 @@
-@use 'fonts';
-@use 'tokens';
-@use 'theme/app-theme' as theme;
-@use 'base';
-@use 'components';
-
-html {
-  @include theme.app-theme();
-}

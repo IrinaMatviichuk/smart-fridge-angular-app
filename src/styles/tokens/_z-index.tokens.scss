@@ -1,0 +1,16 @@
+:root {
+  /* =========================================================
+   * Application layers
+   * ======================================================= */
+
+  --sf-z-index-base: 0;
+  --sf-z-index-sticky: 10;
+  --sf-z-index-header: 20;
+  --sf-z-index-sidebar: 30;
+  --sf-z-index-backdrop: 40;
+  --sf-z-index-drawer: 50;
+  --sf-z-index-dropdown: 60;
+  --sf-z-index-modal: 70;
+  --sf-z-index-toast: 80;
+  --sf-z-index-tooltip: 90;
+}

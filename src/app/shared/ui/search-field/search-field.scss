@@ -1,3 +1,5 @@
+@use '../../../../styles/mixins' as mixins;
+
 :host {
   display: block;
   width: 100%;
@@ -13,19 +15,20 @@
   min-height: var(--sf-size-control-lg);
   align-items: center;
 
-  border: 0.0625rem solid var(--sf-color-border);
-  border-radius: var(--sf-radius-lg);
+  border: 0.0625rem solid var(--sf-color-control-border);
+  border-radius: var(--sf-radius-control);
 
-  background-color: var(--sf-color-surface);
+  background-color: var(--sf-color-control-background);
 
-  transition: border-color var(--sf-duration-fast) var(--sf-easing-standard);
+  transition: border-color var(--sf-duration-fast) var(--sf-easing-standard),
+  background-color var(--sf-duration-fast) var(--sf-easing-standard);
 
   &:hover:not(&--disabled) {
-    border-color: var(--sf-color-border-strong);
+    border-color: var(--sf-color-control-border-focus);
   }
 
   &:focus-within:not(&--disabled) {
-    border-color: var(--sf-color-primary-strong);
+    border-color: var(--sf-color-control-border-focus);
   }
 
   &__search-icon {
@@ -35,9 +38,18 @@
     width: var(--sf-size-icon-lg);
     height: var(--sf-size-icon-lg);
 
-    color: var(--sf-color-text-disabled);
+    color: var(--sf-color-control-icon);
 
     pointer-events: none;
+
+    transition: color var(--sf-duration-fast) var(--sf-easing-standard);
+  }
+
+  &:focus-within:not(&--disabled),
+  &--with-value:not(&--disabled) {
+    .search-field__search-icon {
+      color: var(--sf-color-control-icon-active);
+    }
   }
 
   &__control {
@@ -45,7 +57,7 @@
     min-width: 0;
     min-height: var(--sf-size-control-lg);
 
-    padding: var(--sf-space-3) calc(
+    padding: var(--sf-space-1) calc(
       var(--sf-space-4) +
       var(--sf-size-icon-lg) +
       var(--sf-space-3)
@@ -55,17 +67,15 @@
     outline: 0;
 
     background-color: transparent;
-    color: var(--sf-color-text-tertiary);
+    color: var(--sf-color-control-value);
 
-    font-family: var(--sf-font-family);
-    font-size: var(--sf-font-size-body-lg);
-    font-weight: var(--sf-font-weight-regular);
-    line-height: var(--sf-line-height-normal);
+    @include mixins.heading-5;
 
     appearance: none;
 
     &::placeholder {
-      color: var(--sf-color-text-disabled);
+      color: var(--sf-color-control-placeholder);
+
       opacity: 1;
     }
 
@@ -75,19 +85,31 @@
       appearance: none;
     }
 
-    &:-webkit-autofill,
-    &:-webkit-autofill:hover,
-    &:-webkit-autofill:focus {
-      -webkit-text-fill-color: var(--sf-color-text-tertiary);
-      caret-color: var(--sf-color-text-tertiary);
+    &:disabled {
+      color: var(--sf-color-text-disabled);
 
-      -webkit-box-shadow: 0 0 0 100rem var(--sf-color-surface) inset;
+      cursor: not-allowed;
 
-      box-shadow: 0 0 0 100rem var(--sf-color-surface) inset;
+      &::placeholder {
+        color: var(
+            --sf-color-control-placeholder-disabled
+        );
+      }
     }
 
-    &:disabled {
-      cursor: not-allowed;
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      -webkit-text-fill-color: var(--sf-color-control-value);
+
+      caret-color: var(--sf-color-control-value);
+
+      -webkit-box-shadow: 0 0 0 100rem var(--sf-color-control-background) inset;
+
+      box-shadow: 0 0 0 100rem var(--sf-color-control-background) inset;
+
+      transition: background-color 9999s ease-out;
     }
   }
 
@@ -96,47 +118,49 @@
     right: var(--sf-space-3);
 
     display: inline-grid;
-    width: 2rem;
-    height: 2rem;
+    width: var(--sf-size-icon-lg);
+    height: var(--sf-size-icon-lg);
     place-items: center;
 
     padding: 0;
     border: 0;
-    border-radius: var(--sf-radius-sm);
+    border-radius: var(--sf-radius-checkbox);
 
     background-color: transparent;
-    color: var(--sf-color-text-disabled);
+    color: var(--sf-color-control-icon-active);
 
     cursor: pointer;
 
-    transition: color var(--sf-duration-fast) var(--sf-easing-standard),
-    background-color var(--sf-duration-fast) var(--sf-easing-standard);
+    transition: background-color var(--sf-duration-fast) var(--sf-easing-standard),
+    color var(--sf-duration-fast) var(--sf-easing-standard);
+
+    @include mixins.focus-visible-ring;
 
     &:hover {
-      background-color: var(--sf-color-surface-secondary);
+      background-color: var(--sf-primary-10);
 
-      color: var(--sf-color-text-tertiary);
-    }
-
-    &:focus,
-    &:focus-visible {
-      outline: 0;
+      color: var(--sf-color-primary-pressed);
     }
   }
 
   &__clear-icon {
     width: var(--sf-size-icon-md);
     height: var(--sf-size-icon-md);
+
+    color: currentColor;
   }
 
   &--disabled {
-    background-color: var(--sf-color-surface-secondary);
+    border-color: var(--sf-color-control-border-disabled);
+
+    background-color: var(--sf-color-control-background);
 
     cursor: not-allowed;
 
-    .search-field__search-icon,
-    .search-field__control {
-      color: var(--sf-color-text-disabled);
+    .search-field__search-icon {
+      color: var(
+          --sf-color-control-placeholder-disabled
+      );
     }
   }
 }

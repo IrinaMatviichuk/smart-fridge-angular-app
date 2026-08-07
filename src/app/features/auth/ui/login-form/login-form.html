@@ -19,7 +19,7 @@
       inputId="login-password"
       label="Password"
       prefixIcon="lock"
-      placeholderIcon="password-placeholder"
+      placeholderIcon="visibility-off"
       placeholder="Enter your password"
       autocomplete="current-password"
       [formField]="loginForm.password"
@@ -33,10 +33,15 @@
     </a>
   </div>
 
-  <app-form-message
-    [message]="serverError()"
-    type="error"
-  />
+  <div
+    class="login-form__server-message"
+    aria-live="polite"
+  >
+    <app-form-message
+      [message]="serverError()"
+      type="error"
+    />
+  </div>
 
   <app-button
     type="submit"

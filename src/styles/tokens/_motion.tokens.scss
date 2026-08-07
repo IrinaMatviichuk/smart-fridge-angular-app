@@ -1,12 +1,20 @@
 :root {
+  /* =========================================================
+   * Durations
+   * ======================================================= */
+
+  --sf-duration-instant: 0ms;
   --sf-duration-fast: 120ms;
-  --sf-duration-normal: 200ms;
-  --sf-duration-slow: 300ms;
+  --sf-duration-normal: 180ms;
+  --sf-duration-slow: 240ms;
+
+  /* =========================================================
+   * Easings
+   * ======================================================= */
 
   --sf-easing-standard: cubic-bezier(0.2, 0, 0, 1);
-  --sf-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
 
-  --sf-transition-color: color var(--sf-duration-fast) var(--sf-easing-standard),
-  background-color var(--sf-duration-fast) var(--sf-easing-standard),
-  border-color var(--sf-duration-fast) var(--sf-easing-standard);
+  --sf-easing-enter: cubic-bezier(0, 0, 0.2, 1);
+
+  --sf-easing-exit: cubic-bezier(0.4, 0, 1, 1);
 }

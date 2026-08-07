@@ -1,0 +1,35 @@
+<section
+  class="empty-state"
+  aria-labelledby="empty-state-title"
+>
+  <img
+    class="empty-state__image"
+    [src]="data().imageUrl"
+    [alt]="data().imageAlt"
+  />
+
+  <div class="empty-state__content">
+    <h2
+      id="empty-state-title"
+      class="empty-state__title"
+    >
+      {{ data().title }}
+    </h2>
+
+    <p class="empty-state__description">
+      {{ data().description }}
+    </p>
+  </div>
+
+  @if (data().actionLabel;
+    as actionLabel) {
+    <app-button
+      class="empty-state__action"
+      type="button"
+      [fullWidth]="true"
+      (click)="actionRequested.emit()"
+    >
+      {{ actionLabel }}
+    </app-button>
+  }
+</section>

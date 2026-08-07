@@ -1,0 +1,14 @@
+<span
+  class="status-chip"
+  [class.status-chip--success]="
+    tone() === 'success'
+  "
+  [class.status-chip--warning]="
+    tone() === 'warning'
+  "
+  [class.status-chip--error]="
+    tone() === 'error'
+  "
+>
+  <ng-content />
+</span>

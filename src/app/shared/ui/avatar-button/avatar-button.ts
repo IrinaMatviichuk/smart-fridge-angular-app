@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 
 import { AvatarButtonSize } from './avatar-button.types';
 
@@ -19,19 +19,9 @@ export class AvatarButton {
 
   readonly disabled = input(false);
 
-  readonly pressed = output<void>();
-
   protected readonly normalizedFallback = computed(() => {
     const value = this.fallbackText().trim();
 
     return value.length > 0 ? value.charAt(0).toUpperCase() : '?';
   });
-
-  protected handleClick(): void {
-    if (this.disabled()) {
-      return;
-    }
-
-    this.pressed.emit();
-  }
 }

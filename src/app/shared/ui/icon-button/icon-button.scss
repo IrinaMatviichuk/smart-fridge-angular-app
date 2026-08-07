@@ -1,6 +1,10 @@
+@use '../../../../styles/mixins' as mixins;
+
 :host {
   display: inline-block;
   flex: 0 0 auto;
+  max-width: 100%;
+  vertical-align: middle;
 }
 
 .icon-button {
@@ -11,69 +15,90 @@
 
   padding: 0;
   border: 0;
-  border-radius: var(--sf-radius-lg);
+  border-radius: var(--sf-radius-control);
 
-  font-family: var(--sf-font-family), serif;
+  background-color: transparent;
+  color: var(--sf-color-text-tertiary);
 
   cursor: pointer;
 
   transition: background-color var(--sf-duration-fast) var(--sf-easing-standard),
-  color var(--sf-duration-fast) var(--sf-easing-standard),
-  opacity var(--sf-duration-fast) var(--sf-easing-standard);
+  color var(--sf-duration-fast) var(--sf-easing-standard);
 
-  &:focus,
-  &:focus-visible {
-    outline: 0;
-    box-shadow: none;
-  }
+  @include mixins.focus-visible-ring;
 
   &:disabled {
+    color: var(--sf-color-text-disabled);
+
     cursor: not-allowed;
-    opacity: 0.5;
   }
 
+  /* =========================================================
+   * Sizes
+   * ======================================================= */
+
   &--small {
-    width: 2rem;
-    height: 2rem;
+    width: var(--sf-size-control-sm);
+    height: var(--sf-size-control-sm);
   }
 
   &--medium {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: var(--sf-size-control-md);
+    height: var(--sf-size-control-md);
   }
 
   &--large {
-    width: 3.75rem;
-    height: 3.75rem;
+    width: var(--sf-size-control-lg);
+    height: var(--sf-size-control-lg);
   }
+
+  /* =========================================================
+   * Neutral
+   * ======================================================= */
 
   &--neutral {
     background-color: transparent;
-    color: var(--sf-gray-500);
+    color: var(--sf-color-text-tertiary);
 
     &:hover:not(:disabled) {
-      background-color: rgb(130 166 229 / 12%);
-      color: var(--sf-color-primary-strong);
+      background-color: var(--sf-primary-20);
+      color: var(--sf-color-primary-pressed);
     }
 
+    &:active:not(:disabled),
     &.icon-button--active {
-      background-color: rgb(130 166 229 / 16%);
-      color: var(--sf-color-primary);
+      background-color: var(--sf-primary-30);
+      color: var(--sf-color-primary-pressed);
     }
   }
 
+  /* =========================================================
+   * Primary
+   * ======================================================= */
+
   &--primary {
-    background-color: var(--sf-color-primary);
+    background-color: var(--sf-color-button-primary);
     color: var(--sf-color-on-primary);
 
     &:hover:not(:disabled) {
-      background-color: var(--sf-color-primary-strong);
+      background-color: var(--sf-color-button-primary-hover);
     }
 
+    &:active:not(:disabled),
     &.icon-button--active {
-      background-color: var(--sf-color-primary-strong);
+      background-color: var(--sf-color-button-primary-pressed);
+    }
+
+    &:disabled {
+      background-color: var(--sf-color-button-primary-disabled);
+
+      color: var(--sf-color-text-disabled);
     }
   }
+
+  /* =========================================================
+   * Danger
+   * ======================================================= */
 
   &--danger {
     background-color: transparent;
@@ -83,6 +108,7 @@
       background-color: var(--sf-color-error-container);
     }
 
+    &:active:not(:disabled),
     &.icon-button--active {
       background-color: var(--sf-color-error-container);
     }
@@ -90,10 +116,12 @@
 
   &__icon {
     display: block;
+
     width: var(
         --sf-icon-button-icon-size,
         var(--sf-size-icon-lg)
     );
+
     height: var(
         --sf-icon-button-icon-size,
         var(--sf-size-icon-lg)
@@ -113,10 +141,10 @@
     align-items: center;
     justify-content: center;
 
-    padding-inline: 0.25rem;
+    padding-inline: var(--sf-space-1);
 
     border: 0.125rem solid var(--sf-color-surface);
-    border-radius: 999rem;
+    border-radius: var(--sf-radius-full);
 
     background-color: var(--sf-color-error);
     color: var(--sf-color-text-inverse);

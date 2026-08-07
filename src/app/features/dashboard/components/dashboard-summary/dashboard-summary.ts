@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 
-import { IconName } from '../../../../core/icons/icon-name';
 import { SummaryCard } from '../../../../shared/ui/summary-card/summary-card';
 import { DashboardSummary as DashboardSummaryModel } from '../../domain/dashboard-summary.model';
+import { DASHBOARD_SUMMARY_CARDS } from './dashboard-summary.config';
 
 @Component({
   selector: 'app-dashboard-summary',
@@ -14,10 +14,10 @@ import { DashboardSummary as DashboardSummaryModel } from '../../domain/dashboar
 export class DashboardSummary {
   readonly summary = input.required<DashboardSummaryModel>();
 
-  protected readonly icons = {
-    total: IconName.Cube,
-    expiringSoon: IconName.Clock,
-    expired: IconName.Warning,
-    fresh: IconName.CheckCircle,
-  } as const;
+  protected readonly cards = computed(() =>
+    DASHBOARD_SUMMARY_CARDS.map((card) => ({
+      ...card,
+      value: this.summary()[card.key],
+    })),
+  );
 }

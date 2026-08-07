@@ -1,0 +1,80 @@
+@use '../../../../styles/mixins' as mixins;
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+.tip-frame {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  align-items: flex-start;
+  gap: var(--sf-space-5);
+
+  padding: var(--sf-space-2-5);
+
+  border-radius: var(--sf-radius-tip-frame);
+
+  background-color: var(--sf-color-surface);
+
+  &__icon {
+    width: var(--sf-size-icon-2xl);
+    height: var(--sf-size-icon-2xl);
+    flex: 0 0 auto;
+
+    color: currentColor;
+  }
+
+  &__content {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  &__title {
+    margin: 0;
+
+    color: var(--sf-color-text-primary);
+
+    @include mixins.heading-5;
+  }
+
+  &__description {
+    margin: var(--sf-space-2) 0 0;
+
+    color: var(--sf-color-text-tertiary);
+
+    @include mixins.secondary-text;
+  }
+
+  /* =========================================================
+   * Info
+   * ======================================================= */
+
+  &--info {
+    color: var(--sf-color-info);
+
+    box-shadow: var(--sf-shadow-tip-frame-info);
+  }
+
+  /* =========================================================
+   * Warning
+   * ======================================================= */
+
+  &--warning {
+    color: var(--sf-color-warning);
+
+    box-shadow: var(--sf-shadow-tip-frame-warning);
+  }
+
+  /* =========================================================
+   * Error
+   * ======================================================= */
+
+  &--error {
+    color: var(--sf-color-error);
+
+    box-shadow: var(--sf-shadow-tip-frame-error);
+  }
+}

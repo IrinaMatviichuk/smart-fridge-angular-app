@@ -1,0 +1,16 @@
+<button
+  class="radio"
+  type="button"
+  role="radio"
+  [class.radio--checked]="checked()"
+  [class.radio--disabled]="disabled()"
+  [disabled]="disabled()"
+  [attr.aria-label]="ariaLabel()"
+  [attr.aria-checked]="checked()"
+  (click)="select()"
+>
+  <span
+    class="radio__indicator"
+    aria-hidden="true"
+  ></span>
+</button>

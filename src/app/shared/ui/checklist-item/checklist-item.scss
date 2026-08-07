@@ -1,0 +1,39 @@
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+.checklist-item {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  height: var(--sf-size-checklist-item);
+  align-items: center;
+  gap: var(--sf-space-5);
+
+  padding: var(--sf-space-5) var(--sf-space-6);
+
+  border-radius: var(--sf-radius-checklist-card);
+
+  background-color: var(--sf-color-surface);
+
+  transition: background-color var(--sf-duration-fast) var(--sf-easing-standard);
+
+  &--active {
+    background-color: var(--sf-gray-25);
+  }
+
+  &--disabled {
+    color: var(--sf-color-text-disabled);
+  }
+
+  &__checkbox {
+    flex: 0 0 auto;
+  }
+
+  &__content {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+}

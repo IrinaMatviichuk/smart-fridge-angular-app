@@ -1,0 +1,17 @@
+<div
+  class="checklist-item"
+  [class.checklist-item--active]="checked()"
+  [class.checklist-item--disabled]="disabled()"
+>
+  <app-checkbox
+    class="checklist-item__checkbox"
+    [checked]="checked()"
+    [disabled]="disabled()"
+    [ariaLabel]="ariaLabel()"
+    (checkedChange)="handleCheckedChange($event)"
+  />
+
+  <div class="checklist-item__content">
+    <ng-content />
+  </div>
+</div>

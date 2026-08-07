@@ -1,0 +1,19 @@
+<button
+  class="checkbox"
+  type="button"
+  role="checkbox"
+  [class.checkbox--checked]="checked()"
+  [class.checkbox--disabled]="disabled()"
+  [disabled]="disabled()"
+  [attr.aria-label]="ariaLabel()"
+  [attr.aria-checked]="checked()"
+  (click)="toggle()"
+>
+  @if (checked()) {
+    <mat-icon
+      class="checkbox__icon"
+      [svgIcon]="checkIcon"
+      aria-hidden="true"
+    />
+  }
+</button>

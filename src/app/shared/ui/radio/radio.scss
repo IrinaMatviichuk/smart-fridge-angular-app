@@ -1,0 +1,66 @@
+@use '../../../../styles/mixins' as mixins;
+
+:host {
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+.radio {
+  display: inline-grid;
+  width: var(--sf-size-icon-lg);
+  height: var(--sf-size-icon-lg);
+  place-items: center;
+
+  padding: 0.3125rem; /* 5px */
+
+  border: 0.09375rem solid var(--sf-gray-40);
+
+  border-radius: var(--sf-radius-full);
+
+  background-color: var(--sf-color-surface);
+
+  cursor: pointer;
+
+  transition: border-color var(--sf-duration-fast) var(--sf-easing-standard),
+  background-color var(--sf-duration-fast) var(--sf-easing-standard);
+
+  @include mixins.focus-visible-ring;
+
+  &:hover:not(:disabled) {
+    border-color: var(--sf-color-primary);
+  }
+
+  &--checked {
+    border-color: var(--sf-color-selection);
+  }
+
+  &:disabled,
+  &--disabled {
+    border-color: var(--sf-color-selection-disabled);
+
+    cursor: not-allowed;
+  }
+
+  &__indicator {
+    width: 0.75rem; /* 12px */
+    height: 0.75rem;
+
+    border-radius: var(--sf-radius-full);
+
+    background-color: transparent;
+
+    transition: background-color var(--sf-duration-fast) var(--sf-easing-standard);
+  }
+
+  &--checked {
+    .radio__indicator {
+      background-color: var(--sf-color-selection);
+    }
+  }
+
+  &--checked:disabled {
+    .radio__indicator {
+      background-color: var(--sf-color-selection-disabled);
+    }
+  }
+}

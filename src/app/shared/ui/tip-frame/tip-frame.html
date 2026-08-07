@@ -1,0 +1,28 @@
+<aside
+  class="tip-frame"
+  [class.tip-frame--info]="
+    model().variant === 'info'
+  "
+  [class.tip-frame--warning]="
+    model().variant === 'warning'
+  "
+  [class.tip-frame--error]="
+    model().variant === 'error'
+  "
+>
+  <mat-icon
+    class="tip-frame__icon"
+    [svgIcon]="model().icon"
+    aria-hidden="true"
+  />
+
+  <div class="tip-frame__content">
+    <h4 class="tip-frame__title">
+      {{ model().title }}
+    </h4>
+
+    <p class="tip-frame__description">
+      {{ model().description }}
+    </p>
+  </div>
+</aside>

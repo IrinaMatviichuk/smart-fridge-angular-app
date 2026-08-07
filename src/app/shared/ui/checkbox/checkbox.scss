@@ -1,0 +1,65 @@
+@use '../../../../styles/mixins' as mixins;
+
+:host {
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+.checkbox {
+  display: inline-grid;
+  width: var(--sf-size-icon-lg);
+  height: var(--sf-size-icon-lg);
+  place-items: center;
+
+  padding: var(--sf-space-1);
+
+  border: 0.125rem solid var(--sf-gray-40);
+
+  border-radius: var(--sf-radius-checkbox);
+
+  background-color: var(--sf-color-surface);
+
+  color: var(--sf-gray-10);
+
+  cursor: pointer;
+
+  transition: background-color var(--sf-duration-fast) var(--sf-easing-standard),
+  border-color var(--sf-duration-fast) var(--sf-easing-standard),
+  color var(--sf-duration-fast) var(--sf-easing-standard);
+
+  @include mixins.focus-visible-ring;
+
+  &:hover:not(:disabled) {
+    border-color: var(--sf-color-primary);
+  }
+
+  &--checked {
+    border-color: var(--sf-color-selection);
+
+    background-color: var(--sf-color-selection);
+  }
+
+  &:disabled,
+  &--disabled {
+    border-color: var(--sf-color-selection-disabled);
+
+    background-color: var(--sf-color-surface);
+
+    color: var(--sf-color-selection-disabled);
+
+    cursor: not-allowed;
+  }
+
+  &--checked:disabled {
+    background-color: var(--sf-color-selection-disabled);
+
+    color: var(--sf-gray-10);
+  }
+
+  &__icon {
+    width: var(--sf-size-icon-sm);
+    height: var(--sf-size-icon-sm);
+
+    color: currentColor;
+  }
+}

@@ -1,0 +1,60 @@
+<article
+  class="recipe-card"
+  tabindex="0"
+  [attr.aria-label]="model().title"
+  (click)="handleSelected()"
+  (keydown.enter)="handleSelected()"
+  (keydown.space)="handleSelected()"
+>
+  <div class="recipe-card__media">
+    <img
+      class="recipe-card__image"
+      [src]="model().imageUrl"
+      [alt]="model().imageAlt"
+    />
+
+    <app-icon-button
+      class="recipe-card__favorite"
+      [icon]="
+        model().favorite
+          ? icons.favoriteFilled
+          : icons.favorite
+      "
+      ariaLabel="Toggle favorite recipe"
+      size="medium"
+      [active]="model().favorite"
+      (click)="handleFavorite($event)"
+    />
+  </div>
+
+  <div class="recipe-card__content">
+    <h3 class="recipe-card__title">
+      {{ model().title }}
+    </h3>
+
+    <p class="recipe-card__ingredients">
+      {{ model().ingredientsLabel }}
+    </p>
+
+    <div class="recipe-card__footer">
+      <div class="recipe-card__meta">
+        <mat-icon
+          class="recipe-card__meta-icon"
+          [svgIcon]="model().metaIcon"
+          aria-hidden="true"
+        />
+
+        <span class="recipe-card__meta-label">
+          {{ model().metaLabel }}
+        </span>
+      </div>
+
+      <app-button
+        size="small"
+        (click)="$event.stopPropagation()"
+      >
+        View
+      </app-button>
+    </div>
+  </div>
+</article>

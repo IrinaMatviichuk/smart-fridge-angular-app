@@ -1,0 +1,17 @@
+@use '../../../../../styles/components/product-grid' as product-grid;
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+.dashboard-product-controls {
+  @include product-grid.product-grid;
+
+  /*
+   * Controls occupy the same columns as product cards.
+   * If fewer controls exist than available grid columns,
+   * the remaining columns stay empty.
+   */
+}

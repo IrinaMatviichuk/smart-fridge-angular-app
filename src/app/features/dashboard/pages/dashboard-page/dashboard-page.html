@@ -13,20 +13,28 @@
     [summary]="facade.summary()"
   />
 
-  <app-dashboard-status-filter
-    [model]="statusFilterModel()"
-    (valueChanged)="
+  <app-dashboard-product-controls
+    [model]="productControlsModel()"
+    (statusChanged)="
       facade.selectStatus($event)
+    "
+    (categoryChanged)="
+      facade.selectCategory($event)
+    "
+    (sortChanged)="
+      facade.selectSort($event)
     "
   />
 
   <div class="dashboard-page__content">
     @if (facade.loading()) {
-      <div class="dashboard-page__loading">
-        <app-loading-spinner
-          size="md"
-          label="Loading products"
-        />
+      <div
+        class="dashboard-page__loading"
+        role="status"
+        aria-live="polite"
+        aria-label="Loading products"
+      >
+        <app-loading-spinner />
       </div>
     } @else if (facade.error()) {
       <div

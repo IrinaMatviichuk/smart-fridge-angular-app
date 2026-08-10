@@ -1,0 +1,22 @@
+<div class="dashboard-product-controls">
+  <app-dashboard-status-filter
+    [model]="model().status"
+    (valueChanged)="
+      statusChanged.emit($event)
+    "
+  />
+
+  <app-dashboard-category-filter
+    [model]="model().category"
+    (valueChanged)="
+      categoryChanged.emit($event)
+    "
+  />
+
+  <app-dashboard-sort-control
+    [model]="model().sort"
+    (valueChanged)="
+      sortChanged.emit($event)
+    "
+  />
+</div>

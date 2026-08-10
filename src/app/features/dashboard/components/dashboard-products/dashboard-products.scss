@@ -1,4 +1,4 @@
-@use '../../../../../styles/tokens' as tokens;
+@use '../../../../../styles/components/product-grid' as product-grid;
 
 :host {
   display: block;
@@ -11,20 +11,7 @@
   min-width: 0;
 
   &__grid {
-    display: grid;
-    width: 100%;
-    min-width: 0;
-
-    grid-template-columns:
-      repeat(
-        auto-fill,
-          minmax(
-              var(--sf-layout-product-card-width),
-              1fr
-          )
-      );
-
-    gap: var(--sf-layout-content-grid-gap);
+    @include product-grid.product-grid;
   }
 
   &__loading {
@@ -34,19 +21,5 @@
     justify-content: center;
 
     color: var(--sf-color-text-tertiary);
-  }
-}
-
-/* =========================================================
- * Mobile
- * ======================================================= */
-
-@media (max-width: tokens.$breakpoint-mobile-max) {
-  .dashboard-products {
-    &__grid {
-      grid-template-columns: 1fr;
-
-      gap: var(--sf-space-4);
-    }
   }
 }

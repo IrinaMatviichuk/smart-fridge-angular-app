@@ -12,7 +12,10 @@ import {
   mapUpdateProductRequest,
 } from '../data-access/products/product-request.mapper';
 import { DashboardSummary } from '../domain/dashboard-summary.model';
+import { ProductCategoryFilter } from '../domain/product-category-filter.type';
 import { Product } from '../domain/product.model';
+import { ProductSort } from '../domain/product-sort.type';
+import { sortProducts } from '../domain/product-sort.util';
 import { ProductStatusFilter } from '../domain/product-status-filter.type';
 import { ProductStorage } from '../domain/product-storage.type';
 import { ProductWriteModel } from '../domain/product-write.model';
@@ -41,17 +44,31 @@ export class DashboardFacade {
 
   readonly statusFilter = this.store.statusFilter;
 
+  readonly categoryFilter = this.store.categoryFilter;
+
+  readonly productSort = this.store.productSort;
+
   readonly searchQuery = this.header.searchQuery;
 
-  readonly filteredProducts = computed<readonly Product[]>(() => {
+  readonly visibleProducts = computed<readonly Product[]>(() => {
     const query = this.searchQuery().trim().toLocaleLowerCase();
 
     const status = this.statusFilter();
 
-    return this.products().filter((product) => {
+    const category = this.categoryFilter();
+
+    const sort = this.productSort();
+
+    const filteredProducts = this.products().filter((product) => {
       const matchesStatus = status === 'all' || product.status === status;
 
       if (!matchesStatus) {
+        return false;
+      }
+
+      const matchesCategory = category === 'all' || product.category === category;
+
+      if (!matchesCategory) {
         return false;
       }
 
@@ -64,6 +81,8 @@ export class DashboardFacade {
         product.categoryDisplay.toLocaleLowerCase().includes(query)
       );
     });
+
+    return sortProducts(filteredProducts, sort);
   });
 
   readonly summary = computed<DashboardSummary>(() => {
@@ -109,7 +128,7 @@ export class DashboardFacade {
       !this.loading() &&
       !this.error() &&
       this.products().length > 0 &&
-      this.filteredProducts().length === 0,
+      this.visibleProducts().length === 0,
   );
 
   loadStorage(storage: ProductStorage): void {
@@ -120,6 +139,14 @@ export class DashboardFacade {
 
   selectStatus(status: ProductStatusFilter): void {
     this.store.setStatusFilter(status);
+  }
+
+  selectCategory(category: ProductCategoryFilter): void {
+    this.store.setCategoryFilter(category);
+  }
+
+  selectSort(sort: ProductSort): void {
+    this.store.setProductSort(sort);
   }
 
   createProduct(product: ProductWriteModel): Observable<Product> {
@@ -164,10 +191,15 @@ export class DashboardFacade {
     this.store.setError(null);
   }
 
+  resetFilters(): void {
+    this.store.resetFilters();
+  }
+
   reset(): void {
     this.cancelProductsRequest();
 
     this.store.reset();
+
     this.header.clearSearchQuery();
   }
 

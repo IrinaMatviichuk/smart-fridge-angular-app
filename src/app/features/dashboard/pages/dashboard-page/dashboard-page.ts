@@ -19,11 +19,11 @@ import {
   mapFilterEmptyState,
   mapStorageEmptyState,
 } from '../../components/dashboard-empty-state/dashboard-empty-state.mapper';
+import { DashboardProductControls } from '../../components/dashboard-product-controls/dashboard-product-controls';
+import { mapDashboardProductControlsModel } from '../../components/dashboard-product-controls/dashboard-product-controls.mapper';
 import { DashboardProducts } from '../../components/dashboard-products/dashboard-products';
 import { mapDashboardProductsModel } from '../../components/dashboard-products/dashboard-products.mapper';
 import { ProductFormDialogService } from '../../components/product-form-dialog/product-form-dialog.service';
-import { DashboardStatusFilter } from '../../components/dashboard-status-filter/dashboard-status-filter';
-import { mapDashboardStatusFilterModel } from '../../components/dashboard-status-filter/dashboard-status-filter.mapper';
 import { DashboardSummary } from '../../components/dashboard-summary/dashboard-summary';
 import { DashboardToolbar } from '../../components/dashboard-toolbar/dashboard-toolbar';
 import { mapDashboardToolbarModel } from '../../components/dashboard-toolbar/dashboard-toolbar.mapper';
@@ -40,7 +40,7 @@ import {
   imports: [
     DashboardToolbar,
     DashboardSummary,
-    DashboardStatusFilter,
+    DashboardProductControls,
     DashboardProducts,
     EmptyState,
     LoadingSpinnerComponent,
@@ -76,12 +76,16 @@ export class DashboardPage {
 
   protected readonly toolbarModel = computed(() => mapDashboardToolbarModel(this.storage()));
 
-  protected readonly statusFilterModel = computed(() =>
-    mapDashboardStatusFilterModel(this.facade.statusFilter()),
+  protected readonly productControlsModel = computed(() =>
+    mapDashboardProductControlsModel(
+      this.facade.statusFilter(),
+      this.facade.categoryFilter(),
+      this.facade.productSort(),
+    ),
   );
 
   protected readonly productsModel = computed(() =>
-    mapDashboardProductsModel(this.facade.filteredProducts(), this.facade.loading()),
+    mapDashboardProductsModel(this.facade.visibleProducts(), this.facade.loading()),
   );
 
   protected readonly storageEmptyState = computed(() => mapStorageEmptyState(this.storage()));

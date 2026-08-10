@@ -1,0 +1,41 @@
+<section
+  class="confirmation-dialog"
+  aria-labelledby="confirmation-dialog-title"
+  aria-describedby="confirmation-dialog-message"
+>
+  <div class="confirmation-dialog__content">
+    <h2
+      id="confirmation-dialog-title"
+      class="confirmation-dialog__title"
+    >
+      {{ data.title }}
+    </h2>
+
+    <p
+      id="confirmation-dialog-message"
+      class="confirmation-dialog__message"
+    >
+      {{ data.message }}
+    </p>
+  </div>
+
+  <div class="confirmation-dialog__actions">
+    <app-button
+      type="button"
+      variant="secondary"
+      size="small"
+      (click)="cancel()"
+    >
+      {{ data.cancelLabel }}
+    </app-button>
+
+    <app-button
+      type="button"
+      variant="primary"
+      size="small"
+      (click)="confirm()"
+    >
+      {{ data.confirmLabel }}
+    </app-button>
+  </div>
+</section>

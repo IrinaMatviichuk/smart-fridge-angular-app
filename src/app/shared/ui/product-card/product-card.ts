@@ -2,29 +2,29 @@ import { ChangeDetectionStrategy, Component, input, output } from '@angular/core
 import { MatIcon } from '@angular/material/icon';
 
 import { IconName } from '../../../core/icons/icon-name';
-import { IconButton } from '../icon-button/icon-button';
+import { ActionMenu } from '../action-menu/action-menu';
+import { ActionMenuItem } from '../action-menu/action-menu-item.model';
 import { StatusChip } from '../status-chip/status-chip';
 import { ProductCardModel } from './product-card.model';
 
 @Component({
   selector: 'app-product-card',
-  imports: [IconButton, MatIcon, StatusChip],
+  imports: [ActionMenu, MatIcon, StatusChip],
   templateUrl: './product-card.html',
   styleUrl: './product-card.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductCard {
+export class ProductCard<TAction extends string = string> {
   readonly product = input.required<ProductCardModel>();
 
-  readonly menuVisible = input(true);
+  readonly actions = input<readonly ActionMenuItem<TAction>[]>([]);
 
   readonly selected = output<ProductCardModel>();
 
-  readonly menuRequested = output<ProductCardModel>();
+  readonly actionSelected = output<ActionMenuItem<TAction>>();
 
   protected readonly icons = {
     calendar: IconName.Calendar,
-    menu: IconName.MoreHorizontal,
   } as const;
 
   protected handleSelected(): void {
@@ -32,10 +32,6 @@ export class ProductCard {
   }
 
   protected handleCardKeydown(event: KeyboardEvent): void {
-    /*
-     * Keyboard events from nested interactive controls
-     * must not activate the whole card.
-     */
     if (event.target !== event.currentTarget) {
       return;
     }
@@ -49,9 +45,9 @@ export class ProductCard {
     this.handleSelected();
   }
 
-  protected handleMenuRequested(event: MouseEvent): void {
-    event.stopPropagation();
+  protected handleActionSelected(action: ActionMenuItem<TAction>, event?: Event): void {
+    event?.stopPropagation();
 
-    this.menuRequested.emit(this.product());
+    this.actionSelected.emit(action);
   }
 }

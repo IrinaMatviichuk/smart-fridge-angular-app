@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EMPTY, distinctUntilChanged, filter, map, switchMap } from 'rxjs';
 
 import { HeaderFacade } from '../../../../layouts/main-header/header.facade';
+import { ConfirmationDialogService } from '../../../../shared/ui/confirmation-dialog/confirmation-dialog.service';
 import { EmptyState } from '../../../../shared/ui/empty-state/empty-state';
 import { LoadingSpinnerComponent } from '../../../../shared/ui/loading-spinner/loading-spinner.component';
 import { DashboardFacade } from '../../application/dashboard.facade';
@@ -23,6 +24,7 @@ import { DashboardProductControls } from '../../components/dashboard-product-con
 import { mapDashboardProductControlsModel } from '../../components/dashboard-product-controls/dashboard-product-controls.mapper';
 import { DashboardProducts } from '../../components/dashboard-products/dashboard-products';
 import { mapDashboardProductsModel } from '../../components/dashboard-products/dashboard-products.mapper';
+import { mapProductDeleteConfirmationData } from '../../components/product-delete-confirmation/product-delete-confirmation.mapper';
 import { ProductFormDialogService } from '../../components/product-form-dialog/product-form-dialog.service';
 import { DashboardSummary } from '../../components/dashboard-summary/dashboard-summary';
 import { DashboardToolbar } from '../../components/dashboard-toolbar/dashboard-toolbar';
@@ -58,6 +60,8 @@ export class DashboardPage {
   private readonly header = inject(HeaderFacade);
 
   private readonly productFormDialog = inject(ProductFormDialogService);
+
+  private readonly confirmationDialog = inject(ConfirmationDialogService);
 
   private readonly destroyRef = inject(DestroyRef);
 
@@ -127,6 +131,16 @@ export class DashboardPage {
       .open(this.storage(), product)
       .pipe(
         switchMap((changes) => (changes ? this.facade.updateProduct(product.id, changes) : EMPTY)),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe();
+  }
+
+  protected handleDeleteProduct(product: Product): void {
+    this.confirmationDialog
+      .open(mapProductDeleteConfirmationData(product))
+      .pipe(
+        switchMap((confirmed) => (confirmed ? this.facade.deleteProduct(product.id) : EMPTY)),
         takeUntilDestroyed(this.destroyRef),
       )
       .subscribe();

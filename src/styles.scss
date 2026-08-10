@@ -1,6 +1,7 @@
 @use 'styles/fonts';
 @use 'styles/tokens';
 @use 'styles/base';
+@use 'styles/components';
 @use 'styles/theme/app-theme' as theme;
 
 @include theme.app-theme;

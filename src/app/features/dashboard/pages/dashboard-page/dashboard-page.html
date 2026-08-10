@@ -57,6 +57,12 @@
     } @else {
       <app-dashboard-products
         [model]="productsModel()"
+        (editRequested)="
+          handleEditProduct($event)
+        "
+        (deleteRequested)="
+          handleDeleteProduct($event)
+        "
       />
     }
   </div>

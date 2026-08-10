@@ -1,22 +1,16 @@
-<section
-  class="dashboard-products"
-  aria-label="Products"
-  [attr.aria-busy]="model().loading"
->
-  @if (!model().loading) {
-    <div class="dashboard-products__grid">
-      @for (product of model().products;
-        track product.id) {
-        <app-product-card
-          [product]="product"
-          (selected)="
-            productSelected.emit($event)
-          "
-          (menuRequested)="
-            productMenuRequested.emit($event)
-          "
-        />
-      }
-    </div>
-  }
-</section>
+<div class="dashboard-products">
+  <div class="dashboard-products__grid">
+    @for (item of model().products; track item.product.id) {
+      <app-product-card
+        [product]="item.card"
+        [actions]="productActions"
+        (actionSelected)="
+          handleActionSelected(
+            item.product,
+            $event
+          )
+        "
+      />
+    }
+  </div>
+</div>

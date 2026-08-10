@@ -1,33 +1,33 @@
 <article
   class="product-card"
-  role="button"
   tabindex="0"
-  [attr.aria-label]="product().title"
+  role="button"
+  [attr.aria-label]="'Open ' + product().title"
   (click)="handleSelected()"
   (keydown)="handleCardKeydown($event)"
 >
   <div class="product-card__header">
-    <h3
-      class="product-card__title"
-      [title]="product().title"
-    >
+    <h3 class="product-card__title">
       {{ product().title }}
     </h3>
 
-    @if (menuVisible()) {
-      <app-icon-button
+    @if (actions().length) {
+      <app-action-menu
         class="product-card__menu"
-        [icon]="icons.menu"
-        ariaLabel="Open product actions"
-        size="small"
-        (click)="handleMenuRequested($event)"
+        [actions]="actions()"
+        triggerAriaLabel="Open product actions"
+        (actionSelected)="
+          handleActionSelected($event)
+        "
       />
     }
   </div>
 
-  <p class="product-card__quantity">
-    {{ product().quantity }}
-  </p>
+  @if (product().quantity) {
+    <p class="product-card__quantity">
+      {{ product().quantity }}
+    </p>
+  }
 
   <div class="product-card__expiry">
     <mat-icon

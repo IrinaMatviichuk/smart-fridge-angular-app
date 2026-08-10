@@ -1,7 +1,7 @@
-import { ProductCardModel } from '../../../../shared/ui/product-card/product-card.model';
+import { DashboardProductItemModel } from './dashboard-product-item.model';
 
 export interface DashboardProductsModel {
-  readonly products: readonly ProductCardModel[];
+  readonly products: readonly DashboardProductItemModel[];
 
   readonly loading: boolean;
 }

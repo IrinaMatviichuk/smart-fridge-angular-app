@@ -1,0 +1,98 @@
+@use '../mixins' as mixins;
+
+/*
+ * MatMenu is rendered inside Angular Material's overlay container,
+ * outside of the ActionMenu component view.
+ *
+ * Therefore these styles intentionally live in the global UI-kit
+ * layer instead of action-menu.component.scss.
+ */
+
+.sf-action-menu {
+  min-width: 9rem !important;
+  max-width: 13rem !important;
+
+  padding: var(--sf-space-1) !important;
+
+  border: 0.0625rem solid var(--sf-color-border-subtle);
+  border-radius: var(--sf-radius-control) !important;
+
+  background-color: var(--sf-color-surface) !important;
+
+  box-shadow: var(--sf-shadow-tip-frame) !important;
+
+  .mat-mdc-menu-content {
+    padding: 0 !important;
+  }
+
+  .sf-action-menu__item {
+    min-height: 2.5rem;
+
+    padding: 0 var(--sf-space-3);
+
+    border-radius: var(--sf-radius-navigation);
+
+    color: var(--sf-color-text-primary);
+
+    transition: background-color var(--sf-duration-fast) var(--sf-easing-standard),
+    color var(--sf-duration-fast) var(--sf-easing-standard);
+
+    &:hover:not(:disabled) {
+      background-color: var(--sf-primary-10);
+    }
+
+    &:focus-visible {
+      outline: 0;
+
+      box-shadow: var(--sf-shadow-focus);
+    }
+
+    &:disabled {
+      color: var(--sf-color-text-disabled);
+    }
+
+    .mat-mdc-menu-item-text {
+      display: flex;
+      width: 100%;
+      min-width: 0;
+      align-items: center;
+      gap: var(--sf-space-2);
+
+      color: inherit;
+
+      @include mixins.secondary-text(
+          var(--sf-font-weight-medium)
+      );
+    }
+  }
+
+  .sf-action-menu__label {
+    min-width: 0;
+
+    color: inherit;
+
+    @include mixins.truncate;
+  }
+
+  .sf-action-menu__item--danger {
+    color: var(--sf-color-error);
+
+    &:hover:not(:disabled) {
+      background-color: var(--sf-color-error-surface, var(--sf-primary-10));
+    }
+  }
+
+  .sf-action-menu__icon {
+    width: var(--sf-size-icon-md);
+    height: var(--sf-size-icon-md);
+    flex: 0 0 auto;
+
+    margin: 0;
+
+    color: currentColor;
+
+    &--suffix {
+      margin-inline-start: auto;
+    }
+  }
+}

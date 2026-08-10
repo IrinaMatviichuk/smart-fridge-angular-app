@@ -1,0 +1,44 @@
+<app-icon-button
+  [icon]="triggerIcon()"
+  [ariaLabel]="triggerAriaLabel()"
+  [size]="triggerSize()"
+  [matMenuTriggerFor]="menu"
+/>
+
+<mat-menu
+  #menu="matMenu"
+  class="sf-action-menu"
+>
+  @for (action of actions(); track action.id) {
+    <button
+      mat-menu-item
+      type="button"
+      class="sf-action-menu__item"
+      [class.sf-action-menu__item--danger]="
+        action.tone === 'danger'
+      "
+      [disabled]="action.disabled"
+      (click)="selectAction(action)"
+    >
+      @if (action.prefixIcon; as icon) {
+        <mat-icon
+          class="sf-action-menu__icon"
+          [svgIcon]="icon"
+          aria-hidden="true"
+        />
+      }
+
+      <span class="sf-action-menu__label">
+        {{ action.label }}
+      </span>
+
+      @if (action.suffixIcon; as icon) {
+        <mat-icon
+          class="sf-action-menu__icon sf-action-menu__icon--suffix"
+          [svgIcon]="icon"
+          aria-hidden="true"
+        />
+      }
+    </button>
+  }
+</mat-menu>

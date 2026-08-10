@@ -157,6 +157,32 @@
   }
 
   /* =========================================================
+   * Sizes
+   * ======================================================= */
+
+  &--small {
+    .select__trigger {
+      height: var(--sf-size-control-sm);
+
+      padding: var(--sf-space-1) var(--sf-space-3);
+    }
+
+    .select__option {
+      min-height: var(--sf-size-control-sm);
+    }
+  }
+
+  &--large {
+    .select__trigger {
+      height: var(--sf-size-control-lg);
+    }
+
+    .select__option {
+      min-height: var(--sf-size-control-lg);
+    }
+  }
+
+  /* =========================================================
    * Secondary
    * ======================================================= */
 
@@ -199,6 +225,10 @@
       }
     }
   }
+
+  /* =========================================================
+   * Disabled
+   * ======================================================= */
 
   &--disabled {
     .select__trigger {

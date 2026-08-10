@@ -1,10 +1,19 @@
-import { ChangeDetectionStrategy, Component, computed, input, model, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  HostListener,
+  computed,
+  inject,
+  input,
+  model,
+  signal,
+} from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 
 import { IconName } from '../../../core/icons/icon-name';
 import { SelectOption } from './select-option.interface';
-
-export type SelectVariant = 'primary' | 'secondary';
+import { SelectSize, SelectVariant } from './select.types';
 
 @Component({
   selector: 'app-select',
@@ -14,6 +23,8 @@ export type SelectVariant = 'primary' | 'secondary';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Select<T extends string = string> {
+  private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
   readonly options = input.required<readonly SelectOption<T>[]>();
 
   readonly value = model<T | null>(null);
@@ -23,6 +34,8 @@ export class Select<T extends string = string> {
   readonly ariaLabel = input.required<string>();
 
   readonly variant = input<SelectVariant>('secondary');
+
+  readonly size = input<SelectSize>('default');
 
   readonly disabled = input(false);
 
@@ -43,6 +56,34 @@ export class Select<T extends string = string> {
     return this.options().find((option) => option.value === selectedValue) ?? null;
   });
 
+  @HostListener('document:click', ['$event'])
+  protected handleDocumentClick(event: MouseEvent): void {
+    if (!this.open()) {
+      return;
+    }
+
+    const target = event.target;
+
+    if (!(target instanceof Node)) {
+      return;
+    }
+
+    if (this.elementRef.nativeElement.contains(target)) {
+      return;
+    }
+
+    this.close();
+  }
+
+  @HostListener('document:keydown.escape')
+  protected handleEscape(): void {
+    if (!this.open()) {
+      return;
+    }
+
+    this.close();
+  }
+
   protected toggle(): void {
     if (this.disabled()) {
       return;
@@ -57,7 +98,8 @@ export class Select<T extends string = string> {
     }
 
     this.value.set(option.value);
-    this.open.set(false);
+
+    this.close();
   }
 
   protected close(): void {

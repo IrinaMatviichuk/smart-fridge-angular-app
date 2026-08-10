@@ -7,9 +7,12 @@ import { IconName } from '../../../../core/icons/icon-name';
 import { Button } from '../../../../shared/ui/button/button';
 import { DateField } from '../../../../shared/ui/date-field/date-field';
 import { Radio } from '../../../../shared/ui/radio/radio';
+import { Select } from '../../../../shared/ui/select/select';
 import { TextField } from '../../../../shared/ui/text-field/text-field';
-import { ProductWriteModel } from '../../domain/product-write.model';
+import { PRODUCT_CATEGORY_OPTIONS } from '../../config/product-category-options.config';
+import { ProductCategory } from '../../domain/product-category.type';
 import { ProductStorage } from '../../domain/product-storage.type';
+import { ProductWriteModel } from '../../domain/product-write.model';
 import {
   PRODUCT_FORM_DIALOG_TEXT,
   PRODUCT_FORM_VALIDATION_MESSAGES,
@@ -18,7 +21,7 @@ import { ProductFormDialogData } from './product-form-dialog-data.model';
 
 @Component({
   selector: 'app-product-form-dialog',
-  imports: [Button, DateField, FormField, MatIcon, Radio, TextField],
+  imports: [Button, DateField, FormField, MatIcon, Radio, Select, TextField],
   templateUrl: './product-form-dialog.html',
   styleUrl: './product-form-dialog.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,7 +35,12 @@ export class ProductFormDialog {
 
   protected readonly icons = {
     close: IconName.Close,
+    cube: IconName.Cube,
   } as const;
+
+  protected readonly categoryOptions = PRODUCT_CATEGORY_OPTIONS;
+
+  protected readonly minDate = computed<Date | null>(() => new Date());
 
   protected readonly isEditMode = computed(() => this.product !== undefined);
 
@@ -65,10 +73,6 @@ export class ProductFormDialog {
       message: PRODUCT_FORM_VALIDATION_MESSAGES.name.required,
     });
 
-    required(path.category, {
-      message: PRODUCT_FORM_VALIDATION_MESSAGES.category.required,
-    });
-
     required(path.storage, {
       message: PRODUCT_FORM_VALIDATION_MESSAGES.storage.required,
     });
@@ -80,6 +84,14 @@ export class ProductFormDialog {
 
   protected selectStorage(storage: ProductStorage): void {
     this.productForm.storage().value.set(storage);
+  }
+
+  protected selectCategory(category: ProductCategory | null): void {
+    if (category === null) {
+      return;
+    }
+
+    this.productForm.category().value.set(category);
   }
 
   protected close(): void {

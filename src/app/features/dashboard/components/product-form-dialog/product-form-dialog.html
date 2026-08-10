@@ -38,49 +38,69 @@
       inputId="product-name"
       label="Product name"
       placeholder="Enter product name"
-      prefixIcon="cube"
+      [prefixIcon]="icons.cube"
       [formField]="productForm.name"
     />
 
-    <fieldset class="product-form-dialog__field-group">
-      <legend class="product-form-dialog__label">
-        Storage
-      </legend>
+    <div class="product-form-dialog__meta-row">
+      <fieldset class="product-form-dialog__field-group">
+        <legend class="product-form-dialog__label">
+          Storage
+        </legend>
 
-      <div
-        class="product-form-dialog__storage"
-        role="radiogroup"
-        aria-label="Storage"
-      >
-        <label class="product-form-dialog__storage-option">
-          <app-radio
-            ariaLabel="Fridge"
-            [checked]="
-              productForm.storage().value() === 'fridge'
-            "
-            (checkedChange)="
-              selectStorage('fridge')
-            "
-          />
+        <div
+          class="product-form-dialog__storage"
+          role="radiogroup"
+          aria-label="Storage"
+        >
+          <label class="product-form-dialog__storage-option">
+            <app-radio
+              ariaLabel="Fridge"
+              [checked]="
+                productForm.storage().value() === 'fridge'
+              "
+              (checkedChange)="
+                selectStorage('fridge')
+              "
+            />
 
-          <span>Fridge</span>
+            <span>Fridge</span>
+          </label>
+
+          <label class="product-form-dialog__storage-option">
+            <app-radio
+              ariaLabel="Freezer"
+              [checked]="
+                productForm.storage().value() === 'freezer'
+              "
+              (checkedChange)="
+                selectStorage('freezer')
+              "
+            />
+
+            <span>Freezer</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="product-form-dialog__category">
+        <label class="product-form-dialog__label">
+          Category
         </label>
 
-        <label class="product-form-dialog__storage-option">
-          <app-radio
-            ariaLabel="Freezer"
-            [checked]="
-              productForm.storage().value() === 'freezer'
-            "
-            (checkedChange)="
-              selectStorage('freezer')
-            "
-          />
-
-          <span>Freezer</span>
-        </label>
+        <app-select
+          class="product-form-dialog__category-select"
+          ariaLabel="Product category"
+          placeholder="Select category"
+          [options]="categoryOptions"
+          [value]="productForm.category().value()"
+          [size]="'large'"
+          (valueChange)="
+            selectCategory($event)
+          "
+        />
       </div>
-    </fieldset>
+    </div>
 
     <app-text-field
       inputId="product-quantity"
@@ -94,6 +114,8 @@
       label="Expiry Date"
       placeholder="Enter or select date"
       [formField]="productForm.expiryDate"
+      [minDate]="minDate()"
+      [pickerOnly]="true"
     />
 
     <app-button
@@ -107,7 +129,12 @@
     </app-button>
 
     <p class="product-form-dialog__required-note">
-      <span class="product-form-dialog__required-marker" aria-hidden="true">*</span>
+      <span
+        class="product-form-dialog__required-marker"
+        aria-hidden="true"
+      >
+        *
+      </span>
       Required fields
     </p>
   </form>

@@ -26,27 +26,45 @@
 
       <input
         class="date-field__control"
+        [class.date-field__control--picker-only]="
+          pickerOnly()
+        "
         [id]="inputId()"
         [matDatepicker]="picker"
         [value]="dateValue()"
+        [min]="minDate()"
+        [max]="maxDate()"
         [placeholder]="placeholder()"
         [disabled]="disabled()"
-        [readonly]="readonly()"
+        [readonly]="inputReadonly()"
         [required]="required()"
         [attr.aria-invalid]="
-          showInvalidState() ? 'true' : 'false'
+          showInvalidState()
+            ? 'true'
+            : 'false'
         "
         [attr.aria-describedby]="
-          errorMessage() ? messageId() : null
+          errorMessage()
+            ? messageId()
+            : null
         "
-        (dateChange)="handleDateChange($event.value)"
+        (click)="
+          handleInputClick(
+            picker
+          )
+        "
+        (dateChange)="
+          handleDateChange(
+            $event.value
+          )
+        "
         (blur)="handleBlur()"
       />
 
       <button
         class="date-field__calendar-button"
         type="button"
-        [disabled]="disabled() || readonly()"
+        [disabled]="pickerDisabled()"
         aria-label="Open calendar"
         (click)="picker.open()"
       >

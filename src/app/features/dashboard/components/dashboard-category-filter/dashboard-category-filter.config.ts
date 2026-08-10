@@ -1,4 +1,5 @@
 import { SelectOption } from '../../../../shared/ui/select/select-option.interface';
+import { PRODUCT_CATEGORY_OPTIONS } from '../../config/product-category-options.config';
 import { ProductCategoryFilter } from '../../domain/product-category-filter.type';
 
 export const DASHBOARD_CATEGORY_OPTIONS: readonly SelectOption<ProductCategoryFilter>[] = [
@@ -6,20 +7,5 @@ export const DASHBOARD_CATEGORY_OPTIONS: readonly SelectOption<ProductCategoryFi
     value: 'all',
     label: 'All categories',
   },
-  {
-    value: 'dairy',
-    label: 'Dairy',
-  },
-  {
-    value: 'meat',
-    label: 'Meat',
-  },
-  {
-    value: 'veggies',
-    label: 'Veggies',
-  },
-  {
-    value: 'other',
-    label: 'Other',
-  },
+  ...PRODUCT_CATEGORY_OPTIONS,
 ];

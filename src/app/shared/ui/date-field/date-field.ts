@@ -10,6 +10,7 @@ import { MatIcon } from '@angular/material/icon';
 
 import { FormField } from '../form-field/form-field';
 import { DATE_FIELD_FORMATS, DATE_FIELD_LOCALE } from './date-field.constants';
+import { formatIsoDate, parseIsoDate } from './date-field.utils';
 
 @Component({
   selector: 'app-date-field',
@@ -36,6 +37,9 @@ export class DateField implements FormValueControl<string> {
   readonly label = input.required<string>();
 
   readonly placeholder = input('Enter or select date');
+  readonly minDate = input<Date | null>(null);
+  readonly maxDate = input<Date | null>(null);
+  readonly pickerOnly = input(false);
   readonly reserveErrorSpace = input(true);
 
   readonly touched = input(false);
@@ -61,21 +65,17 @@ export class DateField implements FormValueControl<string> {
     return this.errors()[0]?.message ?? null;
   });
 
-  protected readonly dateValue = computed<Date | null>(() => {
-    const value = this.value();
+  protected readonly dateValue = computed<Date | null>(() => parseIsoDate(this.value()));
+  protected readonly inputReadonly = computed(() => this.readonly() || this.pickerOnly());
+  protected readonly pickerDisabled = computed(() => this.disabled() || this.readonly());
 
-    if (!value) {
-      return null;
+  protected handleInputClick(picker: MatDatepicker<Date>): void {
+    if (!this.pickerOnly() || this.pickerDisabled()) {
+      return;
     }
 
-    const [year, month, day] = value.split('-').map(Number);
-
-    if (!year || !month || !day) {
-      return null;
-    }
-
-    return new Date(year, month - 1, day);
-  });
+    picker.open();
+  }
 
   protected handleDateChange(value: Date | null): void {
     if (!value) {
@@ -84,13 +84,7 @@ export class DateField implements FormValueControl<string> {
       return;
     }
 
-    const year = value.getFullYear();
-
-    const month = String(value.getMonth() + 1).padStart(2, '0');
-
-    const day = String(value.getDate()).padStart(2, '0');
-
-    this.value.set(`${year}-${month}-${day}`);
+    this.value.set(formatIsoDate(value));
   }
 
   protected handleBlur(): void {

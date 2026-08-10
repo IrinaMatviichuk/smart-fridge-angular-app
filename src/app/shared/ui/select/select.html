@@ -6,8 +6,15 @@
   [class.select--secondary]="
     variant() === 'secondary'
   "
-  [class.select--open]="open()"
-  [class.select--disabled]="disabled()"
+  [class.select--small]="
+    size() === 'small'
+  "
+  [class.select--large]="
+    size() === 'large'
+  "
+  [class.select--disabled]="
+    disabled()
+  "
 >
   <button
     class="select__trigger"

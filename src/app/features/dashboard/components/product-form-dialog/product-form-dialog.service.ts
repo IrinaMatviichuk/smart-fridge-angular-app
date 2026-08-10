@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable, from, switchMap } from 'rxjs';
 
 import type { Product } from '../../domain/product.model';
+import type { ProductStorage } from '../../domain/product-storage.type';
 import type { ProductWriteModel } from '../../domain/product-write.model';
 import type { ProductFormDialogData } from './product-form-dialog-data.model';
 
@@ -10,7 +11,7 @@ import type { ProductFormDialogData } from './product-form-dialog-data.model';
 export class ProductFormDialogService {
   private readonly dialog = inject(MatDialog);
 
-  open(product?: Product): Observable<ProductWriteModel | undefined> {
+  open(storage: ProductStorage, product?: Product): Observable<ProductWriteModel | undefined> {
     return from(import('./product-form-dialog')).pipe(
       switchMap(({ ProductFormDialog }) =>
         this.dialog
@@ -21,6 +22,7 @@ export class ProductFormDialogService {
             autoFocus: false,
             restoreFocus: true,
             data: {
+              storage,
               product,
             } satisfies ProductFormDialogData,
           })

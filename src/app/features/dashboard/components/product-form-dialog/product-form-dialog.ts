@@ -3,12 +3,13 @@ import { FormField, form, required } from '@angular/forms/signals';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 
+import { IconName } from '../../../../core/icons/icon-name';
 import { Button } from '../../../../shared/ui/button/button';
 import { DateField } from '../../../../shared/ui/date-field/date-field';
 import { Radio } from '../../../../shared/ui/radio/radio';
 import { TextField } from '../../../../shared/ui/text-field/text-field';
-import { PRODUCT_STORAGE, ProductStorage } from '../../domain/product-storage.type';
 import { ProductWriteModel } from '../../domain/product-write.model';
+import { ProductStorage } from '../../domain/product-storage.type';
 import {
   PRODUCT_FORM_DIALOG_TEXT,
   PRODUCT_FORM_VALIDATION_MESSAGES,
@@ -25,9 +26,13 @@ import { ProductFormDialogData } from './product-form-dialog-data.model';
 export class ProductFormDialog {
   private readonly dialogRef = inject(MatDialogRef<ProductFormDialog, ProductWriteModel>);
 
-  private readonly data = inject<ProductFormDialogData>(MAT_DIALOG_DATA);
+  protected readonly data = inject<ProductFormDialogData>(MAT_DIALOG_DATA);
 
   private readonly product = this.data.product;
+
+  protected readonly icons = {
+    close: IconName.Close,
+  } as const;
 
   protected readonly isEditMode = computed(() => this.product !== undefined);
 
@@ -50,7 +55,7 @@ export class ProductFormDialog {
   protected readonly model = signal<ProductWriteModel>({
     name: this.product?.name ?? '',
     category: this.product?.category ?? 'other',
-    storage: this.product?.storage ?? PRODUCT_STORAGE.fridge,
+    storage: this.product?.storage ?? this.data.storage,
     quantity: this.product?.quantity ?? '',
     expiryDate: this.product?.expiryDate ?? '',
   });
@@ -66,10 +71,6 @@ export class ProductFormDialog {
 
     required(path.storage, {
       message: PRODUCT_FORM_VALIDATION_MESSAGES.storage.required,
-    });
-
-    required(path.quantity, {
-      message: PRODUCT_FORM_VALIDATION_MESSAGES.quantity.required,
     });
 
     required(path.expiryDate, {

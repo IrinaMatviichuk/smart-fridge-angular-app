@@ -114,7 +114,7 @@ export class DashboardPage {
 
   protected handleAddProduct(): void {
     this.productFormDialog
-      .open()
+      .open(this.storage())
       .pipe(
         switchMap((product) => (product ? this.facade.createProduct(product) : EMPTY)),
         takeUntilDestroyed(this.destroyRef),
@@ -124,7 +124,7 @@ export class DashboardPage {
 
   protected handleEditProduct(product: Product): void {
     this.productFormDialog
-      .open(product)
+      .open(this.storage(), product)
       .pipe(
         switchMap((changes) => (changes ? this.facade.updateProduct(product.id, changes) : EMPTY)),
         takeUntilDestroyed(this.destroyRef),

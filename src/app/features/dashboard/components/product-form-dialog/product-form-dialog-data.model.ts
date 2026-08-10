@@ -1,5 +1,7 @@
 import { Product } from '../../domain/product.model';
+import { ProductStorage } from '../../domain/product-storage.type';
 
 export interface ProductFormDialogData {
-  product?: Product;
+  readonly product?: Product;
+  readonly storage: ProductStorage;
 }

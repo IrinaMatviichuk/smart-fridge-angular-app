@@ -1,0 +1,26 @@
+@use '../../../../../styles/tokens' as tokens;
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+.dashboard-status-filter {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  justify-content: flex-start;
+
+  &__select {
+    width: 12rem;
+  }
+}
+
+@media (max-width: tokens.$breakpoint-mobile-max) {
+  .dashboard-status-filter {
+    &__select {
+      width: 100%;
+    }
+  }
+}

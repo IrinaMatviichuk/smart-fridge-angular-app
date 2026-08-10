@@ -18,6 +18,28 @@
   background-color: transparent;
 }
 
+.dashboard-page__content {
+  width: 100%;
+  min-width: 0;
+}
+
+.dashboard-page__loading {
+  display: flex;
+  min-height: 400px;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard-page__error {
+  display: flex;
+  min-height: 160px;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--sf-color-error);
+  text-align: center;
+}
+
 /* =========================================================
  * Tablet
  * ======================================================= */
@@ -25,6 +47,10 @@
 @media (max-width: tokens.$breakpoint-tablet-max) {
   .dashboard-page {
     padding: var(--sf-space-6);
+  }
+
+  .dashboard-page__loading {
+    min-height: 200px;
   }
 }
 
@@ -35,7 +61,10 @@
 @media (max-width: tokens.$breakpoint-mobile-max) {
   .dashboard-page {
     gap: var(--sf-space-4);
-
     padding: var(--sf-space-4);
+  }
+
+  .dashboard-page__loading {
+    min-height: 160px;
   }
 }

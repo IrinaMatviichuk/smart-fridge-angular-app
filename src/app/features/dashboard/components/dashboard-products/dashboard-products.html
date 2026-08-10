@@ -3,15 +3,7 @@
   aria-label="Products"
   [attr.aria-busy]="model().loading"
 >
-  @if (model().loading) {
-    <div
-      class="dashboard-products__loading"
-      role="status"
-      aria-live="polite"
-    >
-      Loading products...
-    </div>
-  } @else {
+  @if (!model().loading) {
     <div class="dashboard-products__grid">
       @for (product of model().products;
         track product.id) {

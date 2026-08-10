@@ -1,5 +1,7 @@
-import { Injectable, computed, inject } from '@angular/core';
-import { catchError, finalize, Observable, of, tap } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+import { DestroyRef, Injectable, computed, inject } from '@angular/core';
+import { Observable, Subscription, catchError, finalize, of, tap } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { resolveApiErrorMessage } from '../../../core/api';
 import { HeaderFacade } from '../../../layouts/main-header/header.facade';
@@ -15,7 +17,6 @@ import { ProductStatusFilter } from '../domain/product-status-filter.type';
 import { ProductStorage } from '../domain/product-storage.type';
 import { DASHBOARD_PRODUCT_ERROR_MESSAGES } from './dashboard-errors.constants';
 import { DashboardStore } from './dashboard.store';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class DashboardFacade {
@@ -24,6 +25,10 @@ export class DashboardFacade {
   private readonly productApi = inject(ProductApiService);
 
   private readonly header = inject(HeaderFacade);
+
+  private readonly destroyRef = inject(DestroyRef);
+
+  private loadProductsSubscription: Subscription | null = null;
 
   readonly products = this.store.products;
 
@@ -94,14 +99,17 @@ export class DashboardFacade {
     );
   });
 
-  loadStorage(storage: ProductStorage): void {
-    this.store.setActiveStorage(storage);
-    this.store.resetFilters();
+  readonly isStorageEmpty = computed(
+    () => !this.loading() && !this.error() && this.products().length === 0,
+  );
 
-    this.header.clearSearchQuery();
-
-    this.loadProducts(storage);
-  }
+  readonly isFilterResultEmpty = computed(
+    () =>
+      !this.loading() &&
+      !this.error() &&
+      this.products().length > 0 &&
+      this.filteredProducts().length === 0,
+  );
 
   selectStatus(status: ProductStatusFilter): void {
     this.store.setStatusFilter(status);
@@ -146,37 +154,61 @@ export class DashboardFacade {
   }
 
   reset(): void {
+    this.cancelProductsRequest();
     this.store.reset();
     this.header.clearSearchQuery();
   }
 
   private loadProducts(storage: ProductStorage): void {
+    /*
+     * If the user switches Fridge → Freezer quickly,
+     * the previous HTTP request must not be allowed
+     * to overwrite the newer storage result.
+     */
+    this.cancelProductsRequest();
+
     this.store.setLoading(true);
     this.store.setError(null);
 
-    this.productApi
+    /*
+     * Do not keep products from the previous storage
+     * while the new storage is loading.
+     */
+    this.store.clearProducts();
+
+    this.loadProductsSubscription = this.productApi
       .getProducts({
         storage,
       })
       .pipe(
         catchError((error: unknown) => {
+          /*
+           * The products list uses 404 as an
+           * empty collection state.
+           */
           if (error instanceof HttpErrorResponse && error.status === 404) {
-            return of([]);
+            return of([] as readonly Product[]);
           }
-
-          this.store.clearProducts();
 
           this.store.setError(resolveApiErrorMessage(error, DASHBOARD_PRODUCT_ERROR_MESSAGES.load));
 
-          return of([]);
+          return of([] as readonly Product[]);
         }),
         finalize(() => {
           this.store.setLoading(false);
+
+          this.loadProductsSubscription = null;
         }),
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((products) => {
         this.store.setProducts(products);
       });
+  }
+
+  private cancelProductsRequest(): void {
+    this.loadProductsSubscription?.unsubscribe();
+    this.loadProductsSubscription = null;
   }
 
   private syncUpdatedProduct(product: Product): void {

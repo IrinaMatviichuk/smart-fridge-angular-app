@@ -15,5 +15,6 @@ export class DashboardProducts {
   readonly model = input.required<DashboardProductsModel>();
 
   readonly productSelected = output<ProductCardModel>();
+
   readonly productMenuRequested = output<ProductCardModel>();
 }

@@ -1,0 +1,10 @@
+<div class="dashboard-status-filter">
+  <app-select
+    class="dashboard-status-filter__select"
+    ariaLabel="Filter products by status"
+    variant="secondary"
+    [options]="model().options"
+    [value]="model().value"
+    (valueChange)="handleValueChange($event)"
+  />
+</div>

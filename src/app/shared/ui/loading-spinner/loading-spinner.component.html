@@ -1,0 +1,12 @@
+<div
+  class="loading-spinner"
+  [class.loading-spinner--sm]="size() === 'sm'"
+  [class.loading-spinner--lg]="size() === 'lg'"
+  role="status"
+  [attr.aria-label]="label()"
+>
+  <span
+    class="loading-spinner__indicator"
+    aria-hidden="true"
+  ></span>
+</div>

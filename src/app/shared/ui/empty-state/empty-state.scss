@@ -24,6 +24,7 @@
     width: auto;
     max-width: 100%;
     height: auto;
+    max-height: 204px;
 
     object-fit: contain;
   }
@@ -43,11 +44,11 @@
   &__description {
     max-width: 32rem;
 
-    margin: var(--sf-space-3) auto 0;
+    margin: 0 auto;
 
     color: var(--sf-color-text-secondary);
 
-    @include mixins.main-text;
+    @include mixins.main-text(var(--sf-font-weight-medium));
   }
 
   &__action {

@@ -1,10 +1,18 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  computed,
+  effect,
+  inject,
+} from '@angular/core';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { distinctUntilChanged, filter, map } from 'rxjs';
+import { EMPTY, distinctUntilChanged, filter, map, switchMap } from 'rxjs';
 
 import { HeaderFacade } from '../../../../layouts/main-header/header.facade';
 import { EmptyState } from '../../../../shared/ui/empty-state/empty-state';
+import { LoadingSpinnerComponent } from '../../../../shared/ui/loading-spinner/loading-spinner.component';
 import { DashboardFacade } from '../../application/dashboard.facade';
 import { DashboardStore } from '../../application/dashboard.store';
 import {
@@ -13,13 +21,19 @@ import {
 } from '../../components/dashboard-empty-state/dashboard-empty-state.mapper';
 import { DashboardProducts } from '../../components/dashboard-products/dashboard-products';
 import { mapDashboardProductsModel } from '../../components/dashboard-products/dashboard-products.mapper';
+import { ProductFormDialogService } from '../../components/product-form-dialog/product-form-dialog.service';
 import { DashboardStatusFilter } from '../../components/dashboard-status-filter/dashboard-status-filter';
 import { mapDashboardStatusFilterModel } from '../../components/dashboard-status-filter/dashboard-status-filter.mapper';
 import { DashboardSummary } from '../../components/dashboard-summary/dashboard-summary';
 import { DashboardToolbar } from '../../components/dashboard-toolbar/dashboard-toolbar';
 import { mapDashboardToolbarModel } from '../../components/dashboard-toolbar/dashboard-toolbar.mapper';
-import { isProductStorage, ProductStorage } from '../../domain/product-storage.type';
-import { LoadingSpinnerComponent } from '../../../../shared/ui/loading-spinner/loading-spinner.component';
+import { DASHBOARD_ROUTE_PARAM } from '../../domain/dashboard-route.constants';
+import type { Product } from '../../domain/product.model';
+import {
+  isProductStorage,
+  PRODUCT_STORAGE,
+  ProductStorage,
+} from '../../domain/product-storage.type';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -31,21 +45,27 @@ import { LoadingSpinnerComponent } from '../../../../shared/ui/loading-spinner/l
     EmptyState,
     LoadingSpinnerComponent,
   ],
-  providers: [DashboardStore, DashboardFacade],
+  providers: [DashboardStore, DashboardFacade, ProductFormDialogService],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardPage {
   private readonly route = inject(ActivatedRoute);
+
   private readonly router = inject(Router);
 
   private readonly header = inject(HeaderFacade);
+
+  private readonly productFormDialog = inject(ProductFormDialogService);
+
+  private readonly destroyRef = inject(DestroyRef);
+
   protected readonly facade = inject(DashboardFacade);
 
   private readonly storage = toSignal(
     this.route.paramMap.pipe(
-      map((params) => params.get('storage')),
+      map((params) => params.get(DASHBOARD_ROUTE_PARAM.storage)),
       filter(isProductStorage),
       distinctUntilChanged(),
     ),
@@ -74,6 +94,10 @@ export class DashboardPage {
       placeholder: 'Search products...',
       ariaLabel: 'Search products',
     });
+
+    effect(() => {
+      this.facade.loadStorage(this.storage());
+    });
   }
 
   protected handleStorageChanged(storage: ProductStorage): void {
@@ -85,12 +109,28 @@ export class DashboardPage {
   }
 
   protected handleAddProduct(): void {
-    // Dialog will be connected in the Add Product step.
+    this.productFormDialog
+      .open()
+      .pipe(
+        switchMap((product) => (product ? this.facade.createProduct(product) : EMPTY)),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe();
+  }
+
+  protected handleEditProduct(product: Product): void {
+    this.productFormDialog
+      .open(product)
+      .pipe(
+        switchMap((changes) => (changes ? this.facade.updateProduct(product.id, changes) : EMPTY)),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe();
   }
 
   private resolveInitialStorage(): ProductStorage {
-    const storage = this.route.snapshot.paramMap.get('storage');
+    const storage = this.route.snapshot.paramMap.get(DASHBOARD_ROUTE_PARAM.storage);
 
-    return isProductStorage(storage) ? storage : 'fridge';
+    return isProductStorage(storage) ? storage : PRODUCT_STORAGE.fridge;
   }
 }

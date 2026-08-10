@@ -1,0 +1,126 @@
+@use '../../../../../styles/mixins' as mixins;
+
+:host {
+  display: block;
+}
+
+.product-form-dialog {
+  width: 100%;
+
+  padding: var(--sf-space-6);
+
+  background-color: var(--sf-color-surface);
+}
+
+.product-form-dialog__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sf-space-4);
+
+  margin-bottom: var(--sf-space-6);
+}
+
+.product-form-dialog__heading {
+  min-width: 0;
+}
+
+.product-form-dialog__title {
+  margin: 0;
+
+  color: var(--sf-color-text-primary);
+}
+
+.product-form-dialog__subtitle {
+  margin: var(--sf-space-1) 0 0;
+
+  color: var(--sf-color-text-secondary);
+}
+
+.product-form-dialog__close {
+  display: inline-flex;
+  width: var(--sf-size-control-sm);
+  height: var(--sf-size-control-sm);
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: var(--sf-radius-control);
+
+  background-color: transparent;
+
+  color: var(--sf-color-text-primary);
+
+  cursor: pointer;
+
+  @include mixins.focus-visible-ring;
+
+  mat-icon {
+    width: var(--sf-size-icon-lg);
+    height: var(--sf-size-icon-lg);
+  }
+}
+
+.product-form-dialog__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sf-space-4);
+}
+
+.product-form-dialog__field-group {
+  min-width: 0;
+
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+}
+
+.product-form-dialog__label {
+  display: block;
+
+  margin-bottom: var(--sf-space-2);
+
+  color: var(--sf-color-text-primary);
+}
+
+.product-form-dialog__storage {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: var(--sf-space-6);
+
+  min-height: var(--sf-size-control-lg);
+
+  padding: var(--sf-space-2) var(--sf-space-4);
+
+  border: 0.0625rem solid var(--sf-color-border);
+  border-radius: var(--sf-radius-control);
+
+  background-color: var(--sf-color-surface);
+}
+
+.product-form-dialog__storage-option {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sf-space-2);
+
+  color: var(--sf-color-text-primary);
+
+  cursor: pointer;
+}
+
+.product-form-dialog__required-note {
+  margin: 0;
+
+  color: var(--sf-color-text-secondary);
+}
+
+@media (max-width: 37.5rem) {
+  .product-form-dialog {
+    padding: var(--sf-space-4);
+  }
+}

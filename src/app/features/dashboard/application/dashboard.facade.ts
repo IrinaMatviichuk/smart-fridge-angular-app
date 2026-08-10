@@ -1,20 +1,21 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { DestroyRef, Injectable, computed, inject } from '@angular/core';
-import { Observable, Subscription, catchError, finalize, of, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Observable, Subscription, catchError, finalize, of, tap } from 'rxjs';
 
 import { resolveApiErrorMessage } from '../../../core/api';
 import { HeaderFacade } from '../../../layouts/main-header/header.facade';
 import { ProductApiService } from '../data-access/products/product-api.service';
+import { PatchProductRequestDto } from '../data-access/products/product-request.dto';
 import {
-  CreateProductRequestDto,
-  PatchProductRequestDto,
-  UpdateProductRequestDto,
-} from '../data-access/products/product-request.dto';
+  mapCreateProductRequest,
+  mapUpdateProductRequest,
+} from '../data-access/products/product-request.mapper';
 import { DashboardSummary } from '../domain/dashboard-summary.model';
 import { Product } from '../domain/product.model';
 import { ProductStatusFilter } from '../domain/product-status-filter.type';
 import { ProductStorage } from '../domain/product-storage.type';
+import { ProductWriteModel } from '../domain/product-write.model';
 import { DASHBOARD_PRODUCT_ERROR_MESSAGES } from './dashboard-errors.constants';
 import { DashboardStore } from './dashboard.store';
 
@@ -111,24 +112,34 @@ export class DashboardFacade {
       this.filteredProducts().length === 0,
   );
 
+  loadStorage(storage: ProductStorage): void {
+    this.store.setActiveStorage(storage);
+
+    this.loadProducts(storage);
+  }
+
   selectStatus(status: ProductStatusFilter): void {
     this.store.setStatusFilter(status);
   }
 
-  createProduct(request: CreateProductRequestDto): Observable<Product> {
+  createProduct(product: ProductWriteModel): Observable<Product> {
+    const request = mapCreateProductRequest(product);
+
     return this.productApi.createProduct(request).pipe(
-      tap((product) => {
-        if (product.storage === this.activeStorage()) {
-          this.store.addProduct(product);
+      tap((createdProduct) => {
+        if (createdProduct.storage === this.activeStorage()) {
+          this.store.addProduct(createdProduct);
         }
       }),
     );
   }
 
-  updateProduct(id: number, request: UpdateProductRequestDto): Observable<Product> {
+  updateProduct(id: number, product: ProductWriteModel): Observable<Product> {
+    const request = mapUpdateProductRequest(product);
+
     return this.productApi.updateProduct(id, request).pipe(
-      tap((product) => {
-        this.syncUpdatedProduct(product);
+      tap((updatedProduct) => {
+        this.syncUpdatedProduct(updatedProduct);
       }),
     );
   }
@@ -155,6 +166,7 @@ export class DashboardFacade {
 
   reset(): void {
     this.cancelProductsRequest();
+
     this.store.reset();
     this.header.clearSearchQuery();
   }
@@ -208,6 +220,7 @@ export class DashboardFacade {
 
   private cancelProductsRequest(): void {
     this.loadProductsSubscription?.unsubscribe();
+
     this.loadProductsSubscription = null;
   }
 

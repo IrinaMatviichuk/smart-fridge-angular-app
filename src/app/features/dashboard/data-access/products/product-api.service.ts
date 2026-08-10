@@ -17,7 +17,7 @@ import { mapProductQueryToParams } from './product-query.mapper';
   providedIn: 'root',
 })
 export class ProductApiService extends BaseApiService {
-  private readonly basePath = '/api/products/';
+  private readonly basePath = '/products/';
 
   getProducts(query: ProductQuery = {}): Observable<Product[]> {
     return this.getMappedList<ProductDto, Product>(this.basePath, mapProductDto, {

@@ -1,6 +1,12 @@
-export const PRODUCT_STORAGES = ['fridge', 'freezer'] as const;
+export const PRODUCT_STORAGE = {
+  fridge: 'fridge',
+  freezer: 'freezer',
+} as const;
 
-export type ProductStorage = (typeof PRODUCT_STORAGES)[number];
+export type ProductStorage = (typeof PRODUCT_STORAGE)[keyof typeof PRODUCT_STORAGE];
 
-export const isProductStorage = (value: string | null): value is ProductStorage =>
-  value !== null && PRODUCT_STORAGES.includes(value as ProductStorage);
+export const isProductStorage = (value: unknown): value is ProductStorage => {
+  return (
+    typeof value === 'string' && Object.values(PRODUCT_STORAGE).includes(value as ProductStorage)
+  );
+};

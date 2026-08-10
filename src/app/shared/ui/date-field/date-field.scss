@@ -1,0 +1,79 @@
+@use '../../../../styles/components/form-field' as form-field;
+
+@include form-field.form-control-base(
+    'date-field'
+);
+
+.date-field {
+  &__control-wrapper {
+    &--with-prefix {
+      .date-field__control {
+        padding-inline-end: calc(
+          var(--sf-space-4) +
+          var(--sf-size-icon-lg) +
+          var(--sf-space-3)
+        );
+      }
+    }
+  }
+
+  &__calendar-button {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    right: var(--sf-space-4);
+
+    display: inline-grid;
+    width: var(--sf-size-icon-lg);
+    height: var(--sf-size-icon-lg);
+    place-items: center;
+
+    padding: 0;
+
+    border: 0;
+
+    background: transparent;
+    color: var(--sf-color-control-icon);
+
+    cursor: pointer;
+
+    transform: translateY(-50%);
+
+    transition: color var(--sf-duration-fast) var(--sf-easing-standard);
+
+    &:hover:not(:disabled) {
+      color: var(--sf-color-control-icon-active);
+    }
+
+    &:focus,
+    &:focus-visible {
+      outline: 0;
+      box-shadow: none;
+    }
+
+    &:disabled {
+      color: var(--sf-color-control-placeholder-disabled);
+
+      cursor: not-allowed;
+    }
+  }
+
+  &__calendar-icon {
+    width: var(--sf-size-icon-lg);
+    height: var(--sf-size-icon-lg);
+
+    color: currentColor;
+  }
+
+  &__control-wrapper:focus-within {
+    .date-field__calendar-button {
+      color: var(--sf-color-control-icon-active);
+    }
+  }
+
+  &__control-wrapper--invalid {
+    .date-field__calendar-button {
+      color: var(--sf-color-error);
+    }
+  }
+}

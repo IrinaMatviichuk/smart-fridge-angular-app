@@ -1,0 +1,66 @@
+@if (!hidden()) {
+  <app-form-field
+    [inputId]="inputId()"
+    [messageId]="messageId()"
+    [label]="label()"
+    [required]="required()"
+    [invalid]="showInvalidState()"
+    [errorMessage]="errorMessage()"
+    [reserveMessageSpace]="reserveErrorSpace()"
+  >
+    <div
+      class="date-field__control-wrapper"
+      [class.date-field__control-wrapper--with-prefix]="true"
+      [class.date-field__control-wrapper--invalid]="
+        showInvalidState()
+      "
+      [class.date-field__control-wrapper--disabled]="
+        disabled()
+      "
+    >
+      <mat-icon
+        class="date-field__prefix-icon"
+        svgIcon="clock"
+        aria-hidden="true"
+      />
+
+      <input
+        class="date-field__control"
+        [id]="inputId()"
+        [matDatepicker]="picker"
+        [value]="dateValue()"
+        [placeholder]="placeholder()"
+        [disabled]="disabled()"
+        [readonly]="readonly()"
+        [required]="required()"
+        [attr.aria-invalid]="
+          showInvalidState() ? 'true' : 'false'
+        "
+        [attr.aria-describedby]="
+          errorMessage() ? messageId() : null
+        "
+        (dateChange)="handleDateChange($event.value)"
+        (blur)="handleBlur()"
+      />
+
+      <button
+        class="date-field__calendar-button"
+        type="button"
+        [disabled]="disabled() || readonly()"
+        aria-label="Open calendar"
+        (click)="picker.open()"
+      >
+        <mat-icon
+          class="date-field__calendar-icon"
+          svgIcon="calendar"
+          aria-hidden="true"
+        />
+      </button>
+
+      <mat-datepicker
+        #picker
+        startView="month"
+      />
+    </div>
+  </app-form-field>
+}

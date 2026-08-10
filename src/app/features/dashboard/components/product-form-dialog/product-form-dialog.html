@@ -1,0 +1,109 @@
+<section
+  class="product-form-dialog"
+  aria-labelledby="product-form-dialog-title"
+>
+  <header class="product-form-dialog__header">
+    <div class="product-form-dialog__heading">
+      <h2
+        id="product-form-dialog-title"
+        class="product-form-dialog__title"
+      >
+        {{ title() }}
+      </h2>
+
+      <p class="product-form-dialog__subtitle">
+        {{ subtitle() }}
+      </p>
+    </div>
+
+    <button
+      class="product-form-dialog__close"
+      type="button"
+      aria-label="Close dialog"
+      (click)="close()"
+    >
+      <mat-icon
+        svgIcon="Close"
+        aria-hidden="true"
+      />
+    </button>
+  </header>
+
+  <form
+    class="product-form-dialog__form"
+    novalidate
+    (submit)="submit($event)"
+  >
+    <app-text-field
+      inputId="product-name"
+      label="Product name"
+      placeholder="Enter product name"
+      prefixIcon="cube"
+      [formField]="productForm.name"
+    />
+    <fieldset class="product-form-dialog__field-group">
+      <legend class="product-form-dialog__label">
+        Storage
+      </legend>
+
+      <div
+        class="product-form-dialog__storage"
+        role="radiogroup"
+        aria-label="Storage"
+      >
+        <label class="product-form-dialog__storage-option">
+          <app-radio
+            ariaLabel="Fridge"
+            [checked]="
+              productForm.storage().value() === 'fridge'
+            "
+            (checkedChange)="selectStorage('fridge')"
+          />
+
+          <span>Fridge</span>
+        </label>
+
+        <label class="product-form-dialog__storage-option">
+          <app-radio
+            ariaLabel="Freezer"
+            [checked]="
+              productForm.storage().value() === 'freezer'
+            "
+            (checkedChange)="selectStorage('freezer')"
+          />
+
+          <span>Freezer</span>
+        </label>
+      </div>
+    </fieldset>
+
+    <app-text-field
+      inputId="product-quantity"
+      label="Quantity"
+      placeholder="e.g. 1L, 500 g, 2 pcs"
+      [formField]="productForm.quantity"
+    />
+
+    <app-date-field
+      inputId="product-expiry-date"
+      label="Expiry Date"
+      placeholder="Enter or select date"
+      [formField]="productForm.expiryDate"
+    />
+
+    <app-button
+      type="submit"
+      variant="primary"
+      iconStart="add"
+      [fullWidth]="true"
+      [disabled]="productForm().invalid()"
+    >
+      {{ submitLabel() }}
+    </app-button>
+
+    <p class="product-form-dialog__required-note">
+      <span aria-hidden="true">*</span>
+      Required fields
+    </p>
+  </form>
+</section>

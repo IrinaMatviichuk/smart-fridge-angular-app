@@ -21,19 +21,11 @@
 
   background-color: var(--sf-color-surface);
 
-  cursor: pointer;
-
   transition: border-color var(--sf-duration-fast) var(--sf-easing-standard),
   box-shadow var(--sf-duration-fast) var(--sf-easing-standard),
   transform var(--sf-duration-fast) var(--sf-easing-standard);
 
   @include mixins.focus-visible-ring;
-
-  &:hover {
-    border-color: var(--sf-color-border-neutral);
-
-    transform: translateY(-0.0625rem);
-  }
 
   &:active {
     transform: translateY(0);

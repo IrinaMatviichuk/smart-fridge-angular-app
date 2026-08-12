@@ -10,8 +10,8 @@ import { Radio } from '../../../../shared/ui/radio/radio';
 import { Select } from '../../../../shared/ui/select/select';
 import { TextField } from '../../../../shared/ui/text-field/text-field';
 import { PRODUCT_CATEGORY_OPTIONS } from '../../config/product-category-options.config';
-import { ProductCategory } from '../../domain/product-category.type';
-import { ProductStorage } from '../../domain/product-storage.type';
+import { ProductCategory } from '../../../../entities/product/domain/product-category.type';
+import { ProductStorage } from '../../../../entities/product/domain/product-storage.type';
 import { ProductWriteModel } from '../../domain/product-write.model';
 import {
   PRODUCT_FORM_DIALOG_TEXT,

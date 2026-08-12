@@ -26,6 +26,7 @@
     width: 100%;
 
     .tabs__item {
+      width: auto;
       min-width: 0;
       flex: 1 1 0;
     }
@@ -33,7 +34,14 @@
 
   &__item {
     display: inline-flex;
-    min-width: 7.5rem;
+    width: var(
+        --sf-tabs-item-width,
+        auto
+    );
+    min-width: var(
+        --sf-tabs-item-min-width,
+        7.5rem
+    );
     min-height: 100%;
     align-items: center;
     justify-content: center;

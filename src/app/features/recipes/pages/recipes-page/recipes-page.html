@@ -1,0 +1,161 @@
+<section class="recipes-page">
+  <header class="recipes-page__header">
+    <h1 class="recipes-page__title">
+      Recipes Suggestions
+    </h1>
+
+    <p class="recipes-page__subtitle">
+      Our AI will suggest recipes based on the ingredients you have in your fridge.
+    </p>
+  </header>
+
+  <app-tabs
+    class="recipes-page__tabs"
+    ariaLabel="Recipe sections"
+    [items]="tabs"
+    [value]="activeView() ?? 'suggestions'"
+    [fullWidth]="true"
+    (valueChange)="handleViewChange($event)"
+  />
+
+  @if (activeView() === 'suggestions') {
+    <section
+      class="recipes-page__ingredients"
+      aria-labelledby="recipes-ingredients-title"
+    >
+      <header class="recipes-page__ingredients-header">
+        <h2
+          id="recipes-ingredients-title"
+          class="recipes-page__ingredients-title"
+        >
+          Available ingredients from your fridge
+        </h2>
+
+        <p class="recipes-page__ingredients-description">
+          These are the products we'll use to find the best recipe ideas for you.
+        </p>
+      </header>
+
+      @if (facade.productsLoading()) {
+        <div
+          class="recipes-page__loading"
+          role="status"
+          aria-live="polite"
+        >
+          Loading ingredients...
+        </div>
+      } @else {
+        @if (productsErrorTip(); as errorTip) {
+          <app-tip-frame
+            [model]="errorTip"
+          />
+        } @else if (!facade.hasAvailableProducts()) {
+          <app-empty-state
+            [data]="emptyIngredientsState"
+            (actionRequested)="handleEmptyAction()"
+          />
+        } @else {
+          <div class="recipes-page__products-section">
+            <div
+              class="recipes-page__products-viewport"
+              [class.recipes-page__products-viewport--collapsed]="
+                hasExpandableProducts() &&
+                !facade.ingredientsExpanded()
+              "
+            >
+              <div class="recipes-page__products">
+                @for (product of productCards();
+                  track product.id) {
+                  <app-product-card
+                    [product]="product"
+                  />
+                }
+              </div>
+
+              @if (hasExpandableProducts() &&
+              !facade.ingredientsExpanded() &&
+              !facade.generationError()) {
+                <button
+                  class="
+                    recipes-page__products-toggle
+                    recipes-page__products-toggle--overlay
+                  "
+                  type="button"
+                  (click)="
+                    facade.toggleIngredientsExpanded()
+                  "
+                >
+                  Show more
+                </button>
+              }
+            </div>
+
+            @if (hasExpandableProducts() &&
+            facade.ingredientsExpanded() &&
+            !facade.generationError()) {
+              <button
+                class="recipes-page__products-toggle"
+                type="button"
+                (click)="
+                  facade.toggleIngredientsExpanded()
+                "
+              >
+                Show less
+              </button>
+            }
+
+            @if (generationErrorTip(); as errorTip) {
+              <app-tip-frame
+                class="recipes-page__generation-tip"
+                [model]="errorTip"
+              />
+            }
+          </div>
+
+          <app-button
+            class="recipes-page__generate"
+            [fullWidth]="true"
+            [iconStart]="icons.sparkles"
+            [loading]="facade.generating()"
+            [disabled]="
+              facade.generating() ||
+              facade.generationError() !== null
+            "
+            (click)="handleGenerateRecipes()"
+          >
+            Get Recipes
+          </app-button>
+        }
+      }
+    </section>
+  } @else if (activeView() === 'saved') {
+    <section
+      class="recipes-page__saved"
+      aria-label="Liked recipes"
+    >
+      @if (facade.savedLoading()) {
+        <div
+          class="recipes-page__loading"
+          role="status"
+          aria-live="polite"
+        >
+          Loading liked recipes...
+        </div>
+      } @else {
+        @if (savedErrorTip(); as errorTip) {
+          <app-tip-frame
+            [model]="errorTip"
+          />
+        } @else if (!facade.hasSavedRecipes()) {
+          <app-empty-state
+            class="recipes-page__saved-empty"
+            [data]="emptySavedRecipesState"
+            (actionRequested)="handleEmptyAction()"
+          />
+        } @else {
+          <!-- Saved recipe cards will be connected after SavedRecipe DTO is confirmed. -->
+        }
+      }
+    </section>
+  }
+</section>

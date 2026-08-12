@@ -1,5 +1,5 @@
 import { SelectOption } from '../../../shared/ui/select/select-option.interface';
-import { ProductCategory } from '../domain/product-category.type';
+import { ProductCategory } from '../../../entities/product/domain/product-category.type';
 
 export const PRODUCT_CATEGORY_OPTIONS: readonly SelectOption<ProductCategory>[] = [
   {

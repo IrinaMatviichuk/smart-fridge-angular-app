@@ -1,5 +1,5 @@
-import { ProductCategory } from './product-category.type';
-import { ProductStorage } from './product-storage.type';
+import { ProductCategory } from '../../../entities/product/domain/product-category.type';
+import { ProductStorage } from '../../../entities/product/domain/product-storage.type';
 
 export interface ProductWriteModel {
   readonly name: string;

@@ -1,6 +1,6 @@
 import { IconName } from '../../../../core/icons/icon-name';
 import { TabsItem } from '../../../../shared/ui/tabs/tabs-item.interface';
-import { ProductStorage } from '../../domain/product-storage.type';
+import { ProductStorage } from '../../../../entities/product/domain/product-storage.type';
 
 export const DASHBOARD_STORAGE_TABS: readonly TabsItem<ProductStorage>[] = [
   {

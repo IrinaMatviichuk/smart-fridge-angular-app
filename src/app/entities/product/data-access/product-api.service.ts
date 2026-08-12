@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { BaseApiService } from '../../../../core/api';
-import { Product } from '../../domain/product.model';
-import { ProductQuery } from '../../domain/product-query.model';
-import { mapProductDto } from './product.mapper';
+import { BaseApiService } from '../../../core/api';
+import { Product } from '../domain/product.model';
+import { ProductQuery } from '../domain/product-query.model';
 import { ProductDto } from './product.dto';
+import { mapProductDto } from './product.mapper';
+import { mapProductQueryToParams } from './product-query.mapper';
 import {
   CreateProductRequestDto,
   PatchProductRequestDto,
   UpdateProductRequestDto,
 } from './product-request.dto';
-import { mapProductQueryToParams } from './product-query.mapper';
 
 @Injectable({
   providedIn: 'root',

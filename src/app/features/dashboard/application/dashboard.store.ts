@@ -1,10 +1,10 @@
 import { Injectable, computed, signal } from '@angular/core';
 
-import { Product } from '../domain/product.model';
+import { Product } from '../../../entities/product/domain/product.model';
 import { ProductCategoryFilter } from '../domain/product-category-filter.type';
 import { PRODUCT_SORT, ProductSort } from '../domain/product-sort.type';
 import { ProductStatusFilter } from '../domain/product-status-filter.type';
-import { PRODUCT_STORAGE, ProductStorage } from '../domain/product-storage.type';
+import { PRODUCT_STORAGE, ProductStorage } from '../../../entities/product/domain/product-storage.type';
 
 @Injectable()
 export class DashboardStore {

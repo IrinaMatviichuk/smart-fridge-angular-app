@@ -5,19 +5,19 @@ import { Observable, Subscription, catchError, finalize, of, tap } from 'rxjs';
 
 import { resolveApiErrorMessage } from '../../../core/api';
 import { HeaderFacade } from '../../../layouts/main-header/header.facade';
-import { ProductApiService } from '../data-access/products/product-api.service';
-import { PatchProductRequestDto } from '../data-access/products/product-request.dto';
+import { ProductApiService } from '../../../entities/product/data-access/product-api.service';
+import { PatchProductRequestDto } from '../../../entities/product/data-access/product-request.dto';
 import {
   mapCreateProductRequest,
   mapUpdateProductRequest,
-} from '../data-access/products/product-request.mapper';
+} from '../../../entities/product/data-access/product-request.mapper';
 import { DashboardSummary } from '../domain/dashboard-summary.model';
 import { ProductCategoryFilter } from '../domain/product-category-filter.type';
-import { Product } from '../domain/product.model';
+import { Product } from '../../../entities/product/domain/product.model';
 import { ProductSort } from '../domain/product-sort.type';
 import { sortProducts } from '../domain/product-sort.util';
 import { ProductStatusFilter } from '../domain/product-status-filter.type';
-import { ProductStorage } from '../domain/product-storage.type';
+import { ProductStorage } from '../../../entities/product/domain/product-storage.type';
 import { ProductWriteModel } from '../domain/product-write.model';
 import { DASHBOARD_PRODUCT_ERROR_MESSAGES } from './dashboard-errors.constants';
 import { DashboardStore } from './dashboard.store';

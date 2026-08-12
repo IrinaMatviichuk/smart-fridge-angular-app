@@ -1,5 +1,5 @@
-import { ProductCategory } from '../../domain/product-category.type';
-import { ProductStorage } from '../../domain/product-storage.type';
+import { ProductCategory } from '../domain/product-category.type';
+import { ProductStorage } from '../domain/product-storage.type';
 
 export interface CreateProductRequestDto {
   readonly name: string;

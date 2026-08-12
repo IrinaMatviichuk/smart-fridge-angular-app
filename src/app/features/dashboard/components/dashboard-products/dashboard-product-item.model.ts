@@ -1,5 +1,5 @@
 import { ProductCardModel } from '../../../../shared/ui/product-card/product-card.model';
-import { Product } from '../../domain/product.model';
+import { Product } from '../../../../entities/product/domain/product.model';
 
 export interface DashboardProductItemModel {
   readonly product: Product;

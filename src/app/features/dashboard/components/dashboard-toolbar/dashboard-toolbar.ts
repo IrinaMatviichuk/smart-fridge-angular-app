@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, input, output } from '@angular/core
 
 import { Button } from '../../../../shared/ui/button/button';
 import { Tabs } from '../../../../shared/ui/tabs/tabs';
-import { ProductStorage } from '../../domain/product-storage.type';
+import { ProductStorage } from '../../../../entities/product/domain/product-storage.type';
 import { DashboardToolbarModel } from './dashboard-toolbar.model';
 
 @Component({

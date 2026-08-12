@@ -1,7 +1,7 @@
-import { ProductCardModel } from '../../../../shared/ui/product-card/product-card.model';
-import { StatusChipTone } from '../../../../shared/ui/status-chip/status-chip.types';
-import { Product } from '../../domain/product.model';
-import { ProductStatus } from '../../domain/product-status.type';
+import { ProductCardModel } from '../../../shared/ui/product-card/product-card.model';
+import { StatusChipTone } from '../../../shared/ui/status-chip/status-chip.types';
+import { Product } from '../domain/product.model';
+import { ProductStatus } from '../domain/product-status.type';
 
 const STATUS_TONE_MAP: Readonly<Record<ProductStatus, StatusChipTone>> = {
   fresh: 'success',

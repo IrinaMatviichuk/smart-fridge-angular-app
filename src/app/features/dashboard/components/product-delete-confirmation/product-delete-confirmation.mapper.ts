@@ -1,5 +1,5 @@
 import { ConfirmationDialogData } from '../../../../shared/ui/confirmation-dialog/confirmation-dialog-data.model';
-import { Product } from '../../domain/product.model';
+import { Product } from '../../../../entities/product/domain/product.model';
 import { PRODUCT_DELETE_CONFIRMATION_TEXT } from './product-delete-confirmation.constants';
 
 export const mapProductDeleteConfirmationData = (product: Product): ConfirmationDialogData => ({

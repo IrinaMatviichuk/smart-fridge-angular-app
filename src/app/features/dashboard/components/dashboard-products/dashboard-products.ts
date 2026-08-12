@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, input, output } from '@angular/core
 
 import { ActionMenuItem } from '../../../../shared/ui/action-menu/action-menu-item.model';
 import { ProductCard } from '../../../../shared/ui/product-card/product-card';
-import { Product } from '../../domain/product.model';
+import { Product } from '../../../../entities/product/domain/product.model';
 import { PRODUCT_ACTION, ProductAction } from '../product-actions/product-actions.types';
 import { PRODUCT_ACTIONS } from '../product-actions/product-actions.config';
 import { DashboardProductsModel } from './dashboard-products.model';

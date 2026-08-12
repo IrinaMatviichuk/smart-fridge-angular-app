@@ -1,4 +1,4 @@
-import { Product } from './product.model';
+import { Product } from '../../../entities/product/domain/product.model';
 
 export interface DashboardProductsModel {
   readonly loading: boolean;

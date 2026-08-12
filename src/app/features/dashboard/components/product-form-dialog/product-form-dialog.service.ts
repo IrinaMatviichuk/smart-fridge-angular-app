@@ -2,8 +2,8 @@ import { Injectable, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, from, switchMap } from 'rxjs';
 
-import type { Product } from '../../domain/product.model';
-import type { ProductStorage } from '../../domain/product-storage.type';
+import type { Product } from '../../../../entities/product/domain/product.model';
+import type { ProductStorage } from '../../../../entities/product/domain/product-storage.type';
 import type { ProductWriteModel } from '../../domain/product-write.model';
 import type { ProductFormDialogData } from './product-form-dialog-data.model';
 

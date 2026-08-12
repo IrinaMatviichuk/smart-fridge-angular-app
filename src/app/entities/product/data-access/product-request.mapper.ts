@@ -1,4 +1,4 @@
-import { ProductWriteModel } from '../../domain/product-write.model';
+import { ProductWriteModel } from '../../../features/dashboard/domain/product-write.model';
 import { CreateProductRequestDto, UpdateProductRequestDto } from './product-request.dto';
 
 export const mapCreateProductRequest = (product: ProductWriteModel): CreateProductRequestDto => {

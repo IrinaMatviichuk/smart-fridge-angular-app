@@ -30,12 +30,12 @@ import { DashboardSummary } from '../../components/dashboard-summary/dashboard-s
 import { DashboardToolbar } from '../../components/dashboard-toolbar/dashboard-toolbar';
 import { mapDashboardToolbarModel } from '../../components/dashboard-toolbar/dashboard-toolbar.mapper';
 import { DASHBOARD_ROUTE_PARAM } from '../../domain/dashboard-route.constants';
-import type { Product } from '../../domain/product.model';
+import type { Product } from '../../../../entities/product/domain/product.model';
 import {
   isProductStorage,
   PRODUCT_STORAGE,
   ProductStorage,
-} from '../../domain/product-storage.type';
+} from '../../../../entities/product/domain/product-storage.type';
 
 @Component({
   selector: 'app-dashboard-page',

@@ -1,3 +1,3 @@
-import { ProductCategory } from './product-category.type';
+import { ProductCategory } from '../../../entities/product/domain/product-category.type';
 
 export type ProductCategoryFilter = 'all' | ProductCategory;

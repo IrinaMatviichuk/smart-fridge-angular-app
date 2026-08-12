@@ -1,5 +1,5 @@
 import { EmptyStateModel } from '../../../../shared/ui/empty-state/empty-state.model';
-import { ProductStorage } from '../../domain/product-storage.type';
+import { ProductStorage } from '../../../../entities/product/domain/product-storage.type';
 import {
   DASHBOARD_FILTER_EMPTY_STATE,
   DASHBOARD_STORAGE_EMPTY_STATES,

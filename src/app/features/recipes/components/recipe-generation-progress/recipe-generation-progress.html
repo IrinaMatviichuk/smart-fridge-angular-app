@@ -1,0 +1,26 @@
+<section
+  class="recipe-generation-progress"
+  role="status"
+  aria-live="polite"
+>
+  <img
+    class="recipe-generation-progress__image"
+    [src]="model().imageUrl"
+    [alt]="model().imageAlt"
+  />
+
+  <div class="recipe-generation-progress__content">
+    <h2 class="recipe-generation-progress__title">
+      {{ model().title }}
+    </h2>
+
+    <p class="recipe-generation-progress__description">
+      {{ model().description }}
+    </p>
+
+    <span
+      class="recipe-generation-progress__loader"
+      aria-hidden="true"
+    ></span>
+  </div>
+</section>

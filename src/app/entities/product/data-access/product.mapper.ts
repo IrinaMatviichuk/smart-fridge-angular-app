@@ -1,5 +1,5 @@
-import { Product } from '../../domain/product.model';
-import { ProductStatus } from '../../domain/product-status.type';
+import { Product } from '../domain/product.model';
+import { ProductStatus } from '../domain/product-status.type';
 import { ProductDto } from './product.dto';
 
 const MS_PER_DAY = 24 * 60 * 60 * 1000;

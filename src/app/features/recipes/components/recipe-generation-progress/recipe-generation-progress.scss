@@ -1,0 +1,108 @@
+@use '../../../../../styles/mixins' as mixins;
+@use '../../../../../styles/tokens' as tokens;
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+.recipe-generation-progress {
+  display: flex;
+  width: 100%;
+  min-height: 28rem;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sf-space-10);
+
+  padding: var(--sf-space-10) var(--sf-space-8);
+
+  &__image {
+    display: block;
+    width: min(100%, 20rem);
+    height: auto;
+    flex: 0 1 20rem;
+
+    object-fit: contain;
+  }
+
+  &__content {
+    display: flex;
+    width: min(100%, 28rem);
+    min-width: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sf-space-4);
+  }
+
+  &__title {
+    margin: 0;
+
+    color: var(--sf-color-text-primary);
+
+    @include mixins.heading-2;
+  }
+
+  &__description {
+    margin: 0;
+
+    color: var(--sf-color-text-tertiary);
+
+    @include mixins.main-text;
+  }
+
+  &__loader {
+    display: block;
+    width: 2rem;
+    height: 2rem;
+
+    margin-block-start: var(--sf-space-2);
+
+    border: 0.1875rem solid var(--sf-color-border);
+
+    border-block-start-color: var(--sf-color-primary);
+
+    border-radius: 50%;
+
+    animation: recipe-generation-spin 0.8s linear infinite;
+  }
+}
+
+@keyframes recipe-generation-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: tokens.$breakpoint-tablet-max) {
+  .recipe-generation-progress {
+    min-height: 24rem;
+    flex-direction: column;
+    gap: var(--sf-space-6);
+
+    padding: var(--sf-space-8) var(--sf-space-6);
+
+    text-align: center;
+
+    &__image {
+      width: min(100%, 15rem);
+      flex-basis: auto;
+    }
+
+    &__content {
+      align-items: center;
+    }
+  }
+}
+
+@media (max-width: tokens.$breakpoint-mobile-max) {
+  .recipe-generation-progress {
+    min-height: 20rem;
+
+    padding: var(--sf-space-6) var(--sf-space-4);
+
+    &__image {
+      width: min(100%, 12rem);
+    }
+  }
+}

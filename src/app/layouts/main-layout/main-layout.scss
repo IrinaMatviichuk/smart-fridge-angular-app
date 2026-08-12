@@ -43,17 +43,21 @@
 
     display: block;
     width: 100%;
+    flex: 0 0 auto;
   }
 
   &__content {
-    min-width: 0;
-    flex: 1 1 auto;
-  }
-
-  &__content-inner {
+    display: flex;
     width: 100%;
-    max-width: var(--sf-layout-content-max-width);
+    min-width: 0;
+    min-height: 0;
+    flex: 1 1 auto;
 
+    /*
+     * Shared max-width belongs to the actual content area,
+     * not to an extra wrapper around router-outlet.
+     */
+    max-width: var(--sf-layout-content-max-width);
     margin-inline: auto;
   }
 
@@ -86,7 +90,7 @@
  * Below 1024px
  * ======================================================= */
 
-@media(max-width: tokens.$breakpoint-tablet-max) {
+@media (max-width: tokens.$breakpoint-tablet-max) {
   .main-layout {
     display: block;
 
@@ -97,12 +101,8 @@
       left: 0;
 
       width: min(
-        var(
-            --sf-layout-drawer-max-width
-        ),
-        var(
-            --sf-layout-drawer-viewport-width
-        )
+        var(--sf-layout-drawer-max-width),
+        var(--sf-layout-drawer-viewport-width)
       );
 
       height: 100dvh;
@@ -115,6 +115,10 @@
 
     &__workspace {
       width: 100%;
+    }
+
+    &__content {
+      max-width: none;
     }
 
     &__backdrop {
@@ -145,19 +149,6 @@
         opacity: 1;
         visibility: visible;
       }
-    }
-  }
-}
-
-/* =========================================================
- * Mobile
- * Below 768px
- * ======================================================= */
-
-@media(max-width: tokens.$breakpoint-mobile-max) {
-  .main-layout {
-    &__content-inner {
-      max-width: none;
     }
   }
 }

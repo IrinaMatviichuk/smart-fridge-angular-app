@@ -1,6 +1,6 @@
-import { Product } from '../../domain/product.model';
+import { Product } from '../../../../entities/product/domain/product.model';
 import { DashboardProductsModel } from './dashboard-products.model';
-import { mapProductToCardModel } from './product-card.mapper';
+import { mapProductToCardModel } from '../../../../entities/product/presentation/product-card.mapper';
 
 export const mapDashboardProductsModel = (
   products: readonly Product[],

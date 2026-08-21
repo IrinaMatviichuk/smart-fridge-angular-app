@@ -1,0 +1,130 @@
+@use '../../../../../styles/tokens' as tokens;
+
+:host {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+.saved-recipes-page {
+  --saved-recipes-inline-padding: var(--sf-space-8);
+
+  position: relative;
+
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+  flex: 1 1 auto;
+  flex-direction: column;
+
+  padding: 0 var(--saved-recipes-inline-padding) var(--sf-space-8);
+
+  &__loading {
+    display: flex;
+    width: 100%;
+    min-height: 16rem;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--sf-color-text-tertiary);
+  }
+
+  &__error {
+    display: block;
+    width: 100%;
+  }
+
+  &__empty {
+    width: min(100%, 29rem);
+    align-self: center;
+
+    margin-block-start: var(--sf-space-8);
+  }
+
+  &__grid {
+    display: grid;
+    width: 100%;
+    min-width: 0;
+
+    grid-template-columns:
+      repeat(
+        4,
+          minmax(0, 1fr)
+      );
+
+    gap: var(--sf-layout-content-grid-gap);
+  }
+
+  &__action-error {
+    position: sticky;
+    z-index: 4;
+    bottom: var(--sf-space-4);
+
+    display: block;
+    width: 100%;
+    flex: 0 0 auto;
+
+    margin-block-start: var(--sf-space-6);
+  }
+}
+
+@media(min-width: tokens.$breakpoint-laptop) and (max-width: tokens.$breakpoint-laptop-max) {
+  .saved-recipes-page {
+    --saved-recipes-inline-padding: var(--sf-space-6);
+
+    &__grid {
+      grid-template-columns:
+        repeat(
+          3,
+            minmax(0, 1fr)
+        );
+    }
+  }
+}
+
+@media (max-width: tokens.$breakpoint-tablet-max) {
+  .saved-recipes-page {
+    --saved-recipes-inline-padding: var(--sf-space-6);
+
+    padding-block-end: var(--sf-space-6);
+
+    &__grid {
+      grid-template-columns:
+        repeat(
+          2,
+            minmax(0, 1fr)
+        );
+    }
+
+    &__action-error {
+      bottom: var(--sf-space-3);
+    }
+  }
+}
+
+@media (max-width: tokens.$breakpoint-mobile-max) {
+  .saved-recipes-page {
+    --saved-recipes-inline-padding: var(--sf-space-4);
+
+    padding-block-end: var(--sf-space-4);
+
+    &__grid {
+      grid-template-columns: 1fr;
+    }
+
+    &__empty {
+      width: 100%;
+
+      margin-block-start: var(--sf-space-4);
+    }
+
+    &__action-error {
+      bottom: var(--sf-space-2);
+
+      margin-block-start: var(--sf-space-4);
+    }
+  }
+}

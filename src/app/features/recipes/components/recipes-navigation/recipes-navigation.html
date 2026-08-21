@@ -1,0 +1,12 @@
+<nav
+  class="recipes-navigation"
+  aria-label="Recipe sections"
+>
+  <app-tabs
+    [items]="items"
+    [value]="active()"
+    [fullWidth]="true"
+    ariaLabel="Recipe sections"
+    (valueChange)="handleChange($event)"
+  />
+</nav>

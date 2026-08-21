@@ -9,100 +9,145 @@
 
 .recipe-generation-progress {
   display: flex;
-  width: 100%;
-  min-height: 28rem;
+  width: min(100%, 31rem);
+  min-width: 0;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: var(--sf-space-10);
 
-  padding: var(--sf-space-10) var(--sf-space-8);
+  margin: auto;
 
-  &__image {
-    display: block;
-    width: min(100%, 20rem);
-    height: auto;
-    flex: 0 1 20rem;
+  &__hero-icon {
+    width: 4.5rem; // 72px
+    height: 4.5rem;
 
-    object-fit: contain;
-  }
+    margin-block-end: var(--sf-space-5);
 
-  &__content {
-    display: flex;
-    width: min(100%, 28rem);
-    min-width: 0;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--sf-space-4);
+    color: var(--sf-color-primary);
   }
 
   &__title {
-    margin: 0;
+    margin: 0 0 var(--sf-space-6);
 
     color: var(--sf-color-text-primary);
+    text-align: center;
 
     @include mixins.heading-2;
   }
 
-  &__description {
-    margin: 0;
-
-    color: var(--sf-color-text-tertiary);
-
-    @include mixins.main-text;
+  &__steps {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    flex-direction: column;
   }
 
-  &__loader {
-    display: block;
-    width: 2rem;
-    height: 2rem;
+  &__step {
+    display: grid;
+    width: 100%;
+    min-width: 0;
 
-    margin-block-start: var(--sf-space-2);
+    grid-template-columns:
+      3.75rem minmax(0, 1fr);
 
-    border: 0.1875rem solid var(--sf-color-border);
+    column-gap: var(--sf-space-4);
+  }
 
-    border-block-start-color: var(--sf-color-primary);
+  &__step-marker {
+    position: relative;
+
+    display: flex;
+    min-height: 5rem;
+    justify-content: center;
+  }
+
+  &__step-icon-frame {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    width: 3.75rem; // 60px
+    height: 3.75rem;
+    align-items: center;
+    justify-content: center;
 
     border-radius: 50%;
 
-    animation: recipe-generation-spin 0.8s linear infinite;
-  }
-}
+    background-color: #f8f9fa;
 
-@keyframes recipe-generation-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
+    color: #ced4da;
 
-@media (max-width: tokens.$breakpoint-tablet-max) {
-  .recipe-generation-progress {
-    min-height: 24rem;
+    &--active {
+      background-color: #ebf0f8;
+
+      color: #6092e7;
+    }
+  }
+
+  &__step-icon {
+    width: 2.5rem; // 40px
+    height: 2.5rem;
+
+    color: currentColor;
+  }
+
+  &__connector {
+    position: absolute;
+    z-index: 1;
+
+    top: 3.75rem;
+    bottom: 0;
+    left: 50%;
+
+    border-inline-start: 0.125rem dotted var(--sf-color-border);
+
+    transform: translateX(-50%);
+  }
+
+  &__step-content {
+    display: flex;
+    min-width: 0;
     flex-direction: column;
-    gap: var(--sf-space-6);
+    gap: var(--sf-space-1);
 
-    padding: var(--sf-space-8) var(--sf-space-6);
+    padding: var(--sf-space-1) 0 var(--sf-space-5);
 
-    text-align: center;
+    border-block-end: 0.0625rem solid var(--sf-color-border);
+  }
 
-    &__image {
-      width: min(100%, 15rem);
-      flex-basis: auto;
+  &__step:last-child {
+    .recipe-generation-progress__step-content {
+      padding-block-end: 0;
+
+      border-block-end: 0;
     }
 
-    &__content {
-      align-items: center;
+    .recipe-generation-progress__step-marker {
+      min-height: auto;
     }
+  }
+
+  &__step-title {
+    color: var(--sf-color-text-primary);
+
+    @include mixins.heading-5;
+  }
+
+  &__step-description {
+    color: var(--sf-color-text-tertiary);
+
+    @include mixins.secondary-text;
   }
 }
 
 @media (max-width: tokens.$breakpoint-mobile-max) {
   .recipe-generation-progress {
-    min-height: 20rem;
+    width: 100%;
 
-    padding: var(--sf-space-6) var(--sf-space-4);
+    &__step {
+      grid-template-columns:
+        3.75rem minmax(0, 1fr);
 
-    &__image {
-      width: min(100%, 12rem);
+      column-gap: var(--sf-space-3);
     }
   }
 }

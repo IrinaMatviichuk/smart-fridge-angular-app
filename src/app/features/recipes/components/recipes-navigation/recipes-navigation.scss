@@ -1,0 +1,12 @@
+:host {
+  display: block;
+  width: 100%;
+  max-width: 26.25rem; // 420px
+}
+
+.recipes-navigation {
+  width: 100%;
+  min-width: 0;
+
+  --sf-tabs-item-min-width: 0;
+}

@@ -2,25 +2,54 @@
   class="recipe-generation-progress"
   role="status"
   aria-live="polite"
+  aria-label="Generating recipe suggestions"
 >
-  <img
-    class="recipe-generation-progress__image"
-    [src]="model().imageUrl"
-    [alt]="model().imageAlt"
+  <mat-icon
+    class="recipe-generation-progress__hero-icon"
+    [svgIcon]="heroIcon"
+    aria-hidden="true"
   />
 
-  <div class="recipe-generation-progress__content">
-    <h2 class="recipe-generation-progress__title">
-      {{ model().title }}
-    </h2>
+  <h2 class="recipe-generation-progress__title">
+    {{ model().title }}
+  </h2>
 
-    <p class="recipe-generation-progress__description">
-      {{ model().description }}
-    </p>
+  <div class="recipe-generation-progress__steps">
+    @for (step of model().steps;
+      track step.title;
+      let isFirst = $first;
+      let isLast = $last) {
+      <div class="recipe-generation-progress__step">
+        <div class="recipe-generation-progress__step-marker">
+          <span
+            class="recipe-generation-progress__step-icon-frame"
+            [class.recipe-generation-progress__step-icon-frame--active]="isFirst"
+          >
+            <mat-icon
+              class="recipe-generation-progress__step-icon"
+              [svgIcon]="step.icon"
+              aria-hidden="true"
+            />
+          </span>
 
-    <span
-      class="recipe-generation-progress__loader"
-      aria-hidden="true"
-    ></span>
+          @if (!isLast) {
+            <span
+              class="recipe-generation-progress__connector"
+              aria-hidden="true"
+            ></span>
+          }
+        </div>
+
+        <div class="recipe-generation-progress__step-content">
+          <strong class="recipe-generation-progress__step-title">
+            {{ step.title }}
+          </strong>
+
+          <span class="recipe-generation-progress__step-description">
+            {{ step.description }}
+          </span>
+        </div>
+      </div>
+    }
   </div>
 </section>

@@ -1,0 +1,15 @@
+<header class="recipe-flow-header">
+  <app-recipe-back-button
+    [fallbackUrl]="backFallbackUrl()"
+  />
+
+  <div class="recipe-flow-header__content">
+    <h1 class="recipe-flow-header__title">
+      {{ title() }}
+    </h1>
+
+    <p class="recipe-flow-header__subtitle">
+      {{ subtitle() }}
+    </p>
+  </div>
+</header>

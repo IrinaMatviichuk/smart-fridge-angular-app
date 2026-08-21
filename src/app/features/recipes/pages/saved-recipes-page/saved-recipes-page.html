@@ -1,0 +1,55 @@
+<section class="saved-recipes-page">
+  @if (facade.loading()) {
+    <div
+      class="saved-recipes-page__loading"
+      role="status"
+      aria-live="polite"
+    >
+      Loading liked recipes...
+    </div>
+  } @else {
+    @if (errorTip(); as errorTipModel) {
+      <app-tip-frame
+        class="saved-recipes-page__error"
+        [model]="errorTipModel"
+      />
+    } @else {
+      @if (!facade.hasRecipes()) {
+        <app-empty-state
+          class="saved-recipes-page__empty"
+          [data]="emptyState"
+          (actionRequested)="handleEmptyAction()"
+        />
+      } @else {
+        <section
+          class="saved-recipes-page__grid"
+          aria-label="Liked recipes"
+        >
+          @for (recipe of facade.recipes();
+            track recipe.id) {
+            <app-generated-recipe-card
+              [recipe]="recipe"
+              [favorite]="true"
+              [favoritePending]="
+                facade.isMutating(recipe.id)
+              "
+              (selected)="
+                handleRecipeSelected($event)
+              "
+              (favoriteChanged)="
+                handleFavoriteChanged($event)
+              "
+            />
+          }
+        </section>
+      }
+    }
+  }
+
+  @if (actionErrorTip(); as actionErrorTipModel) {
+    <app-tip-frame
+      class="saved-recipes-page__action-error"
+      [model]="actionErrorTipModel"
+    />
+  }
+</section>

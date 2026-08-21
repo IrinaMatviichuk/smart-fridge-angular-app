@@ -1,0 +1,23 @@
+<section class="generated-recipes-page">
+  <app-recipe-flow-header
+    title="Recipe Suggestions"
+    subtitle="Here are recipe ideas based on the ingredients available in your inventory."
+    backFallbackUrl="/recipes/suggestions"
+  />
+
+  <section
+    class="generated-recipes-page__results"
+    aria-label="Generated recipes"
+  >
+    @for (recipe of generationFacade.generatedRecipes();
+      track recipe.id) {
+      <app-generated-recipe-card
+        [recipe]="recipe"
+        [favorite]="savedFacade.isSaved(recipe.id)"
+        [favoritePending]="savedFacade.isMutating(recipe.id)"
+        (selected)="handleRecipeSelected($event)"
+        (favoriteChanged)="handleFavoriteChanged($event)"
+      />
+    }
+  </section>
+</section>

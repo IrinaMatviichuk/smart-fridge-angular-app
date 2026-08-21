@@ -1,0 +1,19 @@
+<section class="recipes-browse-layout">
+  <div class="recipes-browse-layout__top">
+    <header class="recipes-browse-layout__header">
+      <h1 class="recipes-browse-layout__title">
+        {{ title() }}
+      </h1>
+
+      <p class="recipes-browse-layout__subtitle">
+        {{ subtitle() }}
+      </p>
+    </header>
+
+    <app-recipes-navigation />
+  </div>
+
+  <div class="recipes-browse-layout__content">
+    <router-outlet />
+  </div>
+</section>

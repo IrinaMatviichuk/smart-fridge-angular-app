@@ -39,7 +39,7 @@ export class MainLayout {
   }
 
   protected openRecipes(): void {
-    void this.router.navigate(['/recipes']);
+    void this.router.navigate(['/recipes', 'suggestions']);
   }
 
   protected openNotifications(): void {

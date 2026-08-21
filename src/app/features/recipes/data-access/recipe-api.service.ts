@@ -3,12 +3,20 @@ import { Observable } from 'rxjs';
 
 import { BaseApiService } from '../../../core/api';
 import { Recipe } from '../domain/recipe.model';
-import { GeneratedRecipesDto } from './generated-recipes.dto';
+import { RecipeSuggestionTaskStatus } from '../domain/recipe-suggestion-task-status.model';
+import { RecipeSuggestionTask } from '../domain/recipe-suggestion-task.model';
 import { RecipeDto } from './recipe.dto';
 import { mapRecipeDto } from './recipe.mapper';
+import { RecipeSuggestionQueuedDto } from './recipe-suggestion-queued.dto';
+import {
+  mapRecipeSuggestionQueuedDto,
+  mapRecipeSuggestionTaskStatusDto,
+} from './recipe-suggestion.mapper';
+import { RecipeSuggestionTaskStatusDto } from './recipe-suggestion-task-status.dto';
 import { SaveRecipeRequestDto } from './save-recipe-request.dto';
 import { SaveRecipeResponseDto } from './save-recipe-response.dto';
 import { SavedRecipeDto } from './saved-recipe.dto';
+import { mapSavedRecipeDto } from './saved-recipe.mapper';
 
 @Injectable({
   providedIn: 'root',
@@ -16,12 +24,27 @@ import { SavedRecipeDto } from './saved-recipe.dto';
 export class RecipeApiService extends BaseApiService {
   private readonly basePath = '/recipes/';
 
-  generateRecipes(): Observable<Recipe[]> {
-    return this.postMapped<Record<string, never>, GeneratedRecipesDto, Recipe[]>(
-      `${this.basePath}generate/`,
+  createSuggestionTask(): Observable<RecipeSuggestionTask> {
+    return this.postMapped<Record<string, never>, RecipeSuggestionQueuedDto, RecipeSuggestionTask>(
+      `${this.basePath}suggestions/`,
       {},
-      (dto) => dto.recipes.map(mapRecipeDto),
+      mapRecipeSuggestionQueuedDto,
     );
+  }
+
+  getSuggestionTaskStatus(taskId: string): Observable<RecipeSuggestionTaskStatus> {
+    return this.getMappedRequired<RecipeSuggestionTaskStatusDto, RecipeSuggestionTaskStatus>(
+      `${this.basePath}suggestions/${taskId}/`,
+      mapRecipeSuggestionTaskStatusDto,
+    );
+  }
+
+  getRecipe(id: number): Observable<Recipe> {
+    return this.getMappedRequired<RecipeDto, Recipe>(`${this.basePath}${id}/`, mapRecipeDto);
+  }
+
+  getSavedRecipes(): Observable<Recipe[]> {
+    return this.getMappedList<SavedRecipeDto, Recipe>(`${this.basePath}saved/`, mapSavedRecipeDto);
   }
 
   saveRecipe(recipeId: number): Observable<SaveRecipeResponseDto> {
@@ -32,15 +55,7 @@ export class RecipeApiService extends BaseApiService {
     return this.post<SaveRecipeRequestDto, SaveRecipeResponseDto>(`${this.basePath}save/`, request);
   }
 
-  getSavedRecipes(): Observable<Recipe[]> {
-    return this.getMappedList<SavedRecipeDto, Recipe>(`${this.basePath}saved/`, mapRecipeDto);
-  }
-
-  deleteSavedRecipe(savedRecipeId: number): Observable<void> {
-    return this.delete<void>(`${this.basePath}saved/${savedRecipeId}/`);
-  }
-
-  getRecipe(id: number): Observable<Recipe> {
-    return this.getMappedRequired<RecipeDto, Recipe>(`${this.basePath}${id}/`, mapRecipeDto);
+  deleteSavedRecipe(recipeId: number): Observable<void> {
+    return this.delete<void>(`${this.basePath}saved/${recipeId}/`);
   }
 }

@@ -1,0 +1,18 @@
+<section class="recipe-pending-page">
+  <app-recipe-flow-header
+    title="Generate Recipes"
+    subtitle="We’re finding the best recipes based on what you have in your inventory."
+    backFallbackUrl="/recipes/suggestions"
+  />
+
+  <div class="recipe-pending-page__main">
+    <app-recipe-generation-progress
+      [model]="progress"
+    />
+  </div>
+
+  <app-tip-frame
+    class="recipe-pending-page__tip"
+    [model]="tip"
+  />
+</section>

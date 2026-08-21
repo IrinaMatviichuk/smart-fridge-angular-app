@@ -1,0 +1,36 @@
+@use '../../../../../styles/mixins' as mixins;
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+.recipe-flow-header {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--sf-space-6);
+
+  &__content {
+    width: 100%;
+    min-width: 0;
+  }
+
+  &__title {
+    margin: 0;
+
+    color: var(--sf-color-text-primary);
+
+    @include mixins.heading-1;
+  }
+
+  &__subtitle {
+    margin: var(--sf-space-2) 0 0;
+
+    color: var(--sf-color-text-tertiary);
+
+    @include mixins.main-text;
+  }
+}

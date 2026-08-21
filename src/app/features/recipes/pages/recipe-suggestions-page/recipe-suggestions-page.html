@@ -1,0 +1,127 @@
+<section class="recipe-suggestions-page">
+  <section
+    class="recipe-suggestions-page__ingredients"
+    aria-labelledby="recipe-ingredients-title"
+  >
+    <header class="recipe-suggestions-page__ingredients-header">
+      <h2
+        id="recipe-ingredients-title"
+        class="recipe-suggestions-page__ingredients-title"
+      >
+        Available ingredients from your inventory
+      </h2>
+
+      <p class="recipe-suggestions-page__ingredients-description">
+        These are the products we’ll use to find the best recipe ideas for you.
+      </p>
+    </header>
+
+    @if (facade.productsLoading()) {
+      <div
+        class="recipe-suggestions-page__loading"
+        role="status"
+        aria-live="polite"
+      >
+        Loading ingredients...
+      </div>
+    } @else {
+      @if (productsErrorTip(); as errorTip) {
+        <app-tip-frame
+          [model]="errorTip"
+        />
+      } @else {
+        @if (!facade.hasProducts()) {
+          <app-empty-state
+            [data]="emptyState"
+            (actionRequested)="handleEmptyAction()"
+          />
+        } @else {
+          <div class="recipe-suggestions-page__products-section">
+            <div
+              class="recipe-suggestions-page__products-viewport"
+              [class.recipe-suggestions-page__products-viewport--collapsed]="
+                hasExpandableProducts() &&
+                !facade.ingredientsExpanded()
+              "
+            >
+              <div class="recipe-suggestions-page__storage-sections">
+                @for (section of ingredientSections();
+                  track section.storage) {
+                  <section class="recipe-suggestions-page__storage-section">
+                    <h3 class="recipe-suggestions-page__storage-label">
+                      {{ section.label }}
+                    </h3>
+
+                    <div class="recipe-suggestions-page__products">
+                      @for (product of section.products;
+                        track product.id) {
+                        <app-product-card
+                          [product]="mapProductCard(product)"
+                        />
+                      }
+                    </div>
+                  </section>
+                }
+              </div>
+
+              @if (hasExpandableProducts() &&
+              !facade.ingredientsExpanded() &&
+              !facade.generationError()) {
+                <button
+                  class="
+                    recipe-suggestions-page__products-toggle
+                    recipe-suggestions-page__products-toggle--overlay
+                  "
+                  type="button"
+                  (click)="facade.toggleIngredientsExpanded()"
+                >
+                  Show more
+                </button>
+              }
+            </div>
+
+            @if (hasExpandableProducts() &&
+            facade.ingredientsExpanded() &&
+            !facade.generationError()) {
+              <button
+                class="recipe-suggestions-page__products-toggle"
+                type="button"
+                (click)="facade.toggleIngredientsExpanded()"
+              >
+                Show less
+              </button>
+            }
+
+            @if (generationErrorTip(); as errorTip) {
+              <app-tip-frame
+                class="recipe-suggestions-page__generation-tip"
+                [model]="errorTip"
+              />
+            }
+          </div>
+
+          @if (facade.priorityTipVisible() &&
+          !facade.generationError()) {
+            <app-tip-frame
+              class="recipe-suggestions-page__priority-tip"
+              [model]="priorityTip"
+            />
+          }
+
+          <app-button
+            class="recipe-suggestions-page__generate"
+            [fullWidth]="true"
+            [iconStart]="icons.sparkles"
+            [disabled]="
+              facade.generating() ||
+              facade.generationError() !== null
+            "
+            (click)="handleGenerateRecipes()"
+          >
+            Get Recipes
+          </app-button>
+        }
+      }
+    }
+  </section>
+</section>

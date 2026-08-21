@@ -1,6 +1,12 @@
-export interface RecipeGenerationProgressModel {
+import { IconName } from '../../../../core/icons/icon-name';
+
+export interface RecipeGenerationProgressStepModel {
+  readonly icon: IconName;
   readonly title: string;
   readonly description: string;
-  readonly imageUrl: string;
-  readonly imageAlt: string;
+}
+
+export interface RecipeGenerationProgressModel {
+  readonly title: string;
+  readonly steps: readonly RecipeGenerationProgressStepModel[];
 }

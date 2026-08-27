@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { BaseApiService } from '../../../core/api';
 import { Recipe } from '../domain/recipe.model';
 import { RecipeSuggestionTaskStatus } from '../domain/recipe-suggestion-task-status.model';
 import { RecipeSuggestionTask } from '../domain/recipe-suggestion-task.model';
+import { RECIPE_SUGGESTION_SUCCESS_MOCK } from './mocks/recipe-suggestion-success.mock';
 import { RecipeDto } from './recipe.dto';
 import { mapRecipeDto } from './recipe.mapper';
 import { RecipeSuggestionQueuedDto } from './recipe-suggestion-queued.dto';
@@ -17,6 +18,7 @@ import { SaveRecipeRequestDto } from './save-recipe-request.dto';
 import { SaveRecipeResponseDto } from './save-recipe-response.dto';
 import { SavedRecipeDto } from './saved-recipe.dto';
 import { mapSavedRecipeDto } from './saved-recipe.mapper';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +35,15 @@ export class RecipeApiService extends BaseApiService {
   }
 
   getSuggestionTaskStatus(taskId: string): Observable<RecipeSuggestionTaskStatus> {
+    if (environment.mocks.recipeSuggestionSuccess) {
+      return of(
+        mapRecipeSuggestionTaskStatusDto({
+          ...RECIPE_SUGGESTION_SUCCESS_MOCK,
+          task_id: taskId,
+        }),
+      );
+    }
+
     return this.getMappedRequired<RecipeSuggestionTaskStatusDto, RecipeSuggestionTaskStatus>(
       `${this.basePath}suggestions/${taskId}/`,
       mapRecipeSuggestionTaskStatusDto,

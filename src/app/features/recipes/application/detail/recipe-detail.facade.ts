@@ -3,7 +3,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EMPTY, catchError, finalize } from 'rxjs';
 
 import { resolveApiErrorMessage } from '../../../../core/api';
-import { RecipeGenerationFacade } from '../generation/recipe-generation.facade';
 import { RecipeApiService } from '../../data-access/recipe-api.service';
 import { RecipeDetailStore } from './recipe-detail.store';
 
@@ -16,8 +15,6 @@ const RECIPE_DETAIL_ERROR_MESSAGES = {
 export class RecipeDetailFacade {
   private readonly store = inject(RecipeDetailStore);
 
-  private readonly generationFacade = inject(RecipeGenerationFacade);
-
   private readonly recipeApi = inject(RecipeApiService);
 
   private readonly destroyRef = inject(DestroyRef);
@@ -29,16 +26,13 @@ export class RecipeDetailFacade {
   readonly error = this.store.error;
 
   load(recipeId: number): void {
-    const generatedRecipe = this.generationFacade.findGeneratedRecipe(recipeId);
-
-    if (generatedRecipe) {
-      this.store.setError(null);
-      this.store.setRecipe(generatedRecipe);
-
+    if (this.loading()) {
       return;
     }
 
-    if (this.loading()) {
+    const currentRecipe = this.recipe();
+
+    if (currentRecipe?.id === recipeId) {
       return;
     }
 

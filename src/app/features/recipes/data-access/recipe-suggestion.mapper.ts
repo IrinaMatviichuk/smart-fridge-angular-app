@@ -1,7 +1,7 @@
 import { RecipeSuggestionTaskStatus } from '../domain/recipe-suggestion-task-status.model';
 import { RecipeSuggestionTask } from '../domain/recipe-suggestion-task.model';
 import { isRecipeSuggestionStatus } from '../domain/recipe-suggestion-status.type';
-import { mapRecipeDto } from './recipe.mapper';
+import { mapGeneratedRecipeDto } from './generated-recipe.mapper';
 import { RecipeSuggestionQueuedDto } from './recipe-suggestion-queued.dto';
 import { RecipeSuggestionTaskStatusDto } from './recipe-suggestion-task-status.dto';
 
@@ -34,7 +34,7 @@ export const mapRecipeSuggestionTaskStatusDto = (
         status: dto.status,
       };
 
-    case 'SUCCESS': {
+    case 'SUCCESS':
       if (!dto.result) {
         throw new Error('Recipe suggestion task completed without a result.');
       }
@@ -42,9 +42,8 @@ export const mapRecipeSuggestionTaskStatusDto = (
       return {
         taskId: dto.task_id,
         status: 'SUCCESS',
-        recipes: dto.result.recipes.map(mapRecipeDto),
+        recipes: dto.result.recipes.map(mapGeneratedRecipeDto),
       };
-    }
 
     case 'FAILURE':
       return {

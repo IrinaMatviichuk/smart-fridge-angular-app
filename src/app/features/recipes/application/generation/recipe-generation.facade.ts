@@ -8,9 +8,9 @@ import { resolveApiErrorMessage } from '../../../../core/api';
 import { ProductApiService } from '../../../../entities/product/data-access/product-api.service';
 import { Product } from '../../../../entities/product/domain/product.model';
 import { RecipeApiService } from '../../data-access/recipe-api.service';
+import { GeneratedRecipe } from '../../domain/generated-recipe.model';
 import { RecipeSuggestionTaskStatus } from '../../domain/recipe-suggestion-task-status.model';
 import { RecipeSuggestionTask } from '../../domain/recipe-suggestion-task.model';
-import { Recipe } from '../../domain/recipe.model';
 import {
   RECIPE_GENERATION_FEEDBACK_DURATION_MS,
   RECIPE_GENERATION_POLL_INTERVAL_MS,
@@ -147,12 +147,8 @@ export class RecipeGenerationFacade {
       });
   }
 
-  findGeneratedRecipe(recipeId: number): Recipe | null {
-    return this.generatedRecipes().find((recipe) => recipe.id === recipeId) ?? null;
-  }
-
   clearGeneratedRecipes(): void {
-    this.store.setGeneratedRecipes([]);
+    this.store.clearGeneratedRecipes();
   }
 
   clearGenerationError(): void {
@@ -219,7 +215,7 @@ export class RecipeGenerationFacade {
     }
   }
 
-  private handleTaskSuccess(recipes: readonly Recipe[]): void {
+  private handleTaskSuccess(recipes: readonly GeneratedRecipe[]): void {
     this.store.setGeneratedRecipes(recipes);
 
     void this.router.navigate(['/recipes', 'generated']);

@@ -1,4 +1,4 @@
-import { Recipe } from './recipe.model';
+import { GeneratedRecipe } from './generated-recipe.model';
 
 export interface RecipeSuggestionPendingTaskStatus {
   readonly taskId: string;
@@ -8,7 +8,7 @@ export interface RecipeSuggestionPendingTaskStatus {
 export interface RecipeSuggestionSuccessTaskStatus {
   readonly taskId: string;
   readonly status: 'SUCCESS';
-  readonly recipes: readonly Recipe[];
+  readonly recipes: readonly GeneratedRecipe[];
 }
 
 export interface RecipeSuggestionFailureTaskStatus {

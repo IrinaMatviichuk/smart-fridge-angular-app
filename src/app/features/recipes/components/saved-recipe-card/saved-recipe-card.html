@@ -1,0 +1,20 @@
+<article class="saved-recipe-card">
+  <app-icon-button
+    class="saved-recipe-card__favorite"
+    [icon]="favorite() ? icons.favoriteFilled : icons.favorite"
+    ariaLabel="Toggle favorite recipe"
+    size="medium"
+    [active]="favorite()"
+    [disabled]="favoritePending()"
+    (click)="handleFavoriteChanged($event)"
+  />
+
+  <div class="saved-recipe-card__content">
+    <h2 class="saved-recipe-card__title">{{ recipe().title }}</h2>
+    <p class="saved-recipe-card__ingredients">{{ recipe().ingredients.join(', ') }}</p>
+  </div>
+
+  <app-button size="small" [fullWidth]="true" (click)="handleSelected()">
+    View Recipe
+  </app-button>
+</article>

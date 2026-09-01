@@ -15,6 +15,20 @@ const image = (
 
 export const SAVED_RECIPES_MOCK: readonly SavedRecipeDto[] = [
   {
+    id: 42,
+    title: 'Cheesy Potato Scramble',
+    ingredients: ['eggs', 'potatoes', 'cheese', 'salt', 'pepper', 'cooking oil'],
+    steps: ['Cook the potatoes until golden.', 'Add whisked eggs and cheese, then scramble.'],
+    created_at: '2026-08-25T10:14:00Z',
+    prep_time_minutes: 30,
+    difficulty: 'easy',
+    image: image(
+      'photo-1525351484163-7529414344d8',
+      'Joseph Gonzalez',
+      'https://unsplash.com/@miracletwentyone',
+    ),
+  },
+  {
     id: 101,
     title: 'Chicken Alfredo',
     ingredients: ['Chicken', 'Milk', 'Butter'],

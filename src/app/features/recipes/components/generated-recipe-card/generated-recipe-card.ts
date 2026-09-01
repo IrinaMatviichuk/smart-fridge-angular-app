@@ -1,14 +1,11 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
-
-import { IconName } from '../../../../core/icons/icon-name';
-import { Button } from '../../../../shared/ui/button/button';
-import { IconButton } from '../../../../shared/ui/icon-button/icon-button';
+import { RecipeCard } from '../../../../shared/ui/recipe-card/recipe-card';
+import { RecipeCardModel } from '../../../../shared/ui/recipe-card/recipe-card.model';
 import { RecipeSummary } from '../../domain/recipe-summary.model';
 
 @Component({
   selector: 'app-generated-recipe-card',
-  imports: [Button, IconButton, MatIcon],
+  imports: [RecipeCard],
   templateUrl: './generated-recipe-card.html',
   styleUrl: './generated-recipe-card.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,24 +21,19 @@ export class GeneratedRecipeCard {
 
   readonly favoriteChanged = output<RecipeSummary>();
 
-  protected readonly icons = {
-    favorite: IconName.Favorite,
-    favoriteFilled: IconName.FavoriteFilled,
-    clock: IconName.Clock,
-    chart: IconName.Chart,
-  } as const;
+  protected cardModel(): RecipeCardModel {
+    return {
+      ...this.recipe(),
+      favorite: this.favorite(),
+      favoritePending: this.favoritePending(),
+    };
+  }
 
   protected handleSelected(): void {
     this.selected.emit(this.recipe());
   }
 
-  protected handleFavoriteChanged(event: MouseEvent): void {
-    event.stopPropagation();
-
-    if (this.favoritePending()) {
-      return;
-    }
-
+  protected handleFavoriteChanged(): void {
     this.favoriteChanged.emit(this.recipe());
   }
 }

@@ -3,9 +3,11 @@ import { Observable, of } from 'rxjs';
 
 import { BaseApiService } from '../../../core/api';
 import { Recipe } from '../domain/recipe.model';
+import { SavedRecipe } from '../domain/saved-recipe.model';
 import { RecipeSuggestionTaskStatus } from '../domain/recipe-suggestion-task-status.model';
 import { RecipeSuggestionTask } from '../domain/recipe-suggestion-task.model';
 import { RECIPE_SUGGESTION_SUCCESS_MOCK } from './mocks/recipe-suggestion-success.mock';
+import { SAVED_RECIPES_MOCK } from './mocks/saved-recipes.mock';
 import { RecipeDto } from './recipe.dto';
 import { mapRecipeDto } from './recipe.mapper';
 import { RecipeSuggestionQueuedDto } from './recipe-suggestion-queued.dto';
@@ -54,8 +56,15 @@ export class RecipeApiService extends BaseApiService {
     return this.getMappedRequired<RecipeDto, Recipe>(`${this.basePath}${id}/`, mapRecipeDto);
   }
 
-  getSavedRecipes(): Observable<Recipe[]> {
-    return this.getMappedList<SavedRecipeDto, Recipe>(`${this.basePath}saved/`, mapSavedRecipeDto);
+  getSavedRecipes(): Observable<SavedRecipe[]> {
+    if (environment.mocks.savedRecipes) {
+      return of(SAVED_RECIPES_MOCK.map(mapSavedRecipeDto));
+    }
+
+    return this.getMappedList<SavedRecipeDto, SavedRecipe>(
+      `${this.basePath}saved/`,
+      mapSavedRecipeDto,
+    );
   }
 
   saveRecipe(recipeId: number): Observable<SaveRecipeResponseDto> {

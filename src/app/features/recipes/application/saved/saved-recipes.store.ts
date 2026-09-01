@@ -1,10 +1,10 @@
 import { Injectable, computed, signal } from '@angular/core';
 
-import { Recipe } from '../../domain/recipe.model';
+import { SavedRecipe } from '../../domain/saved-recipe.model';
 
 @Injectable()
 export class SavedRecipesStore {
-  private readonly recipesState = signal<readonly Recipe[]>([]);
+  private readonly recipesState = signal<readonly SavedRecipe[]>([]);
 
   private readonly loadingState = signal(false);
 
@@ -26,7 +26,7 @@ export class SavedRecipesStore {
 
   readonly hasRecipes = computed(() => this.recipesState().length > 0);
 
-  setRecipes(recipes: readonly Recipe[]): void {
+  setRecipes(recipes: readonly SavedRecipe[]): void {
     this.recipesState.set(recipes);
     this.savedRecipeIdsState.set(new Set(recipes.map((recipe) => recipe.id)));
   }
@@ -43,7 +43,7 @@ export class SavedRecipesStore {
     this.actionErrorState.set(error);
   }
 
-  addRecipe(recipe: Recipe): void {
+  addRecipe(recipe: SavedRecipe): void {
     this.recipesState.update((recipes) => {
       const alreadySaved = recipes.some((item) => item.id === recipe.id);
 

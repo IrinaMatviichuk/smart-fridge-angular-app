@@ -23,6 +23,8 @@ export class RecipeCard {
   protected readonly icons = {
     favorite: IconName.Favorite,
     favoriteFilled: IconName.FavoriteFilled,
+    clock: IconName.Clock,
+    chart: IconName.Chart,
   } as const;
 
   protected handleSelected(): void {
@@ -31,6 +33,10 @@ export class RecipeCard {
 
   protected handleFavorite(event: MouseEvent): void {
     event.stopPropagation();
+
+    if (this.model().favoritePending) {
+      return;
+    }
 
     this.favoriteChanged.emit(this.model());
   }

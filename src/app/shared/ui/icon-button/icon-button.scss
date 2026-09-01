@@ -17,8 +17,8 @@
   border: 0;
   border-radius: var(--sf-radius-control);
 
-  background-color: transparent;
-  color: var(--sf-color-text-tertiary);
+  background-color: var(--sf-icon-button-background, transparent);
+  color: var(--sf-icon-button-color, var(--sf-color-text-tertiary));
 
   cursor: pointer;
 
@@ -88,8 +88,8 @@
    * ======================================================= */
 
   &--neutral {
-    background-color: transparent;
-    color: var(--sf-color-text-tertiary);
+    background-color: var(--sf-icon-button-background, transparent);
+    color: var(--sf-icon-button-color, var(--sf-color-text-tertiary));
 
     &:hover:not(:disabled) {
       background-color: var(--sf-primary-20);
@@ -98,8 +98,8 @@
 
     &:active:not(:disabled),
     &.icon-button--active {
-      background-color: var(--sf-primary-30);
-      color: var(--sf-color-primary-pressed);
+      background-color: var(--sf-icon-button-background, var(--sf-primary-30));
+      color: var(--sf-icon-button-color, var(--sf-color-primary-pressed));
     }
   }
 

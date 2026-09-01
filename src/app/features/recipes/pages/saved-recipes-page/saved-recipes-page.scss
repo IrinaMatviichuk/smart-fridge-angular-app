@@ -10,6 +10,7 @@
 
 .saved-recipes-page {
   --saved-recipes-inline-padding: var(--sf-space-8);
+  --recipe-grid-inline-bleed: var(--saved-recipes-inline-padding);
 
   position: relative;
 
@@ -44,44 +45,34 @@
     margin-block-start: var(--sf-space-8);
   }
 
-  &__grid {
-    display: grid;
+  &__results {
+    display: flex;
     width: 100%;
     min-width: 0;
+    flex-direction: column;
+    gap: var(--sf-space-6);
 
-    grid-template-columns:
-      repeat(
-        4,
-          minmax(0, 1fr)
-      );
-
-    gap: var(--sf-layout-content-grid-gap);
+    > app-tip-frame {
+      position: relative;
+      z-index: 2;
+    }
   }
 
   &__action-error {
-    position: sticky;
-    z-index: 4;
-    bottom: var(--sf-space-4);
+    position: fixed;
+    z-index: var(--sf-z-index-toast);
+    top: calc(var(--sf-layout-header-min-height) + var(--sf-space-4));
+    right: var(--sf-space-8);
 
     display: block;
-    width: 100%;
-    flex: 0 0 auto;
-
-    margin-block-start: var(--sf-space-6);
+    width: min(40rem, calc(100vw - 4rem));
   }
 }
 
-@media(min-width: tokens.$breakpoint-laptop) and (max-width: tokens.$breakpoint-laptop-max) {
+@media (min-width: tokens.$breakpoint-laptop) and (max-width: tokens.$breakpoint-laptop-max) {
   .saved-recipes-page {
     --saved-recipes-inline-padding: var(--sf-space-6);
 
-    &__grid {
-      grid-template-columns:
-        repeat(
-          3,
-            minmax(0, 1fr)
-        );
-    }
   }
 }
 
@@ -91,16 +82,10 @@
 
     padding-block-end: var(--sf-space-6);
 
-    &__grid {
-      grid-template-columns:
-        repeat(
-          2,
-            minmax(0, 1fr)
-        );
-    }
-
     &__action-error {
-      bottom: var(--sf-space-3);
+      right: var(--sf-space-6);
+
+      width: calc(100vw - 3rem);
     }
   }
 }
@@ -111,10 +96,6 @@
 
     padding-block-end: var(--sf-space-4);
 
-    &__grid {
-      grid-template-columns: 1fr;
-    }
-
     &__empty {
       width: 100%;
 
@@ -122,9 +103,10 @@
     }
 
     &__action-error {
-      bottom: var(--sf-space-2);
+      top: calc(var(--sf-layout-header-min-height) + var(--sf-space-2));
+      right: var(--sf-space-4);
 
-      margin-block-start: var(--sf-space-4);
+      width: calc(100vw - 2rem);
     }
   }
 }

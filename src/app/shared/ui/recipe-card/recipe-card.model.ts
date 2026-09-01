@@ -1,12 +1,10 @@
-import { IconName } from '../../../core/icons/icon-name';
-
 export interface RecipeCardModel {
   readonly id: number;
   readonly title: string;
-  readonly imageUrl: string;
-  readonly imageAlt: string;
-  readonly ingredientsLabel: string;
-  readonly metaLabel: string;
-  readonly metaIcon: IconName;
+  readonly image: string;
+  readonly ingredients: readonly string[];
+  readonly prepTimeMinutes: number;
+  readonly difficulty: string;
   readonly favorite: boolean;
+  readonly favoritePending: boolean;
 }

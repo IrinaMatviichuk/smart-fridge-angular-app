@@ -1,18 +1,11 @@
 <section class="saved-recipes-page">
   @if (facade.loading()) {
-    <div
-      class="saved-recipes-page__loading"
-      role="status"
-      aria-live="polite"
-    >
+    <div class="saved-recipes-page__loading" role="status" aria-live="polite">
       Loading liked recipes...
     </div>
   } @else {
     @if (errorTip(); as errorTipModel) {
-      <app-tip-frame
-        class="saved-recipes-page__error"
-        [model]="errorTipModel"
-      />
+      <app-tip-frame class="saved-recipes-page__error" [model]="errorTipModel" />
     } @else {
       @if (!facade.hasRecipes()) {
         <app-empty-state
@@ -21,27 +14,21 @@
           (actionRequested)="handleEmptyAction()"
         />
       } @else {
-        <section
-          class="saved-recipes-page__grid"
-          aria-label="Liked recipes"
-        >
-          @for (recipe of facade.recipes();
-            track recipe.id) {
-            <app-saved-recipe-card
-              [recipe]="recipe"
-              [favorite]="true"
-              [favoritePending]="
-                facade.isMutating(recipe.id)
-              "
-              (selected)="
-                handleRecipeSelected($event)
-              "
-              (favoriteChanged)="
-                handleFavoriteChanged($event)
-              "
-            />
-          }
-        </section>
+        <div class="saved-recipes-page__results">
+          <app-collapsible-recipe-grid aria-label="Liked recipes">
+            @for (recipe of facade.recipes(); track recipe.id) {
+              <app-saved-recipe-card
+                [recipe]="recipe"
+                [favorite]="true"
+                [favoritePending]="facade.isMutating(recipe.id)"
+                (selected)="handleRecipeSelected($event)"
+                (favoriteChanged)="handleFavoriteChanged($event)"
+              />
+            }
+          </app-collapsible-recipe-grid>
+
+          <app-tip-frame [model]="infoTip" />
+        </div>
       }
     }
   }
@@ -50,6 +37,8 @@
     <app-tip-frame
       class="saved-recipes-page__action-error"
       [model]="actionErrorTipModel"
+      role="alert"
+      aria-live="assertive"
     />
   }
 </section>

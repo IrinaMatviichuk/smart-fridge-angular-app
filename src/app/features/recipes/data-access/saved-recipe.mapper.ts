@@ -1,10 +1,13 @@
-import { Recipe } from '../domain/recipe.model';
+import { SavedRecipe } from '../domain/saved-recipe.model';
 import { SavedRecipeDto } from './saved-recipe.dto';
 
-export const mapSavedRecipeDto = (dto: SavedRecipeDto): Recipe => ({
+export const mapSavedRecipeDto = (dto: SavedRecipeDto): SavedRecipe => ({
   id: dto.id,
   title: dto.title,
   ingredients: dto.ingredients,
   steps: dto.steps,
   createdAt: dto.created_at,
+  prepTimeMinutes: dto.prep_time_minutes,
+  difficulty: dto.difficulty,
+  image: dto.image,
 });

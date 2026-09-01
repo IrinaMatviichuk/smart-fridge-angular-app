@@ -10,6 +10,7 @@
 
 .generated-recipes-page {
   --generated-recipes-inline-padding: var(--sf-space-8);
+  --recipe-grid-inline-bleed: var(--generated-recipes-inline-padding);
 
   display: flex;
   width: 100%;
@@ -21,24 +22,26 @@
 
   padding: var(--sf-space-8) var(--generated-recipes-inline-padding);
 
-  &__results {
-    display: grid;
-    width: 100%;
-    min-width: 0;
+  > app-tip-frame:not(.generated-recipes-page__action-error) {
+    position: relative;
+    z-index: 2;
+  }
 
-    grid-template-columns:
-      repeat(
-        3,
-          minmax(0, 1fr)
-      );
+  &__action-error {
+    position: fixed;
+    z-index: var(--sf-z-index-toast);
+    top: calc(var(--sf-layout-header-min-height) + var(--sf-space-4));
+    right: var(--sf-space-8);
 
-    gap: var(--sf-layout-content-grid-gap);
+    display: block;
+    width: min(40rem, calc(100vw - 4rem));
   }
 }
 
-@media(min-width: tokens.$breakpoint-laptop) and (max-width: tokens.$breakpoint-laptop-max) {
+@media (min-width: tokens.$breakpoint-laptop) and (max-width: tokens.$breakpoint-laptop-max) {
   .generated-recipes-page {
     --generated-recipes-inline-padding: var(--sf-space-6);
+
   }
 }
 
@@ -48,12 +51,10 @@
 
     gap: var(--sf-space-6);
 
-    &__results {
-      grid-template-columns:
-        repeat(
-          2,
-            minmax(0, 1fr)
-        );
+    &__action-error {
+      right: var(--sf-space-6);
+
+      width: calc(100vw - 3rem);
     }
   }
 }
@@ -64,8 +65,11 @@
 
     gap: var(--sf-space-5);
 
-    &__results {
-      grid-template-columns: 1fr;
+    &__action-error {
+      top: calc(var(--sf-layout-header-min-height) + var(--sf-space-2));
+      right: var(--sf-space-4);
+
+      width: calc(100vw - 2rem);
     }
   }
 }

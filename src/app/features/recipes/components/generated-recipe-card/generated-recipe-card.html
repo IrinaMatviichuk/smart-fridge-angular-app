@@ -1,53 +1,5 @@
-<article class="generated-recipe-card">
-  <div class="generated-recipe-card__media">
-    <img
-      class="generated-recipe-card__image"
-      [src]="recipe().image"
-      [alt]="recipe().title"
-    />
-  </div>
-
-  <app-icon-button
-    class="generated-recipe-card__favorite"
-    [icon]="
-      favorite()
-        ? icons.favoriteFilled
-        : icons.favorite
-    "
-    ariaLabel="Toggle favorite recipe"
-    variant="surface"
-    size="small"
-    [active]="favorite()"
-    [disabled]="favoritePending()"
-    (click)="handleFavoriteChanged($event)"
-  />
-
-  <div class="generated-recipe-card__content">
-    <h2 class="generated-recipe-card__title">
-      {{ recipe().title }}
-    </h2>
-
-    <p class="generated-recipe-card__ingredients">
-      Uses: {{ recipe().ingredients.join(', ') }}
-    </p>
-
-    <div class="generated-recipe-card__meta">
-      <span class="generated-recipe-card__meta-item">
-        <mat-icon [svgIcon]="icons.clock" aria-hidden="true" />
-        {{ recipe().prepTimeMinutes }} min
-      </span>
-      <span class="generated-recipe-card__meta-item">
-        <mat-icon [svgIcon]="icons.chart" aria-hidden="true" />
-        {{ recipe().difficulty }}
-      </span>
-    </div>
-  </div>
-
-  <app-button
-    size="small"
-    [fullWidth]="true"
-    (click)="handleSelected()"
-  >
-    View Recipe
-  </app-button>
-</article>
+<app-recipe-card
+  [model]="cardModel()"
+  (selected)="handleSelected()"
+  (favoriteChanged)="handleFavoriteChanged()"
+/>

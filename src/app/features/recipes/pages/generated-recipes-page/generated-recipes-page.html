@@ -5,12 +5,8 @@
     backFallbackUrl="/recipes/suggestions"
   />
 
-  <section
-    class="generated-recipes-page__results"
-    aria-label="Generated recipes"
-  >
-    @for (recipe of generationFacade.generatedRecipes();
-      track recipe.id) {
+  <app-collapsible-recipe-grid aria-label="Generated recipes">
+    @for (recipe of generationFacade.generatedRecipes(); track recipe.id) {
       <app-generated-recipe-card
         [recipe]="recipe"
         [favorite]="savedFacade.isSaved(recipe.id)"
@@ -19,5 +15,16 @@
         (favoriteChanged)="handleFavoriteChanged($event)"
       />
     }
-  </section>
+  </app-collapsible-recipe-grid>
+
+  <app-tip-frame [model]="tip" />
+
+  @if (actionErrorTip(); as actionErrorTipModel) {
+    <app-tip-frame
+      class="generated-recipes-page__action-error"
+      [model]="actionErrorTipModel"
+      role="alert"
+      aria-live="assertive"
+    />
+  }
 </section>

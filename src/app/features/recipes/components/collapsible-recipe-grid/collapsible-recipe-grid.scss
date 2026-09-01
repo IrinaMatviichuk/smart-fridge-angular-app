@@ -1,0 +1,143 @@
+@use '../../../../../styles/mixins' as mixins;
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+.collapsible-recipe-grid {
+  --collapsible-recipe-grid-visible-next-row: 3rem;
+  --collapsible-recipe-grid-fade-tail: 11.75rem;
+  --collapsible-recipe-grid-backdrop-height: 100rem;
+
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sf-space-4);
+
+  &__viewport {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+
+    &--collapsed {
+      height: calc(
+        var(--collapsible-recipe-grid-second-row-top) +
+        var(--collapsible-recipe-grid-visible-next-row) +
+        var(--collapsible-recipe-grid-fade-tail)
+      );
+
+      overflow: visible;
+
+      &::after {
+        position: absolute;
+        z-index: 1;
+        top: calc(
+          var(--collapsible-recipe-grid-second-row-top) +
+          var(--collapsible-recipe-grid-visible-next-row)
+        );
+        right: calc(var(--recipe-grid-inline-bleed, 0px) * -1);
+        left: calc(var(--recipe-grid-inline-bleed, 0px) * -1);
+
+        height: var(--collapsible-recipe-grid-backdrop-height);
+
+        background: linear-gradient(
+          180deg,
+          rgb(235 240 248 / 0%) 0,
+          rgb(235 240 248 / 22%) 0.75rem,
+          rgb(235 240 248 / 48%) 1.5rem,
+          rgb(235 240 248 / 72%) 2.5rem,
+          rgb(235 240 248 / 88%) 3.75rem,
+          rgb(235 240 248 / 96%) 5rem,
+          #ebf0f8 7rem,
+          #ebf0f8 100%
+        );
+        pointer-events: none;
+        content: '';
+      }
+
+    }
+  }
+
+  &__grid {
+    display: grid;
+    width: 100%;
+    min-width: 0;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--sf-layout-content-grid-gap);
+  }
+
+  &__toggle {
+    position: relative;
+    z-index: 3;
+
+    padding: var(--sf-space-2);
+
+    border: 0;
+
+    background: transparent;
+
+    color: var(--sf-color-link);
+
+    font: inherit;
+
+    cursor: pointer;
+
+    transition: color var(--sf-duration-fast) var(--sf-easing-standard);
+
+    @include mixins.heading-5;
+    @include mixins.focus-visible-ring;
+
+    &:hover {
+      color: var(--sf-color-primary-strong);
+    }
+
+    &--overlay {
+      position: absolute;
+      z-index: 3;
+      bottom: var(--sf-space-3);
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+}
+
+@media (min-width: 64rem) and (max-width: 89.9375rem) {
+  .collapsible-recipe-grid {
+    --collapsible-recipe-grid-fade-tail: 11.25rem;
+  }
+
+  .collapsible-recipe-grid__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 63.9375rem) {
+  .collapsible-recipe-grid {
+    --collapsible-recipe-grid-fade-tail: 11.25rem;
+  }
+
+  .collapsible-recipe-grid__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 47.9375rem) {
+  .collapsible-recipe-grid {
+    --collapsible-recipe-grid-visible-next-row: 2rem;
+    --collapsible-recipe-grid-fade-tail: 12.5rem;
+
+    gap: var(--sf-space-3);
+
+    &__grid {
+      grid-template-columns: 1fr;
+    }
+
+    &__toggle--overlay {
+      bottom: var(--sf-space-2);
+    }
+  }
+}

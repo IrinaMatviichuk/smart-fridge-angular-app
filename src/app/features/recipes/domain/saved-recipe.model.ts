@@ -1,10 +1,10 @@
-export interface SavedRecipeDto {
+export interface SavedRecipe {
   readonly id: number;
   readonly title: string;
   readonly ingredients: readonly string[];
   readonly steps: readonly string[];
-  readonly created_at: string;
-  readonly prep_time_minutes: number;
+  readonly createdAt: string;
+  readonly prepTimeMinutes: number;
   readonly difficulty: string;
   readonly image: string;
 }

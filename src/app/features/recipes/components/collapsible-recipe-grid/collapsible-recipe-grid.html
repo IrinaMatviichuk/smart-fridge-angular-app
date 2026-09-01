@@ -1,0 +1,31 @@
+<div class="collapsible-recipe-grid">
+  <div
+    class="collapsible-recipe-grid__viewport"
+    [class.collapsible-recipe-grid__viewport--collapsed]="expandable() && !expanded()"
+    [style.--collapsible-recipe-grid-second-row-top.px]="secondRowTop()"
+  >
+    <div #grid class="collapsible-recipe-grid__grid">
+      <ng-content />
+    </div>
+
+    @if (expandable() && !expanded()) {
+      <button
+        type="button"
+        class="collapsible-recipe-grid__toggle collapsible-recipe-grid__toggle--overlay"
+        (click)="toggleExpanded()"
+      >
+        Show more
+      </button>
+    }
+  </div>
+
+  @if (expandable() && expanded()) {
+    <button
+      type="button"
+      class="collapsible-recipe-grid__toggle"
+      (click)="toggleExpanded()"
+    >
+      Show less
+    </button>
+  }
+</div>

@@ -1,60 +1,33 @@
-<article
-  class="recipe-card"
-  tabindex="0"
-  [attr.aria-label]="model().title"
-  (click)="handleSelected()"
-  (keydown.enter)="handleSelected()"
-  (keydown.space)="handleSelected()"
->
+<article class="recipe-card">
   <div class="recipe-card__media">
-    <img
-      class="recipe-card__image"
-      [src]="model().imageUrl"
-      [alt]="model().imageAlt"
-    />
-
-    <app-icon-button
-      class="recipe-card__favorite"
-      [icon]="
-        model().favorite
-          ? icons.favoriteFilled
-          : icons.favorite
-      "
-      ariaLabel="Toggle favorite recipe"
-      size="medium"
-      [active]="model().favorite"
-      (click)="handleFavorite($event)"
-    />
+    <img class="recipe-card__image" [src]="model().image" [alt]="model().title" />
   </div>
+
+  <app-icon-button
+    class="recipe-card__favorite"
+    [icon]="model().favorite ? icons.favoriteFilled : icons.favorite"
+    ariaLabel="Toggle favorite recipe"
+    size="small"
+    [active]="model().favorite"
+    [disabled]="model().favoritePending"
+    (click)="handleFavorite($event)"
+  />
 
   <div class="recipe-card__content">
-    <h3 class="recipe-card__title">
-      {{ model().title }}
-    </h3>
+    <h2 class="recipe-card__title">{{ model().title }}</h2>
+    <p class="recipe-card__ingredients">Uses: {{ model().ingredients.join(', ') }}</p>
 
-    <p class="recipe-card__ingredients">
-      {{ model().ingredientsLabel }}
-    </p>
-
-    <div class="recipe-card__footer">
-      <div class="recipe-card__meta">
-        <mat-icon
-          class="recipe-card__meta-icon"
-          [svgIcon]="model().metaIcon"
-          aria-hidden="true"
-        />
-
-        <span class="recipe-card__meta-label">
-          {{ model().metaLabel }}
-        </span>
-      </div>
-
-      <app-button
-        size="small"
-        (click)="$event.stopPropagation()"
-      >
-        View
-      </app-button>
+    <div class="recipe-card__meta">
+      <span class="recipe-card__meta-item">
+        <mat-icon [svgIcon]="icons.clock" aria-hidden="true" />
+        {{ model().prepTimeMinutes }} min
+      </span>
+      <span class="recipe-card__meta-item">
+        <mat-icon [svgIcon]="icons.chart" aria-hidden="true" />
+        {{ model().difficulty }}
+      </span>
     </div>
   </div>
+
+  <app-button size="small" [fullWidth]="true" (click)="handleSelected()"> View Recipe </app-button>
 </article>

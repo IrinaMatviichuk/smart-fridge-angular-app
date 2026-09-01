@@ -3,6 +3,7 @@ export const environment = {
   mocks: {
     recipeSuggestionSuccess: true,
     savedRecipes: true,
+    recipeDetail: true,
   },
   apiUrl: 'http://localhost:8000/api',
 } as const;

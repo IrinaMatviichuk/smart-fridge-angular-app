@@ -4,7 +4,7 @@ import { EMPTY, Subscription, catchError, finalize, map, of, tap, timer } from '
 
 import { resolveApiErrorMessage } from '../../../../core/api';
 import { RecipeApiService } from '../../data-access/recipe-api.service';
-import { Recipe } from '../../domain/recipe.model';
+import { RecipeDetail } from '../../domain/recipe-detail.model';
 import { RecipeSummary } from '../../domain/recipe-summary.model';
 import { SavedRecipe } from '../../domain/saved-recipe.model';
 import { SAVED_RECIPE_ACTION_ERROR_DURATION_MS } from './saved-recipes.config';
@@ -81,7 +81,7 @@ export class SavedRecipesFacade {
     return this.store.isMutating(recipeId);
   }
 
-  toggleSaved(recipe: Recipe | RecipeSummary | SavedRecipe): void {
+  toggleSaved(recipe: RecipeDetail | RecipeSummary | SavedRecipe): void {
     if (this.isMutating(recipe.id)) {
       return;
     }
@@ -160,7 +160,9 @@ export class SavedRecipesFacade {
     this.actionErrorTimer = null;
   }
 
-  private isSavedRecipe(recipe: Recipe | RecipeSummary | SavedRecipe): recipe is SavedRecipe {
+  private isSavedRecipe(
+    recipe: RecipeDetail | RecipeSummary | SavedRecipe,
+  ): recipe is RecipeDetail | SavedRecipe {
     return 'prepTimeMinutes' in recipe && 'steps' in recipe;
   }
 }

@@ -1,0 +1,23 @@
+:host {
+  position: absolute;
+  right: var(--sf-space-2);
+  bottom: var(--sf-space-1);
+  left: var(--sf-space-2);
+  display: block;
+}
+
+.recipe-image-attribution {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0;
+  padding: var(--sf-recipe-attribution-padding, 0.125rem var(--sf-space-1));
+  border-radius: var(--sf-radius-sm, var(--sf-radius-navigation));
+  background: var(--sf-recipe-attribution-background, rgb(0 0 0 / 60%));
+  color: var(--sf-color-surface);
+  font-size: var(--sf-recipe-attribution-font-size, 0.6875rem);
+  line-height: 1.25;
+
+  a {
+    color: inherit;
+  }
+}

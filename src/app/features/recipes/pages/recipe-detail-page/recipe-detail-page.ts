@@ -1,16 +1,18 @@
 import { ChangeDetectionStrategy, Component, computed, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
 
 import { IconName } from '../../../../core/icons/icon-name';
 import { HeaderFacade } from '../../../../layouts/main-header/header.facade';
-import { Button } from '../../../../shared/ui/button/button';
 import { IconButton } from '../../../../shared/ui/icon-button/icon-button';
+import { RecipeImageAttribution } from '../../../../shared/ui/recipe-image-attribution/recipe-image-attribution';
 import { TipFrame } from '../../../../shared/ui/tip-frame/tip-frame';
 import { TipFrameModel } from '../../../../shared/ui/tip-frame/tip-frame.model';
 import { RecipeDetailFacade } from '../../application/detail/recipe-detail.facade';
 import { RecipeDetailStore } from '../../application/detail/recipe-detail.store';
 import { SavedRecipesFacade } from '../../application/saved/saved-recipes.facade';
-import { Recipe } from '../../domain/recipe.model';
+import { RecipeBackButton } from '../../components/recipe-back-button/recipe-back-button';
+import { RecipeDetail } from '../../domain/recipe-detail.model';
 import {
   mapRecipeDetailActionErrorTip,
   mapRecipeDetailErrorTip,
@@ -18,7 +20,7 @@ import {
 
 @Component({
   selector: 'app-recipe-detail-page',
-  imports: [Button, IconButton, TipFrame],
+  imports: [IconButton, MatIcon, RecipeBackButton, RecipeImageAttribution, TipFrame],
   providers: [RecipeDetailStore, RecipeDetailFacade],
   templateUrl: './recipe-detail-page.html',
   styleUrl: './recipe-detail-page.scss',
@@ -36,10 +38,21 @@ export class RecipeDetailPage implements OnInit {
   protected readonly savedFacade = inject(SavedRecipesFacade);
 
   protected readonly icons = {
-    back: IconName.ChevronLeft,
     favorite: IconName.Favorite,
     favoriteFilled: IconName.FavoriteFilled,
+    clock: IconName.Clock,
+    difficulty: IconName.Chart,
+    servings: IconName.Users,
+    ingredients: IconName.CookingPot,
+    steps: IconName.RecipeBook,
   } as const;
+
+  protected readonly tip: TipFrameModel = {
+    variant: 'info',
+    icon: IconName.Info,
+    title: 'Tip',
+    description: 'You can replace chicken with shrimps or mushrooms for a different twist!',
+  };
 
   protected readonly errorTip = computed<TipFrameModel | null>(() => {
     const error = this.facade.error();
@@ -81,11 +94,7 @@ export class RecipeDetailPage implements OnInit {
     this.facade.load(recipeId);
   }
 
-  protected handleBack(): void {
-    void this.router.navigate(['/recipes', 'generated']);
-  }
-
-  protected handleFavoriteChanged(recipe: Recipe): void {
+  protected handleFavoriteChanged(recipe: RecipeDetail): void {
     this.savedFacade.toggleSaved(recipe);
   }
 }

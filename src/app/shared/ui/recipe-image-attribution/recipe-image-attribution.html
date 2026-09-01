@@ -1,0 +1,23 @@
+@if (image().photographerName || image().unsplashUrl) {
+  <p class="recipe-image-attribution">
+    @if (image().photographerName; as photographerName) {
+      Photo by
+      @if (image().photographerUrl; as photographerUrl) {
+        <a [href]="photographerUrl" target="_blank" rel="noopener noreferrer">
+          {{ photographerName }}
+        </a>
+      } @else {
+        {{ photographerName }}
+      }
+    } @else {
+      Photo
+    }
+
+    @if (image().unsplashUrl; as unsplashUrl) {
+      on
+      <a [href]="unsplashUrl" target="_blank" rel="noopener noreferrer">Unsplash</a>
+    } @else if (image().photographerName) {
+      on Unsplash
+    }
+  </p>
+}

@@ -28,24 +28,6 @@
     background-color: var(--sf-color-surface-secondary);
   }
 
-  &__attribution {
-    position: absolute;
-    right: var(--sf-space-2);
-    bottom: var(--sf-space-1);
-    left: var(--sf-space-2);
-    margin: 0;
-    padding: 0.125rem var(--sf-space-1);
-    border-radius: var(--sf-radius-sm);
-    background: rgb(0 0 0 / 60%);
-    color: var(--sf-color-surface);
-    font-size: 0.6875rem;
-    line-height: 1.25;
-
-    a {
-      color: inherit;
-    }
-  }
-
   &__image {
     display: block;
     width: 100%;

@@ -1,96 +1,110 @@
 <section class="recipe-detail-page">
-  <app-button
-    class="recipe-detail-page__back"
-    variant="text"
-    [iconStart]="icons.back"
-    (click)="handleBack()"
-  >
-    Back
-  </app-button>
+  <app-recipe-back-button fallbackUrl="/recipes/generated" />
 
   @if (facade.loading()) {
-    <div
-      class="recipe-detail-page__loading"
-      role="status"
-      aria-live="polite"
-    >
+    <div class="recipe-detail-page__loading" role="status" aria-live="polite">
       Loading recipe...
     </div>
-  } @else {
-    @if (errorTip(); as errorTipModel) {
-      <app-tip-frame
-        class="recipe-detail-page__error"
-        [model]="errorTipModel"
-      />
-    } @else {
-      @if (facade.recipe(); as recipe) {
-        <article class="recipe-detail-page__content">
+  } @else if (errorTip(); as errorTipModel) {
+    <app-tip-frame class="recipe-detail-page__error" [model]="errorTipModel" />
+  } @else if (facade.recipe(); as recipe) {
+    <article class="recipe-detail-page__content">
+      <div class="recipe-detail-page__hero">
+        <div class="recipe-detail-page__media">
+          @if (recipe.image?.url; as imageUrl) {
+            <img class="recipe-detail-page__image" [src]="imageUrl" [alt]="recipe.title" />
+          }
+          @if (recipe.image; as image) {
+            <app-recipe-image-attribution class="recipe-detail-page__attribution" [image]="image" />
+          }
+          <app-icon-button
+            class="recipe-detail-page__favorite"
+            [icon]="savedFacade.isSaved(recipe.id) ? icons.favoriteFilled : icons.favorite"
+            ariaLabel="Toggle favorite recipe"
+            variant="neutral"
+            size="medium"
+            [active]="savedFacade.isSaved(recipe.id)"
+            [disabled]="savedFacade.isMutating(recipe.id)"
+            (click)="handleFavoriteChanged(recipe)"
+          />
           <header class="recipe-detail-page__header">
-            <div class="recipe-detail-page__heading">
-              <h1 class="recipe-detail-page__title">
-                {{ recipe.title }}
-              </h1>
-
-              <app-icon-button
-                class="recipe-detail-page__favorite"
-                [icon]="
-                  savedFacade.isSaved(recipe.id)
-                    ? icons.favoriteFilled
-                    : icons.favorite
-                "
-                ariaLabel="Toggle favorite recipe"
-                size="medium"
-                [active]="savedFacade.isSaved(recipe.id)"
-                [disabled]="savedFacade.isMutating(recipe.id)"
-                (click)="handleFavoriteChanged(recipe)"
-              />
-            </div>
+            <h1 class="recipe-detail-page__title">{{ recipe.title }}</h1>
+            @if (recipe.description) {
+              <p class="recipe-detail-page__description">{{ recipe.description }}</p>
+            }
+            <dl class="recipe-detail-page__meta">
+              <div class="recipe-detail-page__meta-item">
+                <mat-icon [svgIcon]="icons.clock" aria-hidden="true" />
+                <dt>Prep time</dt>
+                <dd>
+                  {{
+                    recipe.prepTimeMinutes !== null
+                      ? recipe.prepTimeMinutes + ' min'
+                      : 'Not specified'
+                  }}
+                </dd>
+              </div>
+              <div class="recipe-detail-page__meta-item">
+                <mat-icon [svgIcon]="icons.difficulty" aria-hidden="true" />
+                <dt>Difficulty</dt>
+                <dd>{{ recipe.difficulty ?? 'Not specified' }}</dd>
+              </div>
+              @if (recipe.servings !== null) {
+                <div class="recipe-detail-page__meta-item">
+                  <mat-icon [svgIcon]="icons.servings" aria-hidden="true" />
+                  <dt>Servings</dt>
+                  <dd>{{ recipe.servings }}</dd>
+                </div>
+              }
+            </dl>
           </header>
+        </div>
+      </div>
 
-          <section
-            class="recipe-detail-page__section"
-            aria-labelledby="recipe-detail-ingredients"
-          >
-            <h2
-              id="recipe-detail-ingredients"
-              class="recipe-detail-page__section-title"
-            >
-              Ingredients
-            </h2>
+      <div class="recipe-detail-page__sections">
+        <section class="recipe-detail-page__section" aria-labelledby="recipe-detail-ingredients">
+          <header class="recipe-detail-page__section-header">
+            <span class="recipe-detail-page__section-icon">
+              <mat-icon [svgIcon]="icons.ingredients" aria-hidden="true" />
+            </span>
+            <span>
+              <h2 id="recipe-detail-ingredients" class="recipe-detail-page__section-title">
+                Ingredients
+              </h2>
+              <p class="recipe-detail-page__section-subtitle">Available ingredients</p>
+            </span>
+          </header>
+          <ul class="recipe-detail-page__ingredients">
+            @for (ingredient of recipe.ingredients; track $index) {
+              <li class="recipe-detail-page__ingredient">{{ ingredient }}</li>
+            }
+          </ul>
+        </section>
 
-            <ul class="recipe-detail-page__ingredients">
-              @for (ingredient of recipe.ingredients;
-                track ingredient) {
-                <li class="recipe-detail-page__ingredient">
-                  {{ ingredient }}
-                </li>
-              }
-            </ul>
-          </section>
+        <section class="recipe-detail-page__section" aria-labelledby="recipe-detail-steps">
+          <header class="recipe-detail-page__section-header">
+            <span class="recipe-detail-page__section-icon">
+              <mat-icon [svgIcon]="icons.steps" aria-hidden="true" />
+            </span>
+            <span>
+              <h2 id="recipe-detail-steps" class="recipe-detail-page__section-title">Steps</h2>
+              <p class="recipe-detail-page__section-subtitle">
+                Follow these simple steps to make your dish.
+              </p>
+            </span>
+          </header>
+          <ol class="recipe-detail-page__steps">
+            @for (step of recipe.steps; track $index) {
+              <li class="recipe-detail-page__step">
+                <span>{{ step }}</span>
+              </li>
+            }
+          </ol>
+        </section>
+      </div>
 
-          <section
-            class="recipe-detail-page__section"
-            aria-labelledby="recipe-detail-steps"
-          >
-            <h2
-              id="recipe-detail-steps"
-              class="recipe-detail-page__section-title"
-            >
-              Preparation
-            </h2>
-
-            <ol class="recipe-detail-page__steps">
-              @for (step of recipe.steps;
-                track $index) {
-                <li class="recipe-detail-page__step">
-                  {{ step }}
-                </li>
-              }
-            </ol>
-          </section>
-        </article>
-      }
-    }
+      <app-tip-frame [model]="tip" />
+    </article>
   }
 
   @if (actionErrorTip(); as actionErrorTipModel) {

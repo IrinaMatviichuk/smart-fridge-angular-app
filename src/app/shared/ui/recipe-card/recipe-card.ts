@@ -5,10 +5,11 @@ import { IconName } from '../../../core/icons/icon-name';
 import { Button } from '../button/button';
 import { IconButton } from '../icon-button/icon-button';
 import { RecipeCardModel } from './recipe-card.model';
+import { RecipeImageAttribution } from '../recipe-image-attribution/recipe-image-attribution';
 
 @Component({
   selector: 'app-recipe-card',
-  imports: [Button, IconButton, MatIcon],
+  imports: [Button, IconButton, MatIcon, RecipeImageAttribution],
   templateUrl: './recipe-card.html',
   styleUrl: './recipe-card.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

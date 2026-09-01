@@ -48,8 +48,8 @@
   }
 
   &--medium {
-    width: var(--sf-size-control-md);
-    height: var(--sf-size-control-md);
+    width: var(--sf-icon-button-width, var(--sf-size-control-md));
+    height: var(--sf-icon-button-height, var(--sf-size-control-md));
   }
 
   &--large {

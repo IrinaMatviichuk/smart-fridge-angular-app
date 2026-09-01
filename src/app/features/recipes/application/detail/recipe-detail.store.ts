@@ -1,10 +1,10 @@
 import { Injectable, signal } from '@angular/core';
 
-import { Recipe } from '../../domain/recipe.model';
+import { RecipeDetail } from '../../domain/recipe-detail.model';
 
 @Injectable()
 export class RecipeDetailStore {
-  private readonly recipeState = signal<Recipe | null>(null);
+  private readonly recipeState = signal<RecipeDetail | null>(null);
 
   private readonly loadingState = signal(false);
 
@@ -16,7 +16,7 @@ export class RecipeDetailStore {
 
   readonly error = this.errorState.asReadonly();
 
-  setRecipe(recipe: Recipe | null): void {
+  setRecipe(recipe: RecipeDetail | null): void {
     this.recipeState.set(recipe);
   }
 

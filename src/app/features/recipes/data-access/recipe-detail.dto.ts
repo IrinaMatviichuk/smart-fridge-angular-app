@@ -1,6 +1,7 @@
 import { RecipeImageDto } from './recipe-image.dto';
 
-export interface RecipeDto {
+/** The current GET /recipes/{id}/ response. */
+export interface RecipeDetailDto {
   readonly id: number;
   readonly title: string;
   readonly ingredients: readonly string[];

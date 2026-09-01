@@ -1,4 +1,5 @@
 import { SavedRecipe } from '../domain/saved-recipe.model';
+import { mapRecipeImageDto } from './recipe-image.mapper';
 import { SavedRecipeDto } from './saved-recipe.dto';
 
 export const mapSavedRecipeDto = (dto: SavedRecipeDto): SavedRecipe => ({
@@ -9,5 +10,5 @@ export const mapSavedRecipeDto = (dto: SavedRecipeDto): SavedRecipe => ({
   createdAt: dto.created_at,
   prepTimeMinutes: dto.prep_time_minutes,
   difficulty: dto.difficulty,
-  image: dto.image,
+  image: mapRecipeImageDto(dto.image),
 });

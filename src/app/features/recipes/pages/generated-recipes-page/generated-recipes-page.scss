@@ -20,6 +20,8 @@
   flex-direction: column;
   gap: var(--sf-space-8);
 
+  overflow: hidden;
+
   padding: var(--sf-space-8) var(--generated-recipes-inline-padding);
 
   > app-tip-frame:not(.generated-recipes-page__action-error) {

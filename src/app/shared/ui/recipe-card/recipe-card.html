@@ -1,6 +1,34 @@
 <article class="recipe-card">
   <div class="recipe-card__media">
-    <img class="recipe-card__image" [src]="model().image" [alt]="model().title" />
+    @if (model().image?.url; as imageUrl) {
+      <img class="recipe-card__image" [src]="imageUrl" [alt]="model().title" />
+    }
+
+    @if (model().image; as image) {
+      @if (image.photographerName || image.unsplashUrl) {
+        <p class="recipe-card__attribution">
+          @if (image.photographerName; as photographerName) {
+            Photo by
+            @if (image.photographerUrl; as photographerUrl) {
+              <a [href]="photographerUrl" target="_blank" rel="noopener noreferrer">
+                {{ photographerName }}
+              </a>
+            } @else {
+              {{ photographerName }}
+            }
+          } @else {
+            Photo
+          }
+
+          @if (image.unsplashUrl; as unsplashUrl) {
+            on
+            <a [href]="unsplashUrl" target="_blank" rel="noopener noreferrer">Unsplash</a>
+          } @else if (image.photographerName) {
+            on Unsplash
+          }
+        </p>
+      }
+    }
   </div>
 
   <app-icon-button
@@ -20,7 +48,9 @@
     <div class="recipe-card__meta">
       <span class="recipe-card__meta-item">
         <mat-icon [svgIcon]="icons.clock" aria-hidden="true" />
-        {{ model().prepTimeMinutes }} min
+        @if (model().prepTimeMinutes !== null) {
+          {{ model().prepTimeMinutes }} min
+        }
       </span>
       <span class="recipe-card__meta-item">
         <mat-icon [svgIcon]="icons.chart" aria-hidden="true" />

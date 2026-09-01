@@ -1,5 +1,5 @@
-import { RecipeSummaryDto } from './recipe-summary.dto';
+import { GeneratedRecipeDto } from './generated-recipe.dto';
 
 export interface GeneratedRecipesDto {
-  readonly recipes: readonly RecipeSummaryDto[];
+  readonly recipes: readonly GeneratedRecipeDto[];
 }

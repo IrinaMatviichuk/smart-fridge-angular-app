@@ -5,7 +5,7 @@ import { RecipeGenerationFacade } from '../../application/generation/recipe-gene
 import { SavedRecipesFacade } from '../../application/saved/saved-recipes.facade';
 import { GeneratedRecipeCard } from '../../components/generated-recipe-card/generated-recipe-card';
 import { RecipeFlowHeader } from '../../components/recipe-flow-header/recipe-flow-header';
-import { Recipe } from '../../domain/recipe.model';
+import { RecipeSummary } from '../../domain/recipe-summary.model';
 
 @Component({
   selector: 'app-generated-recipes-page',
@@ -21,11 +21,11 @@ export class GeneratedRecipesPage {
 
   protected readonly savedFacade = inject(SavedRecipesFacade);
 
-  protected handleRecipeSelected(recipe: Recipe): void {
+  protected handleRecipeSelected(recipe: RecipeSummary): void {
     void this.router.navigate(['/recipes', 'detail', recipe.id]);
   }
 
-  protected handleFavoriteChanged(recipe: Recipe): void {
+  protected handleFavoriteChanged(recipe: RecipeSummary): void {
     this.savedFacade.toggleSaved(recipe);
   }
 }

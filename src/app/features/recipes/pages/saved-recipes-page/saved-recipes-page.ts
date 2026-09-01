@@ -5,14 +5,14 @@ import { EmptyState } from '../../../../shared/ui/empty-state/empty-state';
 import { TipFrame } from '../../../../shared/ui/tip-frame/tip-frame';
 import { TipFrameModel } from '../../../../shared/ui/tip-frame/tip-frame.model';
 import { SavedRecipesFacade } from '../../application/saved/saved-recipes.facade';
-import { GeneratedRecipeCard } from '../../components/generated-recipe-card/generated-recipe-card';
+import { SavedRecipeCard } from '../../components/saved-recipe-card/saved-recipe-card';
 import { Recipe } from '../../domain/recipe.model';
 import { SAVED_RECIPES_EMPTY_STATE } from './saved-recipes-page.config';
 import { mapSavedRecipeActionErrorTip, mapSavedRecipesErrorTip } from './saved-recipes-page.mapper';
 
 @Component({
   selector: 'app-saved-recipes-page',
-  imports: [EmptyState, GeneratedRecipeCard, TipFrame],
+  imports: [EmptyState, SavedRecipeCard, TipFrame],
   templateUrl: './saved-recipes-page.html',
   styleUrl: './saved-recipes-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

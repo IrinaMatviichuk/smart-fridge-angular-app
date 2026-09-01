@@ -21,7 +21,7 @@ export class ActionMenu<T extends string = string> {
 
   readonly triggerAriaLabel = input('Open actions');
 
-  readonly triggerSize = input<IconButtonSize>('small');
+  readonly triggerSize = input<IconButtonSize>('extra-small');
 
   readonly actionSelected = output<ActionMenuItem<T>>();
 

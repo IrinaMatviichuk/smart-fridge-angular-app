@@ -8,7 +8,7 @@ import { resolveApiErrorMessage } from '../../../../core/api';
 import { ProductApiService } from '../../../../entities/product/data-access/product-api.service';
 import { Product } from '../../../../entities/product/domain/product.model';
 import { RecipeApiService } from '../../data-access/recipe-api.service';
-import { GeneratedRecipe } from '../../domain/generated-recipe.model';
+import { RecipeSummary } from '../../domain/recipe-summary.model';
 import { RecipeSuggestionTaskStatus } from '../../domain/recipe-suggestion-task-status.model';
 import { RecipeSuggestionTask } from '../../domain/recipe-suggestion-task.model';
 import {
@@ -215,7 +215,7 @@ export class RecipeGenerationFacade {
     }
   }
 
-  private handleTaskSuccess(recipes: readonly GeneratedRecipe[]): void {
+  private handleTaskSuccess(recipes: readonly RecipeSummary[]): void {
     this.store.setGeneratedRecipes(recipes);
 
     void this.router.navigate(['/recipes', 'generated']);

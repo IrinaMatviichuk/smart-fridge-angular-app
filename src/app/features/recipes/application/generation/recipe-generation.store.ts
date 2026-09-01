@@ -1,9 +1,9 @@
 import { Injectable, computed, signal } from '@angular/core';
 
 import { Product } from '../../../../entities/product/domain/product.model';
-import { GeneratedRecipe } from '../../domain/generated-recipe.model';
 import { RecipeGenerationError } from '../../domain/recipe-generation-error.type';
 import { RecipeSuggestionStatus } from '../../domain/recipe-suggestion-status.type';
+import { RecipeSummary } from '../../domain/recipe-summary.model';
 
 @Injectable()
 export class RecipeGenerationStore {
@@ -21,7 +21,7 @@ export class RecipeGenerationStore {
 
   private readonly taskStatusState = signal<RecipeSuggestionStatus | null>(null);
 
-  private readonly generatedRecipesState = signal<readonly GeneratedRecipe[]>([]);
+  private readonly generatedRecipesState = signal<readonly RecipeSummary[]>([]);
 
   private readonly generatingState = signal(false);
 
@@ -90,7 +90,7 @@ export class RecipeGenerationStore {
     this.taskStatusState.set(status);
   }
 
-  setGeneratedRecipes(recipes: readonly GeneratedRecipe[]): void {
+  setGeneratedRecipes(recipes: readonly RecipeSummary[]): void {
     this.generatedRecipesState.set(recipes);
   }
 

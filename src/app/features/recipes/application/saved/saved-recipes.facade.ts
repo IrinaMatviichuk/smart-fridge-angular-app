@@ -5,6 +5,7 @@ import { EMPTY, catchError, finalize, map, of, tap } from 'rxjs';
 import { resolveApiErrorMessage } from '../../../../core/api';
 import { RecipeApiService } from '../../data-access/recipe-api.service';
 import { Recipe } from '../../domain/recipe.model';
+import { RecipeSummary } from '../../domain/recipe-summary.model';
 import { SavedRecipesStore } from './saved-recipes.store';
 
 const SAVED_RECIPES_ERROR_MESSAGES = {
@@ -76,7 +77,7 @@ export class SavedRecipesFacade {
     return this.store.isMutating(recipeId);
   }
 
-  toggleSaved(recipe: Recipe): void {
+  toggleSaved(recipe: Recipe | RecipeSummary): void {
     if (this.isMutating(recipe.id)) {
       return;
     }
@@ -94,7 +95,11 @@ export class SavedRecipesFacade {
         )
       : this.recipeApi.saveRecipe(recipe.id).pipe(
           tap(() => {
-            this.store.addRecipe(recipe);
+            if (this.isRecipe(recipe)) {
+              this.store.addRecipe(recipe);
+            } else {
+              this.store.addSavedRecipeId(recipe.id);
+            }
           }),
           map(() => undefined),
         );
@@ -125,5 +130,9 @@ export class SavedRecipesFacade {
 
   reset(): void {
     this.store.reset();
+  }
+
+  private isRecipe(recipe: Recipe | RecipeSummary): recipe is Recipe {
+    return 'steps' in recipe;
   }
 }

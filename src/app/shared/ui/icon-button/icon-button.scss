@@ -37,6 +37,11 @@
    * Sizes
    * ======================================================= */
 
+  &--extra-small {
+    width: var(--sf-size-control-xs);
+    height: var(--sf-size-control-xs);
+  }
+
   &--small {
     width: var(--sf-size-control-sm);
     height: var(--sf-size-control-sm);
@@ -50,6 +55,32 @@
   &--large {
     width: var(--sf-size-control-lg);
     height: var(--sf-size-control-lg);
+  }
+
+  /* =========================================================
+   * Surface
+   * ======================================================= */
+
+  &--surface {
+    border-radius: var(--sf-radius-card-media);
+
+    background-color: var(--sf-color-surface);
+    color: var(--sf-color-text-primary);
+
+    &:hover:not(:disabled) {
+      background-color: var(--sf-primary-20);
+      color: var(--sf-color-primary-pressed);
+    }
+
+    &:active:not(:disabled),
+    &.icon-button--active {
+      background-color: var(--sf-primary-30);
+      color: var(--sf-color-primary-pressed);
+    }
+
+    &:disabled {
+      color: var(--sf-color-text-disabled);
+    }
   }
 
   /* =========================================================

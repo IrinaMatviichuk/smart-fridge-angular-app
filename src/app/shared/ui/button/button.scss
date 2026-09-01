@@ -41,7 +41,7 @@
   }
 
   &--small {
-    height: var(--sf-size-control-sm);
+    height: var(--sf-size-control-xs);
 
     padding: var(--sf-space-1) var(--sf-space-3);
   }
@@ -126,7 +126,7 @@
     }
 
     &.button--small {
-      height: var(--sf-size-control-sm);
+      height: var(--sf-size-control-xs);
     }
   }
 

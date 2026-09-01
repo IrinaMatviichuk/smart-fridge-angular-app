@@ -1,4 +1,12 @@
 <article class="generated-recipe-card">
+  <div class="generated-recipe-card__media">
+    <img
+      class="generated-recipe-card__image"
+      [src]="recipe().image"
+      [alt]="recipe().title"
+    />
+  </div>
+
   <app-icon-button
     class="generated-recipe-card__favorite"
     [icon]="
@@ -7,7 +15,8 @@
         : icons.favorite
     "
     ariaLabel="Toggle favorite recipe"
-    size="medium"
+    variant="surface"
+    size="small"
     [active]="favorite()"
     [disabled]="favoritePending()"
     (click)="handleFavoriteChanged($event)"
@@ -19,8 +28,19 @@
     </h2>
 
     <p class="generated-recipe-card__ingredients">
-      {{ recipe().ingredients.join(', ') }}
+      Uses: {{ recipe().ingredients.join(', ') }}
     </p>
+
+    <div class="generated-recipe-card__meta">
+      <span class="generated-recipe-card__meta-item">
+        <mat-icon [svgIcon]="icons.clock" aria-hidden="true" />
+        {{ recipe().prepTimeMinutes }} min
+      </span>
+      <span class="generated-recipe-card__meta-item">
+        <mat-icon [svgIcon]="icons.chart" aria-hidden="true" />
+        {{ recipe().difficulty }}
+      </span>
+    </div>
   </div>
 
   <app-button

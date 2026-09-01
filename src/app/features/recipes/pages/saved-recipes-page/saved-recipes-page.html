@@ -27,7 +27,7 @@
         >
           @for (recipe of facade.recipes();
             track recipe.id) {
-            <app-generated-recipe-card
+            <app-saved-recipe-card
               [recipe]="recipe"
               [favorite]="true"
               [favoritePending]="

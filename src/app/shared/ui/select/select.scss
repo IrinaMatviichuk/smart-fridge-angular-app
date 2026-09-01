@@ -162,13 +162,13 @@
 
   &--small {
     .select__trigger {
-      height: var(--sf-size-control-sm);
+      height: var(--sf-size-control-xs);
 
       padding: var(--sf-space-1) var(--sf-space-3);
     }
 
     .select__option {
-      min-height: var(--sf-size-control-sm);
+      min-height: var(--sf-size-control-xs);
     }
   }
 

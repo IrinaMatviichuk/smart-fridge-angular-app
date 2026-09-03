@@ -14,7 +14,7 @@ export class SavedRecipesStore {
 
   private readonly mutatingRecipeIdsState = signal<ReadonlySet<number>>(new Set());
 
-  private readonly savedRecipeIdsState = signal<ReadonlySet<number>>(new Set());
+  private readonly savedRelationsState = signal<ReadonlyMap<number, number>>(new Map());
 
   readonly recipes = this.recipesState.asReadonly();
 
@@ -28,7 +28,9 @@ export class SavedRecipesStore {
 
   setRecipes(recipes: readonly SavedRecipe[]): void {
     this.recipesState.set(recipes);
-    this.savedRecipeIdsState.set(new Set(recipes.map((recipe) => recipe.id)));
+    this.savedRelationsState.set(
+      new Map(recipes.map((recipe) => [recipe.id, recipe.savedId] as const)),
+    );
   }
 
   setLoading(loading: boolean): void {
@@ -53,24 +55,32 @@ export class SavedRecipesStore {
 
       return [...recipes, recipe];
     });
-    this.addSavedRecipeId(recipe.id);
+    this.setSavedRelation(recipe.id, recipe.savedId);
   }
 
-  addSavedRecipeId(recipeId: number): void {
-    this.savedRecipeIdsState.update((recipeIds) => new Set(recipeIds).add(recipeId));
+  setSavedRelation(recipeId: number, savedId: number): void {
+    this.savedRelationsState.update((relations) => {
+      const nextRelations = new Map(relations);
+      nextRelations.set(recipeId, savedId);
+      return nextRelations;
+    });
   }
 
   removeRecipe(recipeId: number): void {
     this.recipesState.update((recipes) => recipes.filter((recipe) => recipe.id !== recipeId));
-    this.savedRecipeIdsState.update((recipeIds) => {
-      const nextRecipeIds = new Set(recipeIds);
-      nextRecipeIds.delete(recipeId);
-      return nextRecipeIds;
+    this.savedRelationsState.update((relations) => {
+      const nextRelations = new Map(relations);
+      nextRelations.delete(recipeId);
+      return nextRelations;
     });
   }
 
   hasRecipe(recipeId: number): boolean {
-    return this.savedRecipeIdsState().has(recipeId);
+    return this.savedRelationsState().has(recipeId);
+  }
+
+  getSavedId(recipeId: number): number | undefined {
+    return this.savedRelationsState().get(recipeId);
   }
 
   isMutating(recipeId: number): boolean {
@@ -97,6 +107,6 @@ export class SavedRecipesStore {
     this.errorState.set(null);
     this.actionErrorState.set(null);
     this.mutatingRecipeIdsState.set(new Set());
-    this.savedRecipeIdsState.set(new Set());
+    this.savedRelationsState.set(new Map());
   }
 }

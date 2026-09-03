@@ -16,6 +16,7 @@ const image = (
 export const SAVED_RECIPES_MOCK: readonly SavedRecipeDto[] = [
   {
     id: 42,
+    saved_id: 5,
     title: 'Cheesy Potato Scramble',
     ingredients: ['eggs', 'potatoes', 'cheese', 'salt', 'pepper', 'cooking oil'],
     steps: ['Cook the potatoes until golden.', 'Add whisked eggs and cheese, then scramble.'],
@@ -30,6 +31,7 @@ export const SAVED_RECIPES_MOCK: readonly SavedRecipeDto[] = [
   },
   {
     id: 101,
+    saved_id: 12,
     title: 'Chicken Alfredo',
     ingredients: ['Chicken', 'Milk', 'Butter'],
     steps: ['Cook the chicken and pasta.', 'Prepare the sauce and combine.'],
@@ -44,6 +46,7 @@ export const SAVED_RECIPES_MOCK: readonly SavedRecipeDto[] = [
   },
   {
     id: 102,
+    saved_id: 19,
     title: 'Scrambled Eggs',
     ingredients: ['Eggs', 'Butter', 'Milk'],
     steps: ['Whisk the eggs with milk.', 'Cook gently in butter while stirring.'],
@@ -58,6 +61,7 @@ export const SAVED_RECIPES_MOCK: readonly SavedRecipeDto[] = [
   },
   {
     id: 103,
+    saved_id: 27,
     title: 'Tomato Pasta',
     ingredients: ['Tomatoes', 'Pasta', 'Cheese'],
     steps: ['Cook the pasta.', 'Make the tomato sauce and combine with cheese.'],
@@ -68,6 +72,7 @@ export const SAVED_RECIPES_MOCK: readonly SavedRecipeDto[] = [
   },
   {
     id: 104,
+    saved_id: 34,
     title: 'Tomato Soup',
     ingredients: ['Tomatoes', 'Milk', 'Butter'],
     steps: ['Simmer the tomatoes.', 'Blend with milk and butter until smooth.'],
@@ -78,6 +83,7 @@ export const SAVED_RECIPES_MOCK: readonly SavedRecipeDto[] = [
   },
   {
     id: 105,
+    saved_id: 41,
     title: 'Cheese Omelette',
     ingredients: ['Eggs', 'Cheese', 'Butter'],
     steps: ['Whisk the eggs.', 'Cook in butter, add cheese, and fold.'],
@@ -92,6 +98,7 @@ export const SAVED_RECIPES_MOCK: readonly SavedRecipeDto[] = [
   },
   {
     id: 106,
+    saved_id: 53,
     title: 'Creamy Chicken Pasta',
     ingredients: ['Chicken', 'Pasta', 'Milk'],
     steps: ['Cook the chicken and pasta.', 'Combine with a creamy sauce.'],

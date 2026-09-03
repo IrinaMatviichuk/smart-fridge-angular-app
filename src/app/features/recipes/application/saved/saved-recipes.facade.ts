@@ -1,6 +1,6 @@
 import { DestroyRef, Injectable, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { EMPTY, Subscription, catchError, finalize, map, of, tap, timer } from 'rxjs';
+import { EMPTY, Observable, Subscription, catchError, finalize, map, of, tap, timer } from 'rxjs';
 
 import { resolveApiErrorMessage } from '../../../../core/api';
 import { RecipeApiService } from '../../data-access/recipe-api.service';
@@ -91,22 +91,36 @@ export class SavedRecipesFacade {
 
     const saved = this.isSaved(recipe.id);
 
-    const request$ = saved
-      ? this.recipeApi.deleteSavedRecipe(recipe.id).pipe(
-          tap(() => {
-            this.store.removeRecipe(recipe.id);
-          }),
-        )
-      : this.recipeApi.saveRecipe(recipe.id).pipe(
-          tap(() => {
-            if (this.isSavedRecipe(recipe)) {
-              this.store.addRecipe(recipe);
-            } else {
-              this.store.addSavedRecipeId(recipe.id);
-            }
-          }),
-          map(() => undefined),
-        );
+    let request$: Observable<void>;
+
+    if (saved) {
+      const savedId = this.store.getSavedId(recipe.id);
+
+      if (savedId === undefined) {
+        this.store.setMutating(recipe.id, false);
+        this.store.setActionError('Unable to remove recipe because its saved record is unavailable.');
+        this.scheduleActionErrorDismiss();
+
+        return;
+      }
+
+      request$ = this.recipeApi.deleteSavedRecipe(savedId).pipe(
+        tap(() => {
+          this.store.removeRecipe(recipe.id);
+        }),
+      );
+    } else {
+      request$ = this.recipeApi.saveRecipe(recipe.id).pipe(
+        tap((response) => {
+          if (this.isSavedRecipe(recipe)) {
+            this.store.addRecipe({ ...recipe, savedId: response.id });
+          }
+
+          this.store.setSavedRelation(recipe.id, response.id);
+        }),
+        map(() => undefined),
+      );
+    }
 
     request$
       .pipe(
@@ -162,7 +176,7 @@ export class SavedRecipesFacade {
 
   private isSavedRecipe(
     recipe: RecipeDetail | RecipeSummary | SavedRecipe,
-  ): recipe is RecipeDetail | SavedRecipe {
-    return 'prepTimeMinutes' in recipe && 'steps' in recipe;
+  ): recipe is SavedRecipe {
+    return 'savedId' in recipe;
   }
 }

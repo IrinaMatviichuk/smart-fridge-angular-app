@@ -83,7 +83,7 @@ export class RecipeApiService extends BaseApiService {
     return this.post<SaveRecipeRequestDto, SaveRecipeResponseDto>(`${this.basePath}save/`, request);
   }
 
-  deleteSavedRecipe(recipeId: number): Observable<void> {
-    return this.delete<void>(`${this.basePath}saved/${recipeId}/`);
+  deleteSavedRecipe(savedId: number): Observable<void> {
+    return this.delete<void>(`${this.basePath}saved/${savedId}/`);
   }
 }

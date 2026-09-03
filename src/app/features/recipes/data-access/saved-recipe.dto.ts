@@ -2,6 +2,7 @@ import { RecipeImageDto } from './recipe-image.dto';
 
 export interface SavedRecipeDto {
   readonly id: number;
+  readonly saved_id: number;
   readonly title: string;
   readonly ingredients: readonly string[];
   readonly steps: readonly string[];

@@ -4,6 +4,7 @@ import { SavedRecipeDto } from './saved-recipe.dto';
 
 export const mapSavedRecipeDto = (dto: SavedRecipeDto): SavedRecipe => ({
   id: dto.id,
+  savedId: dto.saved_id,
   title: dto.title,
   ingredients: dto.ingredients,
   steps: dto.steps,
